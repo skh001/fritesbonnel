@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Phone, Mail, MapPin, Clock, Star, Users, Heart, Utensils, Calendar, Newspaper, MessageCircle, ShoppingBag, Instagram } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Heart, Utensils, Calendar, Newspaper, MessageCircle, ShoppingBag, Instagram, ArrowUp } from 'lucide-react';
 import AccueilPage from './pages/AccueilPage';
 import CartePage from './pages/CartePage';
 import EvenementsPage from './pages/EvenementsPage';
@@ -8,10 +8,8 @@ import ContactPage from './pages/ContactPage';
 import logo from './assets/logo.png';
 import ClickAndCollect from './pages/ClickAndCollect';
 
-// Mettre à jour le type Page pour inclure 'commander'
 type Page = 'accueil' | 'carte' | 'evenements' | 'actus' | 'contact' | 'commander';
 
-// Déclarez FB et ses méthodes sur l'objet Window pour TypeScript
 declare global {
   interface Window {
     FB: any;
@@ -21,63 +19,74 @@ declare global {
 
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('accueil');
+  const [showScrollTop, setShowScrollTop] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Pour le menu mobile
 
-  // Charge le SDK JavaScript de Facebook une seule fois au démarrage de l'application
+  // Initialisation Facebook SDK
   useEffect(() => {
     window.fbAsyncInit = function() {
       window.FB.init({
-        appId            : '269575157263587', // REMPLACÉ avec votre ID d'application Facebook
+        appId            : '269575157263587',
         xfbml            : true,
-        version          : 'v23.0' // Utilisé la version fournie par Facebook
+        version          : 'v23.0'
       });
-      // Déclenche un événement personnalisé une fois le SDK Facebook initialisé
-      const event = new Event('fbload');
-      window.dispatchEvent(event);
+      window.dispatchEvent(new Event('fbload'));
     };
-
-    // Charge le script SDK de Facebook de manière asynchrone
     (function(d, s, id){
        var js, fjs = d.getElementsByTagName(s)[0];
-       if (d.getElementById(id)) {return;}
+       if (d.getElementById(id)) return;
        js = d.createElement(s); js.id = id;
-       js.src = "https://connect.facebook.net/fr_FR/sdk.js"; // Note: Langue fr_FR pour une meilleure cohérence
+       js.src = "https://connect.facebook.net/fr_FR/sdk.js";
        fjs.parentNode?.insertBefore(js, fjs);
      }(document, 'script', 'facebook-jssdk'));
-  }, []); // Le tableau vide assure que cela ne s'exécute qu'une fois au montage
+  }, []);
+
+  // Gestion du scroll pour le bouton
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowScrollTop(window.scrollY > 300);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const menuItems = [
+    { key: 'accueil', label: 'Accueil', icon: Heart },
+    { key: 'carte', label: 'Notre Carte', icon: Utensils },
+    { key: 'evenements', label: 'Événements', icon: Calendar },
+    { key: 'actus', label: 'Actus', icon: Newspaper },
+    { key: 'contact', label: 'Contact', icon: MessageCircle },
+    { key: 'commander', label: 'Click&Collect', icon: ShoppingBag }
+  ];
 
   const Header = () => (
     <header className="bg-red-600 text-white shadow-lg">
       <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-3">
-            <div className="w-20 h-20 bg-yellow-400 rounded-full flex items-center justify-center overflow-hidden">
-              <img
-                src={logo}
-                alt="Logo Frites Bonnel"
-                className="object-contain w-20 h-20"
-              />
+            <div className="w-20 h-20 bg-[#fffd67] rounded-full flex items-center justify-center overflow-hidden">
+              <img src={logo} alt="Logo Frites Bonnel" className="object-contain w-20 h-20" />
             </div>
             <div>
               <h1 className="text-2xl font-arialnarrow7">FRITES BONNEL</h1>
-              <p className=" font-folks text-yellow-200 text-sm">Bonnes et belles</p>
+              <p className=" font-folks text-[#fffd67] text-sm">Bonnes et belles</p>
             </div>
           </div>
+
+          {/* Desktop Menu */}
           <nav className="hidden md:flex space-x-6">
-            {[
-              { key: 'accueil', label: 'Accueil', icon: Heart },
-              { key: 'carte', label: 'Notre Carte', icon: Utensils },
-              { key: 'evenements', label: 'Événements', icon: Calendar },
-              { key: 'actus', label: 'Actus', icon: Newspaper },
-              { key: 'contact', label: 'Contact', icon: MessageCircle },
-              { key: 'commander', label: 'Click&Collect', icon: ShoppingBag }
-            ].map(({ key, label, icon: Icon }) => (
+            {menuItems.map(({ key, label, icon: Icon }) => (
               <button
                 key={key}
                 onClick={() => setCurrentPage(key as Page)}
                 className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-colors ${
                   currentPage === key
-                    ? 'bg-yellow-400 text-red-600 font-semibold'
-                    : 'hover:bg-red-700 hover:text-yellow-200'
+                    ? 'bg-[#fffd67] text-red-600 font-semibold'
+                    : 'hover:bg-red-700 hover:text-[#fffd67]'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -85,31 +94,39 @@ function App() {
               </button>
             ))}
           </nav>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            className="md:hidden bg-[#fffd67] text-red-600 p-2 rounded-md shadow-lg"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? '✕ Fermer' : '☰ Menu'}
+          </button>
         </div>
 
-        {/* Mobile Navigation */}
-        <nav className="md:hidden mt-4 flex flex-wrap gap-2">
-          {[
-            { key: 'accueil', label: 'Accueil' },
-            { key: 'carte', label: 'Carte' },
-            { key: 'evenements', label: 'Événements' },
-            { key: 'actus', label: 'Actus' },
-            { key: 'contact', label: 'Contact' },
-            { key: 'commander', label: 'Commander' }
-          ].map(({ key, label }) => (
+        {/* Mobile Dropdown Menu */}
+        <div
+          className={`md:hidden mt-4 flex flex-col gap-2 transition-all duration-300 overflow-hidden ${
+            mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+          }`}
+        >
+          {menuItems.map(({ key, label }) => (
             <button
               key={key}
-              onClick={() => setCurrentPage(key as Page)}
-              className={`px-3 py-1 text-sm rounded-md transition-colors ${
+              onClick={() => {
+                setCurrentPage(key as Page);
+                setMobileMenuOpen(false); // Ferme le menu après clic
+              }}
+              className={`px-3 py-2 rounded-md transition-colors ${
                 currentPage === key
-                  ? 'bg-yellow-400 text-red-600 font-semibold'
-                  : 'bg-red-700 hover:bg-yellow-400 hover:text-red-600'
+                  ? 'bg-[#fffd67] text-red-600 font-semibold'
+                  : 'bg-red-700 hover:bg-[#fffd67] hover:text-red-600'
               }`}
             >
               {label}
             </button>
           ))}
-        </nav>
+        </div>
       </div>
     </header>
   );
@@ -120,16 +137,12 @@ function App() {
         <div className="grid md:grid-cols-3 gap-8">
           <div>
             <div className="flex items-center space-x-3 mb-4">
-             <div className="w-15 h-15 bg-yellow-400 rounded-full flex items-center justify-center overflow-hidden">
-              <img
-                src={logo}
-                alt="Logo Frites Bonnel"
-                className="object-contain w-10 h-10"
-              />
-            </div>
-            <div>
+              <div className="w-15 h-15 bg-[#fffd67] rounded-full flex items-center justify-center overflow-hidden">
+                <img src={logo} alt="Logo Frites Bonnel" className="object-contain w-10 h-10" />
+              </div>
+              <div>
                 <h3 className="font-arialnarrow7 text-lg">Frites Bonnel</h3>
-                <p className="font-folks text-yellow-400 text-sm">Bonnes et belles</p>
+                <p className="font-folks text-[#fffd67] text-sm">Bonnes et belles</p>
               </div>
             </div>
             <p className="text-gray-300 text-sm">
@@ -139,38 +152,38 @@ function App() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-yellow-400">Contact</h4>
+            <h4 className="font-semibold mb-4 text-[#fffd67]">Contact</h4>
             <div className="space-y-2 text-sm">
               <div className="flex items-center space-x-2">
-                <Phone className="w-4 h-4 text-yellow-400" />
+                <Phone className="w-4 h-4 text-[#fffd67]" />
                 <span>06 11 52 16 89</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Mail className="w-4 h-4 text-yellow-400" />
+                <Mail className="w-4 h-4 text-[#fffd67]" />
                 <span>fritesbonnel@gmail.com</span>
               </div>
               <div className="flex items-center space-x-2">
-                <MapPin className="w-4 h-4 text-yellow-400" />
+                <MapPin className="w-4 h-4 text-[#fffd67]" />
                 <span>Angers et sa région</span>
               </div>
               <div className="flex items-center space-x-2">
-                <Clock className="w-4 h-4 text-yellow-400" />
+                <Clock className="w-4 h-4 text-[#fffd67]" />
                 <span>Mar-Dim 11h30-21h45</span>
               </div>
             </div>
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4 text-yellow-400">Suivez-nous</h4>
+            <h4 className="font-semibold mb-4 text-[#fffd67]">Suivez-nous</h4>
             <div className="flex space-x-4">
-              <a href="https://www.facebook.com/fritesbonnel" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-red-600 transition-colors">
-                <span className="text-sm font-bold">f</span> {/* Icône Facebook */}
+              <a href="https://www.facebook.com/fritesbonnel" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center hover:bg-[#fffd67] hover:text-red-600 transition-colors">
+                <span className="text-sm font-bold">f</span>
               </a>
-              <a href="https://www.instagram.com/frites_bonnel/?hl=fr" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-red-600 transition-colors">
-                <Instagram className="w-4 h-4 text-white" /> {/* Icône Instagram de Lucide React */}
+              <a href="https://www.instagram.com/frites_bonnel/?hl=fr" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center hover:bg-[#fffd67] hover:text-red-600 transition-colors">
+                <Instagram className="w-4 h-4 text-white" />
               </a>
-              <a href="mailto:fritesbonnel@gmail.com" className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center hover:bg-yellow-400 hover:text-red-600 transition-colors">
-                <Mail className="w-4 h-4 text-white" /> {/* Icône Mail Lucide React */}
+              <a href="mailto:fritesbonnel@gmail.com" className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center hover:bg-[#fffd67] hover:text-red-600 transition-colors">
+                <Mail className="w-4 h-4 text-white" />
               </a>
             </div>
           </div>
@@ -183,7 +196,6 @@ function App() {
     </footer>
   );
 
-  // Pass setCurrentPage to AccueilPage
   const renderPage = () => {
     switch (currentPage) {
       case 'accueil': return <AccueilPage setCurrentPage={setCurrentPage} />;
@@ -197,11 +209,20 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white relative">
       <Header />
       <main>{renderPage()}</main>
-      <div id="fb-root"></div> {/* Point d'accroche pour le SDK Facebook */}
+      <div id="fb-root"></div>
       <Footer />
+
+      {/* Bouton Retour en haut avec fade */}
+      <button
+        onClick={scrollToTop}
+        className={`fixed bottom-6 right-6 bg-[#fffd67] text-red-600 p-3 rounded-full shadow-lg flex items-center justify-center z-50 transition-opacity duration-300 ${showScrollTop ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        title="Retour en haut"
+      >
+        <ArrowUp className="w-5 h-5" />
+      </button>
     </div>
   );
 }

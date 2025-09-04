@@ -1,11 +1,12 @@
 import React from 'react';
 import { MessageCircle, Newspaper, Calendar, Utensils, Heart, Users, Star,Clock, MapPin, Mail, Phone } from 'lucide-react';
+
 const ContactPage = () => (
     <div className="space-y-16">
       <section className="bg-red-600 text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">Contactez-nous</h2>
-          <p className="text-xl text-yellow-200">
+          <p className="text-xl text-white">
             Une question ? Un événement à organiser ? Nous sommes là pour vous !
           </p>
         </div>
@@ -19,7 +20,7 @@ const ContactPage = () => (
               <h3 className="text-3xl font-bold text-red-600 mb-8">Nos coordonnées</h3>
               <div className="space-y-6">
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-[#fffd67] rounded-full flex items-center justify-center flex-shrink-0">
                     <Phone className="w-6 h-6 text-red-600" />
                   </div>
                   <div>
@@ -30,7 +31,7 @@ const ContactPage = () => (
                 </div>
                 
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-[#fffd67] rounded-full flex items-center justify-center flex-shrink-0">
                     <Mail className="w-6 h-6 text-red-600" />
                   </div>
                   <div>
@@ -41,7 +42,7 @@ const ContactPage = () => (
                 </div>
                 
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center flex-shrink-0">
+                  <div className="w-12 h-12 bg-[#fffd67] rounded-full flex items-center justify-center flex-shrink-0">
                     <MapPin className="w-6 h-6 text-red-600" />
                   </div>
                   <div>
@@ -55,18 +56,18 @@ const ContactPage = () => (
             
             <div>
               <h4 className="text-xl font-semibold text-red-600 mb-4">Horaires d'ouverture</h4>
-              <div className="bg-yellow-50 p-6 rounded-lg">
+              <div className="bg-gray-50 p-6 rounded-lg">
                 <div className="space-y-2">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-700">Mardi - Dimanche</span>
-                    <span className="font-semibold text-red-600">11h00 - 22h00</span>
+                    <span className="font-semibold text-red-600">11h30 - 22h00</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-700">Lundi</span>
                     <span className="text-red-600">Fermé</span>
                   </div>
                 </div>
-                <div className="mt-4 p-3 bg-white rounded border-l-4 border-yellow-400">
+                <div className="mt-4 p-3 bg-white rounded border-l-4 border-[#fffd67]">
                   <p className="text-sm text-gray-600">
                     <strong>Note :</strong> Horaires étendus lors des événements et marchés locaux
                   </p>
@@ -138,7 +139,7 @@ const ContactPage = () => (
               
               <button
                 type="submit"
-                className="w-full bg-yellow-400 text-red-600 py-4 rounded-lg font-bold text-lg hover:bg-yellow-300 transition-colors"
+                className="w-full bg-[#fffd67] text-red-600 py-4 rounded-lg font-bold text-lg hover:bg-[#fefc4c] transition-colors"
               >
                 Envoyer le message
               </button>
@@ -155,12 +156,17 @@ const ContactPage = () => (
             <div>
               <h4 className="text-xl font-semibold text-red-600 mb-6">Angers et environs</h4>
               <div className="bg-white p-6 rounded-lg shadow-md">
-                <div className="h-64 bg-gray-200 rounded-lg flex items-center justify-center mb-4">
-                  <div className="text-center text-gray-500">
-                    <MapPin className="w-12 h-12 mx-auto mb-2" />
-                    <p>Carte interactive d'Angers</p>
-                    <p className="text-sm">Zone de livraison et services</p>
-                  </div>
+                <div className="h-64 rounded-lg mb-4">
+                  <iframe
+                    title="Carte interactive de la zone de service"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d111241.69747833591!2d-0.6586616422321487!3d47.46824968858204!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f10.5!3m3!1m2!1s0x480874c7e6c387b9%3A0x6b77bb24f2b1c4b7!2sAngers%2C%20France!5e0!3m2!1sen!2sus!4v1694086650500!5m2!1sen!2sus"
+                    width="100%"
+                    height="100%"
+                    className="w-full h-full rounded-lg border-0"
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                  ></iframe>
                 </div>
                 <p className="text-sm text-gray-600">
                   Service disponible dans un rayon de 30km autour d'Angers. 
@@ -177,13 +183,13 @@ const ContactPage = () => (
                   "Brissac", "Cholet", "Les Ponts-de-Cé", "Montreuil-Juigné",
                   "Saint-Barthélemy", "Saint-Jean-de-Linières", "Sainte-Gemmes", "Trélazé"
                 ].map((commune, index) => (
-                  <div key={index} className="bg-white p-3 rounded-lg text-center border border-yellow-300">
+                  <div key={index} className="bg-white p-3 rounded-lg text-center border border-[#fffd67]">
                     <span className="text-sm font-medium text-red-600">{commune}</span>
                   </div>
                 ))}
               </div>
               
-              <div className="mt-6 bg-yellow-50 p-4 rounded-lg">
+              <div className="mt-6 bg-gray-50 p-4 rounded-lg">
                 <h5 className="font-semibold text-red-600 mb-2">Service spécial</h5>
                 <p className="text-sm text-gray-700">
                   Votre commune n'est pas dans la liste ? Contactez-nous ! 

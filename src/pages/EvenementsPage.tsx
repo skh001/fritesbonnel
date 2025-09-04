@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
 import { Phone, Mail, MapPin, Clock, Star, Users, Heart, Utensils, Calendar, Newspaper, MessageCircle, Cake, Send } from 'lucide-react';
 
-// Importation des images depuis le dossier assets
-import viradesImage from '../assets/virades.png';
-import roseImage from '../assets/rose.png';
-import ducsImage from '../assets/ducs.png';
-import ufabImage from '../assets/ufab.png';
-
   const EvenementsPage = () => {
     const [showPopup, setShowPopup] = useState(false);
-    const [submitError, setSubmitError] = useState<string | null>(null);
+    const [submitError, setSubmitError] = useState(null);
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e) => {
       e.preventDefault();
       setSubmitError(null);
       const form = e.currentTarget;
@@ -43,7 +37,7 @@ import ufabImage from '../assets/ufab.png';
         <section className="bg-red-600 text-white py-16">
           <div className="max-w-6xl mx-auto px-4 text-center">
             <h2 className="text-4xl font-bold mb-6">Événements & Partenariats</h2>
-            <p className="text-xl text-yellow-200">
+            <p className="text-xl text-white">
               Frites Bonnel vous accompagne dans tous vos événements
             </p>
           </div>
@@ -74,7 +68,7 @@ import ufabImage from '../assets/ufab.png';
             }
           ].map(({ icon: Icon, title, description, features }, index) => (
             <div key={index} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-16 h-16 bg-yellow-400 rounded-full flex items-center justify-center mx-auto mb-6">
+              <div className="w-16 h-16 bg-[#fffd67] rounded-full flex items-center justify-center mx-auto mb-6">
                 <Icon className="w-8 h-8 text-red-600" />
               </div>
               <h4 className="text-xl font-semibold text-red-600 text-center mb-4">{title}</h4>
@@ -82,7 +76,7 @@ import ufabImage from '../assets/ufab.png';
               <ul className="space-y-2">
                 {features.map((feature, featureIndex) => (
                   <li key={featureIndex} className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                    <div className="w-2 h-2 bg-[#fffd67] rounded-full"></div>
                     <span className="text-sm text-gray-600">{feature}</span>
                   </li>
                 ))}
@@ -93,7 +87,7 @@ import ufabImage from '../assets/ufab.png';
       </section>
 
         {/* Partenariats */}
-        <section className="bg-yellow-50 py-16">
+        <section className="bg-gray-50 py-16">
           <div className="max-w-6xl mx-auto px-4">
             <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Nos Partenaires Locaux</h3>
             <div className="grid md:grid-cols-2 gap-12">
@@ -105,13 +99,13 @@ import ufabImage from '../assets/ufab.png';
                       name: "UFAB des baskets",
                       type: "Club de basketball",
                       collaboration: "Soutien sportif, événements",
-                      image: ufabImage
+                      image: "https://placehold.co/96x96/0000ff/ffffff?text=UFAB"
                     },
                     {
                       name: "Les Ducs d'Angers",
                       type: "Club de hockey sur glace",
                       collaboration: "Soutien sportif, événements",
-                      image: ducsImage
+                      image: "https://placehold.co/96x96/336699/ffffff?text=Ducs"
                     }
                   ].map((partner, index) => (
                     <div key={index} className="bg-white p-4 rounded-lg border-l-4 border-red-600 flex items-center">
@@ -139,12 +133,12 @@ import ufabImage from '../assets/ufab.png';
                     {
                       name: "Les Virades de l’Espoir",
                       description: "La lutte contre la mucoviscidose",
-                      image: viradesImage
+                      image: "https://placehold.co/96x96/ff3333/ffffff?text=Virades"
                     },
                     {
                       name: "Octobre Rose avec la Ville d’Angers",
                       description: "Soutien à la campagne de lutte contre le cancer du sein",
-                      image: roseImage
+                      image: "https://placehold.co/96x96/ff69b4/ffffff?text=Rose"
                     },
                     {
                       name: "",
@@ -180,7 +174,7 @@ import ufabImage from '../assets/ufab.png';
                 <h4 className="text-xl font-semibold text-red-600 mb-6">Comment nous contacter ?</h4>
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
-                    <Phone className="w-5 h-5 text-yellow-400" />
+                    <Phone className="w-5 h-5 text-[#fffd67]" />
                     <div>
                       <p className="font-semibold">Appelez-nous</p>
                       <p className="text-sm text-gray-600">06 11 52 16 89</p>
@@ -188,7 +182,7 @@ import ufabImage from '../assets/ufab.png';
                   </div>
                   
                   <div className="flex items-center space-x-3">
-                    <Mail className="w-5 h-5 text-yellow-400" />
+                    <Mail className="w-5 h-5 text-[#fffd67]" />
                     <div>
                       <p className="font-semibold">Écrivez-nous</p>
                       <p className="text-sm text-gray-600">evenements@fritesbonnel.fr</p>
@@ -196,7 +190,7 @@ import ufabImage from '../assets/ufab.png';
                   </div>
                   
                   <div className="flex items-center space-x-3">
-                    <MapPin className="w-5 h-5 text-yellow-400" />
+                    <MapPin className="w-5 h-5 text-[#fffd67]" />
                     <div>
                       <p className="font-semibold">Rencontrez-nous</p>
                       <p className="text-sm text-gray-600">Sur rendez-vous à Angers</p>
@@ -218,7 +212,7 @@ import ufabImage from '../assets/ufab.png';
                     <input
                       type="text"
                       name="event_client_name"
-                      placeholder="Votre nom *" // Indication obligatoire
+                      placeholder="Votre nom *"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
                       required
                     />
@@ -227,7 +221,7 @@ import ufabImage from '../assets/ufab.png';
                     <input
                       type="email"
                       name="event_client_email"
-                      placeholder="Votre email *" // Indication obligatoire
+                      placeholder="Votre email *"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
                       required
                     />
@@ -246,7 +240,7 @@ import ufabImage from '../assets/ufab.png';
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
                       required
                     >
-                      <option value="">Type d'événement *</option> {/* Indication obligatoire */}
+                      <option value="">Type d'événement *</option>
                       <option value="Mariage">Mariage</option>
                       <option value="Fete d'entreprise">Fête d'entreprise</option>
                       <option value="Evenement prive">Événement privé</option>
@@ -259,19 +253,17 @@ import ufabImage from '../assets/ufab.png';
                     <input
                       type="date"
                       name="event_date"
-                      // Pour les inputs de type 'date', le placeholder n'est pas toujours affiché de la même manière
-                      // mais 'required' assure la validation. On peut ajouter un libellé si besoin.
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                      required // CHAMP OBLIGATOIRE
+                      required
                     />
-                    <label htmlFor="event_date" className="block text-sm text-gray-600 mt-1">Date de l'événement *</label> {/* Ajout d'un libellé */}
+                    <label htmlFor="event_date" className="block text-sm text-gray-600 mt-1">Date de l'événement *</label>
                   </div>
 
                   <div className="mb-4">
                     <input
                       type="number"
                       name="nombre_convives"
-                      placeholder="Nombre de convives *" // Indication obligatoire
+                      placeholder="Nombre de convives *"
                       min="1"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
                       required
@@ -283,7 +275,7 @@ import ufabImage from '../assets/ufab.png';
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
                       required
                     >
-                      <option value="" disabled selected>Repas souhaité *</option> {/* DISABLED, SELECTED et Indication obligatoire */}
+                      <option value="" disabled selected>Repas souhaité *</option>
                       <option value="burger_frites">Burger + Frites</option>
                       <option value="hotdog_frites">Hot-dog + Frites</option>
                       <option value="americain_frites">Américain (sandwich saucisse ou merguez) + Frites</option>
@@ -309,7 +301,7 @@ import ufabImage from '../assets/ufab.png';
                   <input type="hidden" name="_captcha" value="false" />
                   <button
                     type="submit"
-                    className="w-full bg-yellow-400 text-red-600 py-3 rounded-lg font-semibold hover:bg-yellow-300 transition-colors flex items-center justify-center space-x-2"
+                    className="w-full bg-[#fffd67] text-red-600 py-3 rounded-lg font-semibold hover:bg-[#fefc4c] transition-colors flex items-center justify-center space-x-2"
                   >
                     <Send className="w-5 h-5" />
                     <span>Demander un devis gratuit</span>

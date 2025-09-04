@@ -14,7 +14,7 @@ import americainImage from '../assets/galerie/americain.png';
 
 const CartePage = () => (
   <div className="space-y-16">
-    <section className="bg-yellow-400 text-red-600 py-16">
+    <section className="bg-[#fffd67] text-red-600 py-16">
       <div className="max-w-6xl mx-auto px-4 text-center">
         <h2 className="text-4xl font-bold mb-6">Notre Carte</h2>
         <p className="text-xl">Découvrez nos délicieux burgers et frites, préparés avec des produits frais</p>
@@ -27,7 +27,7 @@ const CartePage = () => (
       <div className="grid md:grid-cols-2 gap-12">
         <div className="space-y-6">
           <div className="flex items-start space-x-4">
-            <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center flex-shrink-0">
+            <div className="w-12 h-12 bg-[#fffd67] rounded-full flex items-center justify-center flex-shrink-0">
               <Star className="w-6 h-6 text-red-600" />
             </div>
             <div>
@@ -40,7 +40,7 @@ const CartePage = () => (
           </div>
 
           <div className="flex items-start space-x-4">
-            <div className="w-12 h-12 bg-yellow-400 rounded-full flex items-center justify-center flex-shrink-0">
+            <div className="w-12 h-12 bg-[#fffd67] rounded-full flex items-center justify-center flex-shrink-0">
               <Heart className="w-6 h-6 text-red-600" />
             </div>
             <div>
@@ -64,7 +64,7 @@ const CartePage = () => (
     </section>
 
     {/* Section des plats proposés */}
-    <section className="bg-yellow-50 py-16">
+    <section className="bg-gray-50 py-16">
       <div className="max-w-6xl mx-auto px-4">
         <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Nos Spécialités</h3>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -134,7 +134,7 @@ const CartePage = () => (
           ].map((section, index) => (
             <div key={index} className="bg-white p-6 rounded-xl shadow-md flex flex-col">
               <div className="w-full">
-                <h4 className="text-lg font-semibold text-red-600 mb-4 border-b-2 border-yellow-300 pb-2 text-center">
+                <h4 className="text-lg font-semibold text-red-600 mb-4 border-b-2 border-[#fffd67] pb-2 text-center">
                   {section.category}
                 </h4>
                 <ul className="space-y-4">
@@ -149,7 +149,7 @@ const CartePage = () => (
                         />
                       )}
                       <div className="flex-grow flex items-center space-x-2">
-                        <div className="w-2 h-2 bg-yellow-400 rounded-full flex-shrink-0"></div>
+                        <div className="w-2 h-2 bg-[#fffd67] rounded-full flex-shrink-0"></div>
                         <span className="text-gray-700">{item.name}</span>
                       </div>
                     </li>
