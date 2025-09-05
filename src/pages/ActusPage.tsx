@@ -65,7 +65,7 @@ const ActusPage = () => {
               <span>Facebook</span>
             </a>
             <a
-              href="https://www.instagram.com/fritesbonnel"
+              href="https://www.instagram.com/frites_bonnel/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center space-x-2 bg-[#fffd67] text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-[#fcec3d] transition-colors"
