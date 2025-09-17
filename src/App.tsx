@@ -5,10 +5,10 @@ import CartePage from './pages/CartePage';
 import EvenementsPage from './pages/EvenementsPage';
 import ActusPage from './pages/ActusPage';
 import ContactPage from './pages/ContactPage';
-import logo from './assets/logo.png';
 import ClickAndCollect from './pages/ClickAndCollect';
+import logo from './assets/logo.png';
 
-type Page = 'accueil' | 'carte' | 'evenements' | 'actus' | 'contact' | 'commander';
+type Page = 'accueil' | 'carte' | 'evenements' | 'actus' | 'ou nous trouver' | 'commander';
 
 declare global {
   interface Window {
@@ -20,15 +20,15 @@ declare global {
 function App() {
   const [currentPage, setCurrentPage] = useState<Page>('accueil');
   const [showScrollTop, setShowScrollTop] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false); // Pour le menu mobile
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   // Initialisation Facebook SDK
   useEffect(() => {
     window.fbAsyncInit = function() {
       window.FB.init({
-        appId            : '269575157263587',
-        xfbml            : true,
-        version          : 'v23.0'
+        appId: '269575157263587',
+        xfbml: true,
+        version: 'v23.0'
       });
       window.dispatchEvent(new Event('fbload'));
     };
@@ -43,23 +43,19 @@ function App() {
 
   // Gestion du scroll pour le bouton
   useEffect(() => {
-    const handleScroll = () => {
-      setShowScrollTop(window.scrollY > 300);
-    };
+    const handleScroll = () => setShowScrollTop(window.scrollY > 300);
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   const menuItems = [
     { key: 'accueil', label: 'Accueil', icon: Heart },
     { key: 'carte', label: 'Notre Carte', icon: Utensils },
     { key: 'evenements', label: 'Événements', icon: Calendar },
-    { key: 'actus', label: 'Actus', icon: Newspaper },
-    { key: 'contact', label: 'Contact', icon: MessageCircle },
+    { key: 'actus', label: 'Galerie', icon: Newspaper },
+    { key: 'contact', label: 'Nous Trouver ?', icon: MessageCircle },
     { key: 'commander', label: 'Click&Collect', icon: ShoppingBag }
   ];
 
@@ -77,16 +73,13 @@ function App() {
             </div>
           </div>
 
-          {/* Desktop Menu */}
           <nav className="hidden md:flex space-x-6">
             {menuItems.map(({ key, label, icon: Icon }) => (
               <button
                 key={key}
                 onClick={() => setCurrentPage(key as Page)}
                 className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-colors ${
-                  currentPage === key
-                    ? 'bg-[#fffd67] text-red-600 font-semibold'
-                    : 'hover:bg-red-700 hover:text-[#fffd67]'
+                  currentPage === key ? 'bg-[#fffd67] text-red-600 font-semibold' : 'hover:bg-red-700 hover:text-[#fffd67]'
                 }`}
               >
                 <Icon className="w-4 h-4" />
@@ -95,7 +88,6 @@ function App() {
             ))}
           </nav>
 
-          {/* Mobile Menu Toggle */}
           <button
             className="md:hidden bg-[#fffd67] text-red-600 p-2 rounded-md shadow-lg"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -104,7 +96,6 @@ function App() {
           </button>
         </div>
 
-        {/* Mobile Dropdown Menu */}
         <div
           className={`md:hidden mt-4 flex flex-col gap-2 transition-all duration-300 overflow-hidden ${
             mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
@@ -113,14 +104,9 @@ function App() {
           {menuItems.map(({ key, label }) => (
             <button
               key={key}
-              onClick={() => {
-                setCurrentPage(key as Page);
-                setMobileMenuOpen(false); // Ferme le menu après clic
-              }}
+              onClick={() => { setCurrentPage(key as Page); setMobileMenuOpen(false); }}
               className={`px-3 py-2 rounded-md transition-colors ${
-                currentPage === key
-                  ? 'bg-[#fffd67] text-red-600 font-semibold'
-                  : 'bg-red-700 hover:bg-[#fffd67] hover:text-red-600'
+                currentPage === key ? 'bg-[#fffd67] text-red-600 font-semibold' : 'bg-red-700 hover:bg-[#fffd67] hover:text-red-600'
               }`}
             >
               {label}
@@ -132,7 +118,7 @@ function App() {
   );
 
   const Footer = () => (
-    <footer className="bg-gray-800 text-white">
+    <footer className="bg-gray-800 text-white mt-12">
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="grid md:grid-cols-3 gap-8">
           <div>
@@ -154,22 +140,10 @@ function App() {
           <div>
             <h4 className="font-semibold mb-4 text-[#fffd67]">Contact</h4>
             <div className="space-y-2 text-sm">
-              <div className="flex items-center space-x-2">
-                <Phone className="w-4 h-4 text-[#fffd67]" />
-                <span>06 11 52 16 89</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Mail className="w-4 h-4 text-[#fffd67]" />
-                <span>fritesbonnel@gmail.com</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <MapPin className="w-4 h-4 text-[#fffd67]" />
-                <span>Angers et sa région</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Clock className="w-4 h-4 text-[#fffd67]" />
-                <span>Mar-Dim 11h30-21h45</span>
-              </div>
+              <div className="flex items-center space-x-2"><Phone className="w-4 h-4 text-[#fffd67]" /><span>06 11 52 16 89</span></div>
+              <div className="flex items-center space-x-2"><Mail className="w-4 h-4 text-[#fffd67]" /><span>fritesbonnel@gmail.com</span></div>
+              <div className="flex items-center space-x-2"><MapPin className="w-4 h-4 text-[#fffd67]" /><span>Angers et sa région</span></div>
+              <div className="flex items-center space-x-2"><Clock className="w-4 h-4 text-[#fffd67]" /><span>Mar-Dim 11h30-21h45</span></div>
             </div>
           </div>
 
@@ -209,13 +183,12 @@ function App() {
   };
 
   return (
-    <div className="min-h-screen bg-white relative">
+    <div className="min-h-screen bg-white relative flex flex-col">
       <Header />
-      <main>{renderPage()}</main>
+      <main className="flex-grow pb-32">{renderPage()}</main>
       <div id="fb-root"></div>
       <Footer />
 
-      {/* Bouton Retour en haut avec fade */}
       <button
         onClick={scrollToTop}
         className={`fixed bottom-6 right-6 bg-[#fffd67] text-red-600 p-3 rounded-full shadow-lg flex items-center justify-center z-50 transition-opacity duration-300 ${showScrollTop ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}

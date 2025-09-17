@@ -10,6 +10,8 @@ import baconBurgerImage from '../assets/galerie/bacon.png';
 import fishBurgerImage from '../assets/galerie/fish.png';     
 import fritesImage from '../assets/galerie/frites.png';
 import americainImage from '../assets/galerie/americain.png';
+import noelBurgerImage from '../assets/galerie/noel.png';
+import chtiBurgerImage from '../assets/galerie/chti.png';
 
 
 const CartePage = () => (
@@ -17,7 +19,7 @@ const CartePage = () => (
     <section className="bg-[#fffd67] text-red-600 py-16">
       <div className="max-w-6xl mx-auto px-4 text-center">
         <h2 className="text-4xl font-bold mb-6">Notre Carte</h2>
-        <p className="text-xl">Découvrez nos délicieux burgers et frites, préparés avec des produits frais</p>
+        <p className="text-xl">Découvrez nos recettes préparées avec des produits frais.</p>
       </div>
     </section>
 
@@ -53,11 +55,9 @@ const CartePage = () => (
         </div>
 
         <div className="bg-red-50 p-8 rounded-xl">
-          <h4 className="text-xl font-semibold text-red-600 mb-4">Notre Secret</h4>
+          <h4 className="text-xl font-semibold text-red-600 mb-4">Notre recettes</h4>
           <p className="text-gray-700">
-            La cuisson parfaite des viandes et la double cuisson des frites :
-            une première cuisson à basse température pour un intérieur fondant,
-            puis une seconde à haute température pour des frites croustillantes à l'extérieur.
+            Frites fondantes à l’intérieur et croustillantes à l’extérieur grâce à une double cuisson.
           </p>
         </div>
       </div>
@@ -75,15 +75,16 @@ const CartePage = () => (
                 { name: "Classic - Le burger traditionnel", imageSrc: classicBurgerImage },
                 { name: "Poulet - Burger au poulet pané", imageSrc: pouletBurgerImage },
                 { name: "Bacon - Burger avec bacon croustillant", imageSrc: baconBurgerImage },
-                { name: "Chtimi - Burger saveur du Nord", imageSrc: classicBurgerImage },
-                { name: "Noël - Burger spécial fêtes", imageSrc: fishBurgerImage },
+                { name: "Chtimi - Burger saveur du Nord", imageSrc: chtiBurgerImage },
+                { name: "Noël - Burger spécial fêtes", imageSrc: noelBurgerImage },
+              
               ]
             },
             {
               category: "Américains",
               items: [
                 { name: "Américain Steak", imageSrc: americainImage },
-                { name: "Américain Saucisse Nature" },
+                { name: "Américain Saucisse Nature" }, 
                 { name: "Américain Saucisse aux Herbes" },
                 { name: "Américain Merguez" }
               ]
@@ -178,7 +179,7 @@ const CartePage = () => (
           <div>
             <h4 className="text-xl font-semibold text-red-600 mb-3">Emballages Écologiques</h4>
             <p className="text-gray-700">
-             Emballages en carton recyclable, couverts en bois, et bacs inox réutilisables : pour un avenir plus vert, sans compromis sur la qualité.
+             Emballages en carton recyclable, couverts en bois, et bacs inox réutilisables pour un avenir plus vert, sans compromis sur la qualité.
             </p>
           </div>
 

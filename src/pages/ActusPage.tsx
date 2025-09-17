@@ -1,116 +1,91 @@
-import React, { useEffect } from 'react';
-import { Facebook, Instagram } from 'lucide-react';
+import React, { useState } from 'react';
+import { Camera, RefreshCcw } from 'lucide-react';
+
+const allPhotos = [
+  { title: "Préparation des frites", url: "https://placehold.co/600x400/fffd67/red?text=PREPARATION" },
+  { title: "Notre food truck", url: "https://placehold.co/600x400/fffd67/red?text=FOOD+TRUCK" },
+  { title: "Nos burgers gourmands", url: "https://placehold.co/600x400/fffd67/red?text=BURGERS" },
+  { title: "Frites Bonnel en fête", url: "https://placehold.co/600x400/fffd67/red?text=FETE" },
+  { title: "Clients au marché", url: "https://placehold.co/600x400/fffd67/red?text=CLIENTS" },
+  { title: "Équipe souriante", url: "https://placehold.co/600x400/fffd67/red?text=EQUIPE" },
+  { title: "Ingrédients frais", url: "https://placehold.co/600x400/fffd67/red?text=INGREDIENTS" },
+  { title: "Frites à emporter", url: "https://placehold.co/600x400/fffd67/red?text=A+EMPORTER" },
+  { title: "Événement de mariage", url: "https://placehold.co/600x400/fffd67/red?text=MARIAGE" },
+  { title: "Partenariat local", url: "https://placehold.co/600x400/fffd67/red?text=PARTENAIRE" },
+  { title: "Soirée d'entreprise", url: "https://placehold.co/600x400/fffd67/red?text=ENTREPRISE" },
+  { title: "Plat du jour", url: "https://placehold.co/600x400/fffd67/red?text=PLAT+DU+JOUR" },
+];
+
+const PHOTOS_PER_LOAD = 6;
 
 const ActusPage = () => {
-  useEffect(() => {
-    // Charger le SDK Facebook une seule fois
-    if (!window.fbAsyncInit) {
-      window.fbAsyncInit = function () {
-        window.FB.init({
-          appId: '269575157263587',
-          xfbml: true,
-          version: 'v23.0',
-        });
-      };
+  const [displayedPhotos, setDisplayedPhotos] = useState(allPhotos.slice(0, PHOTOS_PER_LOAD));
+  const [isLoading, setIsLoading] = useState(false);
 
-      // Charger le SDK
-      (function (d, s, id) {
-        var js,
-          fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s);
-        js.id = id;
-        js.src = 'https://connect.facebook.net/en_US/sdk.js';
-        js.async = true;
-        js.defer = true;
-        fjs.parentNode.insertBefore(js, fjs);
-      })(document, 'script', 'facebook-jssdk');
-    } else {
-      // Reparser les XFBML si SDK déjà chargé
-      if (window.FB) {
-        window.FB.XFBML.parse();
-      }
-    }
-  }, []);
+  const handleLoadMore = () => {
+    setIsLoading(true);
+    setTimeout(() => {
+      const currentCount = displayedPhotos.length;
+      const nextPhotos = allPhotos.slice(currentCount, currentCount + PHOTOS_PER_LOAD);
+      setDisplayedPhotos([...displayedPhotos, ...nextPhotos]);
+      setIsLoading(false);
+    }, 500);
+  };
+
+  const hasMorePhotos = displayedPhotos.length < allPhotos.length;
 
   return (
-    <div className="space-y-16">
-      {/* Section Actualités */}
+    <div className="min-h-screen">
+      {/* Section Galerie */}
       <section className="bg-[#fffd67] text-red-600 py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">Actualités</h2>
+          <h2 className="text-4xl font-bold mb-6">Galerie Photo</h2>
           <p className="text-xl">
-            Restez informé de nos dernières nouvelles et de notre engagement local
+            Découvrez nos moments spéciaux, nos produits et nos événements en images.
           </p>
         </div>
       </section>
 
-      {/* Section réseaux sociaux */}
-      <section className="max-w-6xl mx-auto px-4">
-        <div className="bg-red-600 text-white p-12 rounded-xl text-center">
-          <h3 className="text-3xl font-bold mb-6">Suivez-nous sur les réseaux sociaux !</h3>
-          <p className="text-[#fffd67] text-lg mb-8">
-            Pour ne rien manquer de nos aventures, de nos événements et de nos nouveautés,
-            rejoignez-nous sur Facebook et Instagram.
-          </p>
-
-          <div className="flex justify-center gap-6 flex-wrap">
-            <a
-              href="https://www.facebook.com/fritesbonnel"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center space-x-2 bg-[#fffd67] text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-[#fcec3d] transition-colors"
-            >
-              <Facebook size={24} />
-              <span>Facebook</span>
-            </a>
-            <a
-              href="https://www.instagram.com/frites_bonnel/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center space-x-2 bg-[#fffd67] text-red-600 px-8 py-3 rounded-lg font-semibold hover:bg-[#fcec3d] transition-colors"
-            >
-              <Instagram size={24} />
-              <span>Instagram</span>
-            </a>
-          </div>
+      {/* Galerie de photos */}
+      <section className="max-w-7xl mx-auto px-4 py-12">
+        <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
+          {displayedPhotos.map((photo, index) => (
+            <div key={index} className="bg-white rounded-xl shadow-lg overflow-hidden transition-transform duration-300 hover:scale-105">
+              <div className="relative w-full h-64 sm:h-56 md:h-64 lg:h-72">
+                <img
+                  src={photo.url}
+                  alt={photo.title}
+                  className="w-full h-full object-cover"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-red-600 bg-opacity-70 text-white p-4">
+                  <h4 className="font-semibold text-lg">{photo.title}</h4>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
-      </section>
-
-      {/* Fil d'Actualité Facebook */}
-      <section className="w-full py-16 bg-gray-50">
-        <h3 className="text-3xl font-bold text-red-600 text-center mb-12">
-          Notre Fil d'Actualité Facebook
-        </h3>
-        <p className="text-gray-700 text-center mb-8">
-          Suivez nos dernières publications, événements et annonces directement depuis notre page Facebook.
-        </p>
-
-        <div className="flex justify-center w-full">
-          <div
-            className="fb-page"
-            data-href="https://www.facebook.com/fritesbonnel"
-            data-tabs="timeline"
-            data-width="1200"
-            data-height="1000"
-            data-small-header="false"
-            data-adapt-container-width="false"
-            data-hide-cover="false"
-            data-show-facepile="true"
-            style={{
-              width: '1200px',       // largeur fixe pour centrer
-              maxWidth: '100%',      // responsive
-              margin: '0 auto',      // centrer horizontalement
-            }}
-          >
-            <blockquote
-              cite="https://www.facebook.com/fritesbonnel"
-              className="fb-xfbml-parse-ignore"
+        
+        {hasMorePhotos && (
+          <div className="text-center mt-12">
+            <button
+              onClick={handleLoadMore}
+              className="bg-red-600 text-[#fffd67] font-bold py-3 px-8 rounded-full shadow-lg hover:bg-red-700 transition-colors"
+              disabled={isLoading}
             >
-              <a href="https://www.facebook.com/fritesbonnel">Frites Bonnel</a>
-            </blockquote>
+              {isLoading ? (
+                <div className="flex items-center space-x-2">
+                  <RefreshCcw className="animate-spin" size={20} />
+                  <span>Chargement...</span>
+                </div>
+              ) : (
+                <div className="flex items-center space-x-2">
+                  <Camera size={20} />
+                  <span>Charger plus de photos</span>
+                </div>
+              )}
+            </button>
           </div>
-        </div>
+        )}
       </section>
     </div>
   );

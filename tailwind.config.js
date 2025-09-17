@@ -4,10 +4,13 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        folks: ["ThatsFontFolks", "sans-serif"],
-        arialnarrow7: ["'Arial Narrow'", "Arial", "sans-serif"], // ajout
-      },
+  folks: ["ThatsFontFolks", "sans-serif"],
+  arialnarrow7: ["'Arial Narrow'", "Arial", "sans-serif"],
+  poppins: ["Poppins", "sans-serif"], // added
+},
+
     },
   },
   plugins: [],
 };
+

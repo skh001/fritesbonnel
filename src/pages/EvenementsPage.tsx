@@ -85,89 +85,9 @@ import { Phone, Mail, MapPin, Clock, Star, Users, Heart, Utensils, Calendar, New
           ))}
         </div>
       </section>
-
-        {/* Partenariats */}
-        <section className="bg-gray-50 py-16">
-          <div className="max-w-6xl mx-auto px-4">
-            <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Nos Partenaires Locaux</h3>
-            <div className="grid md:grid-cols-2 gap-12">
-              <div>
-                <h4 className="text-2xl font-semibold text-red-600 mb-6">Nous Sponsorisons</h4>
-                <div className="space-y-4">
-                  {[
-                    {
-                      name: "UFAB des baskets",
-                      type: "Club de basketball",
-                      collaboration: "Soutien sportif, événements",
-                      image: "https://placehold.co/96x96/0000ff/ffffff?text=UFAB"
-                    },
-                    {
-                      name: "Les Ducs d'Angers",
-                      type: "Club de hockey sur glace",
-                      collaboration: "Soutien sportif, événements",
-                      image: "https://placehold.co/96x96/336699/ffffff?text=Ducs"
-                    }
-                  ].map((partner, index) => (
-                    <div key={index} className="bg-white p-4 rounded-lg border-l-4 border-red-600 flex items-center">
-                      {partner.image && (
-                          <img
-                            src={partner.image}
-                            alt={`Logo de ${partner.name}`}
-                            className="w-24 h-24 mr-4"
-                          />
-                        )}
-                        <div>
-                          <h5 className="font-semibold text-red-600">{partner.name}</h5>
-                          <p className="text-sm text-gray-600 mb-1">{partner.type}</p>
-                          <p className="text-sm text-gray-700">{partner.collaboration}</p>
-                        </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-              
-              <div>
-                <h4 className="text-2xl font-semibold text-red-600 mb-6">Nous Soutenons</h4>
-                <div className="space-y-4">
-                  {[
-                    {
-                      name: "Les Virades de l’Espoir",
-                      description: "La lutte contre la mucoviscidose",
-                      image: "https://placehold.co/96x96/ff3333/ffffff?text=Virades"
-                    },
-                    {
-                      name: "Octobre Rose avec la Ville d’Angers",
-                      description: "Soutien à la campagne de lutte contre le cancer du sein",
-                      image: "https://placehold.co/96x96/ff69b4/ffffff?text=Rose"
-                    },
-                    {
-                      name: "",
-                      description: ""
-                    }
-                  ].map((association, index) => (
-                    <div key={index} className="bg-white p-4 rounded-lg">
-                      <div className="flex items-center mb-2">
-                        <h5 className="font-semibold text-red-600">{association.name}</h5>
-                        {association.image && (
-                          <img 
-                            src={association.image} 
-                            alt={`Logo de ${association.name}`} 
-                            className="w-24 h-24 ml-2" 
-                          />
-                        )}
-                      </div>
-                      <p className="text-sm text-gray-700">{association.description}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Collaboration (retournée en bas) */}
         <section className="max-w-6xl mx-auto px-4">
-          <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Collaborer avec nous</h3>
+          <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Demander un devis gratuit</h3>
           <div className="bg-white p-8 rounded-xl shadow-lg">
             <div className="grid md:grid-cols-2 gap-12">
               <div>
@@ -185,7 +105,9 @@ import { Phone, Mail, MapPin, Clock, Star, Users, Heart, Utensils, Calendar, New
                     <Mail className="w-5 h-5 text-[#fffd67]" />
                     <div>
                       <p className="font-semibold">Écrivez-nous</p>
-                      <p className="text-sm text-gray-600">evenements@fritesbonnel.fr</p>
+                      <p className="text-sm text-gray-600">fritesbonnel@gmail.com
+                        / accueil.fritesbonnel@gmail.com
+                      </p>
                     </div>
                   </div>
                   
@@ -200,7 +122,7 @@ import { Phone, Mail, MapPin, Clock, Star, Users, Heart, Utensils, Calendar, New
               </div>
               
               <div>
-                <h4 className="text-xl font-semibold text-red-600 mb-6">Demander un devis gratuit</h4>
+                <h4 className="text-xl font-semibold text-red-600 mb-6">Devis</h4>
                 <form onSubmit={handleSubmit} className="space-y-4">
                   {submitError && (
                     <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
@@ -230,8 +152,9 @@ import { Phone, Mail, MapPin, Clock, Star, Users, Heart, Utensils, Calendar, New
                     <input
                       type="text"
                       name="event_client_phone"
-                      placeholder="Votre numéro de téléphone"
+                      placeholder="Votre numéro de téléphone *"
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                      required
                     />
                   </div>
                   <div className="mb-4">
@@ -285,9 +208,10 @@ import { Phone, Mail, MapPin, Clock, Star, Users, Heart, Utensils, Calendar, New
                   <div className="mb-4">
                     <textarea
                       name="adresse_facturation"
-                      placeholder="Adresse de facturation complète"
+                      placeholder="Adresse de facturation complète*"
                       rows={3}
                       className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
+                      required
                     ></textarea>
                   </div>
                   <div>

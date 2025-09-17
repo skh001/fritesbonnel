@@ -1,60 +1,76 @@
 import React from 'react';
-import { Utensils, Heart, Star, Users } from 'lucide-react';
+import { Heart, Star, Users, Vote } from 'lucide-react';
 import vincentImg from '../assets/vincent.png';
-import vincentPhoto from '../assets/vincent.png';
 import logohead from '../assets/logohead.png';
 import arabesque1 from '../assets/arabesque1.png';
 import arabesque2 from '../assets/arabesque2.png';
-import bethune from '../assets/bethune.png'; // <-- Ajout de l'import
+import bethune from '../assets/bethune.png';
+import roseLogo from '../assets/rose.png';
+import viradesLogo from '../assets/virades.png';
+
+// Nouveau composant pour afficher les logos
+
+const PartnersLogos = () => {
+  const partners = [
+    { name: 'rose', img: roseLogo },
+    { name: 'virades', img: viradesLogo },
+  ];
+
+  return (
+    <div className="flex flex-wrap justify-center items-center gap-6 mt-4">
+      {partners.map((partner, index) => (
+        <div
+          key={index}
+          className="w-24 h-24 p-2 rounded-lg border-2 border-gray-200 flex items-center justify-center bg-white shadow-sm transition-transform transform hover:scale-105"
+        >
+          <img
+            src={partner.img}
+            alt={`Logo de ${partner.name}`}
+            className="w-full h-full object-contain"
+          />
+        </div>
+      ))}
+    </div>
+  );
+};
 
 const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => void }) => (
   <div className="space-y-16 font-sans text-gray-800">
-    {/* Hero Banner with Logo & Arabesques */}
+    {/* Hero Banner */}
     <section className="bg-[#fffd67] text-gray-800 py-4 rounded-b-2xl shadow-lg relative overflow-hidden">
-      {/* Arabesque de gauche */}
-      <img 
-        src={arabesque1} 
-        alt="Arabesque décorative gauche" 
+      <img
+        src={arabesque1}
+        alt="Arabesque décorative gauche"
         className="absolute left-0 top-0 h-20 w-auto object-cover opacity-70 z-0"
       />
-
-      {/* Arabesque de droite */}
-      <img 
-        src={arabesque2} 
-        alt="Arabesque décorative droite" 
+      <img
+        src={arabesque2}
+        alt="Arabesque décorative droite"
         className="absolute right-0 top-0 h-20 w-auto object-cover opacity-70 z-0"
       />
-
-
-      {/* Contenu principal (Logo) */}
-      <div className="max-w-4xl mx-auto px-4 text-center relative z-20 mt-[-3rem]">
-        <img 
-          src={logohead} 
-          alt="Logo Frites Bonnel" 
-          className="w-full max-w-sm mx-auto"
-        />
-
-      {/* Image panoramique de Béthune */}
-      <div className="max-w-6xl mx-auto px-0 text-center relative z-10">
-        <img 
-          src={bethune}
-          alt="Ville de Béthune"
-          className="w-full h-40 object-cover rounded-xl shadow-md"
-          style={{ objectPosition: 'center' }}
-        />
-      </div>
+      <div className="max-w-4xl mx-auto px-4 text-center relative z-20 mt-8">
+        <img src={logohead} alt="Logo Frites Bonnel" className="w-full max-w-sm mx-auto" />
+        <div className="max-w-6xl mx-auto px-0 text-center relative z-10">
+          <img
+            src={bethune}
+            alt="Ville de Béthune"
+            className="w-full h-40 object-cover rounded-xl shadow-md"
+            style={{ objectPosition: 'center' }}
+          />
+        </div>
       </div>
     </section>
-{/* Bouton de réservation déplacé en bas */}
-<div className="text-center mt-[-3rem] md:mt-[-5rem] relative z-20">
-  <button
-    onClick={() => setCurrentPage('evenements')}
-    className="bg-[#fffd67] text-red-600 px-14 py-6 rounded-xl font-semibold 
+
+    {/* Bouton de réservation */}
+    <div className="text-center mt-[-1rem] md:mt-[-2rem] relative z-20">
+      <button
+        onClick={() => setCurrentPage('evenements')}
+        className="bg-[#fffd67] text-red-600 px-14 py-6 rounded-xl font-semibold
                transition-all duration-300 transform hover:scale-105 hover:bg-[#fffd67]/80 hover:shadow-xl text-xl"
-  >
-    Réserver notre friterie
-  </button>
-</div>
+      >
+        Réserver notre friterie
+      </button>
+    </div>
 
     {/* Notre Histoire */}
     <section className="max-w-6xl mx-auto px-4 mt-16">
@@ -63,7 +79,7 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
           <h3 className="text-3xl font-bold text-red-600 mb-6">Notre Histoire</h3>
           <div className="prose text-gray-700">
             <p className="text-lg mb-4">
-              <strong>Frites Bonnel</strong> a été créée en 2018 par <strong>Vincent Pécourt</strong>, 
+              <strong>Frites Bonnel</strong> a été créée en 2018 par <strong>Vincent Pécourt</strong>,
               passé par les traditions culinaires du Nord de la France.
             </p>
             <p className="mb-6">
@@ -91,7 +107,7 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
           </div>
         </div>
         <div className="bg-[#fffd67]/30 p-8 rounded-xl border-2 border-[#fffd67] shadow-md">
-          <div className="w-50 h-50 bg-red-0 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
+          <div className="w-50 h-50 rounded-full flex items-center justify-center mx-auto mb-4 overflow-hidden">
             <img
               src={vincentImg}
               alt="Vincent Pécourt"
@@ -100,58 +116,150 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
           </div>
           <h4 className="text-xl font-semibold text-red-600 text-center mb-4">Vincent Pécourt</h4>
           <p className="text-gray-600 text-center">
-            Fondateur et maître fritier, spécialiste des traditions culinaires du Nord
+            <strong>Fondateur</strong> et <strong>maître fritier</strong>, spécialiste des traditions culinaires du Nord
           </p>
         </div>
       </div>
     </section>
 
-  {/* Nos Valeurs & Implication Locale */}
-<section className="bg-[#fffd67]/30 py-16 rounded-xl shadow-inner">
-  <div className="max-w-6xl mx-auto px-4">
-    <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Nos Valeurs</h3>
-    <div className="grid md:grid-cols-3 gap-8">
-      {[
-        {
-          icon: Heart,
-          title: "Tradition",
-          description: "Recettes authentiques du Nord, transmises de génération en génération"
-        },
-        {
-          icon: Star,
-          title: "Qualité",
-          description: "Sélection rigoureuse des produits et préparation artisanale"
-        },
-        {
-          icon: Users,
-          title: "Authenticité",
-          description: "L'esprit convivial et chaleureux des friteries traditionnelles"
-        }
-      ].map(({ icon: Icon, title, description }, index) => (
-        <div key={index} className="text-center bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
-          {title === "Qualité" ? (
-            <a href="https://www.les-friteries.com" target="_blank" rel="noopener noreferrer" className="inline-block">
-              <div className="w-36 h-20 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                <div className="flex space-x-1">
+    {/* Nos Valeurs */}
+    <section className="bg-[#fffd67]/30 py-16 rounded-xl shadow-inner">
+      <div className="max-w-6xl mx-auto px-4">
+        <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Nos Valeurs</h3>
+        <div className="grid md:grid-cols-3 gap-8">
+          {[
+            {
+              icon: Heart,
+              title: "Tradition",
+              description: "Recettes authentiques du Nord, transmises de génération en génération"
+            },
+            {
+              icon: Star,
+              title: "Qualité",
+              description: "Sélection rigoureuse des produits et préparation artisanale"
+            },
+            {
+              icon: Users,
+              title: "Authenticité",
+              description: "L'esprit convivial et chaleureux des friteries traditionnelles"
+            }
+          ].map(({ icon: Icon, title, description }, index) => (
+            <div key={index} className="text-center bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
+              {title === "Qualité" ? (
+                <div className="flex justify-center items-center gap-1 mb-4">
                   {[...Array(5)].map((_, i) => (
-                    <Star key={i} className="w-6 h-6 text-[#fffd67]" />
+                    <Star key={i} className="w-8 h-8 text-red-600" strokeWidth={2.5} fill="none" />
                   ))}
                 </div>
-              </div>
-            </a>
-          ) : (
-            <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Icon className="w-8 h-8 text-[#fffd67]" />
+              ) : (
+                <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Icon className="w-8 h-8 text-[#fffd67]" />
+                </div>
+              )}
+              <h4 className="text-xl font-semibold text-red-600 mb-3">{title}</h4>
+              <p className="text-gray-600">{description}</p>
+              {title === "Qualité" && (
+                <p className="text-sm font-bold text-red-600 mt-2">
+                  <a href="" target="_blank" rel="noopener noreferrer" className="hover:underline">
+                    Élue meilleure friterie de France 2023
+                  </a>
+                </p>
+              )}
             </div>
-          )}
-          <h4 className="text-xl font-semibold text-red-600 mb-3">{title}</h4>
-          <p className="text-gray-600">{description}</p>
+          ))}
         </div>
-      ))}
-    </div>
 
-    {/* Implication locale */}
-    <div className="mt-16">
+        {/* Bouton pour voter */}
+        <div className="text-center mt-12 mb-8">
+          <p className="text-xl font-bold text-gray-700 mb-4">
+            <span className="text-red-600">Faites-nous savoir que vous aimez nos frites !</span>
+            <br />Votre vote est important et nous aide à être reconnus.
+          </p>
+          <a
+            href="https://www.les-friteries.com/site/frites-bonnel"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center space-x-3 bg-red-600 text-white px-8 py-4 rounded-xl font-bold
+                       hover:bg-red-700 transition-colors transform hover:scale-105 active:scale-100 shadow-lg"
+          >
+            <Vote className="w-6 h-6 animate-bounce" />
+            <span>Votez pour Frites Bonnel !</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+   {/* Notre Équipe */}
+<section className="max-w-6xl mx-auto px-4">
+  <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Notre Équipe</h3>
+  <div className="grid md:grid-cols-5 gap-6 justify-items-center">
+    {/* Patron */}
+    <div className="bg-red-600 text-white p-6 rounded-xl text-center w-48">
+      <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
+        <img src="https://via.placeholder.com/150" alt="Vincent Pécourt" className="object-cover w-full h-full" />
+      </div>
+      <h4 className="font-bold text-lg">Vincent Pécourt</h4>
+      <p className="text-yellow-200">Fondateur</p>
+    </div>
+    {/* Famille */}
+    <div className="bg-yellow-400 text-red-600 p-6 rounded-xl text-center w-48">
+      <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
+        <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
+      </div>
+      <h4 className="font-semibold">Hélène Pécourt</h4>
+      <p className="text-sm">Famille</p>
+    </div>
+    <div className="bg-orange-400 text-white p-6 rounded-xl text-center w-48">
+      <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
+        <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
+      </div>
+      <h4 className="font-semibold">Elise Pécourt</h4>
+      <p className="text-sm">CDI - Famille</p>
+    </div>
+    {/* Alternants */}
+    <div className="bg-blue-300 text-white p-6 rounded-xl text-center w-48">
+      <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
+        <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
+      </div>
+      <h4 className="font-semibold">Sandrine</h4>
+      <p className="text-sm">Alternante</p>
+    </div>
+    <div className="bg-green-300 text-white p-6 rounded-xl text-center w-48">
+      <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
+        <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
+      </div>
+      <h4 className="font-semibold">Sofiane KH</h4>
+      <p className="text-sm">Alternant</p>
+    </div>
+  </div>
+
+  {/* CDI */}
+  <div className="grid md:grid-cols-3 gap-4 justify-items-center mt-8">
+    {['Dimitri', 'Anaelle', 'Eugenia'].map((name) => (
+      <div key={name} className="bg-pink-200 border border-pink-400 p-4 rounded-lg text-center w-40">
+        <div className="w-16 h-16 rounded-full mx-auto mb-2 overflow-hidden flex items-center justify-center">
+          <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
+        </div>
+        <h4 className="font-semibold text-red-600">{name}</h4>
+        <p className="text-xs text-gray-600">CDI</p>
+      </div>
+    ))}
+  </div>
+
+  {/* Extra */}
+  <div className="flex justify-center mt-8">
+    <div className="bg-gray-100 border border-gray-300 p-3 rounded-lg text-center w-32">
+      <div className="w-14 h-14 rounded-full mx-auto mb-2 overflow-hidden flex items-center justify-center">
+        <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
+      </div>
+      <h4 className="font-semibold text-red-600">Agathe</h4>
+      <p className="text-xs text-gray-600">Extra</p>
+    </div>
+  </div>
+</section>
+
+    {/* Notre Implication Locale */}
+    <section className="max-w-6xl mx-auto px-4 mt-16">
       <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Notre Implication Locale</h3>
       <div className="grid md:grid-cols-2 gap-12">
         <div>
@@ -160,15 +268,15 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
             {[
               {
                 title: "Soutien aux associations locales",
-                description: "Partenariat avec les associations sportives et culturelles d'Angers pour leurs événements et collectes de fonds."
+                description: "Nous sommes fiers de nous impliquer activement dans les événements et les collectes de fonds, en partageant des partenariats avec les associations sportives et culturelles de la région."
               },
               {
-                title: "Emploi local",
-                description: "Priorité à l'embauche locale avec formation aux métiers de la restauration traditionnelle."
+                title: "Partage et solidarité",
+                description: "Nous soutenons différentes causes à travers des partenariats et des actions de proximité."
               },
               {
-                title: "Marchés et fêtes de quartier",
-                description: "Présence régulière sur les marchés locaux et participation aux événements de quartier."
+                title: "Fêtes de quartier",
+                description: "Nous soutenons des initiatives locales qui favorisent les rencontres et le partage entre habitants."
               }
             ].map((action, index) => (
               <div key={index} className="flex items-start space-x-4">
@@ -178,22 +286,22 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
                 <div>
                   <h5 className="font-semibold text-red-600 mb-2">{action.title}</h5>
                   <p className="text-gray-700 text-sm">{action.description}</p>
+                  {action.title === "Soutien aux associations locales" && (
+                    <div className="mt-4 flex flex-wrap gap-4 items-center">
+                      <img src={roseLogo} alt="Logo Rose" className="w-20 h-20 object-contain" />
+                      <img src={viradesLogo} alt="Logo Virades" className="w-20 h-20 object-contain" />
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
           </div>
         </div>
-        
         <div>
           <h4 className="text-2xl font-semibold text-red-600 mb-6">Engagement Environnemental</h4>
           <div className="bg-green-50 p-8 rounded-xl border-2 border-green-200 shadow-lg">
             <div className="space-y-4">
-              {[
-                "Circuits courts privilégiés",
-                "Réduction des déchets",
-                "Emballages écologiques",
-                "Économies d'énergie"
-              ].map((item, i) => (
+              {["Circuits courts privilégiés", "Réduction des déchets", "Emballages écologiques", "Économies d'énergie"].map((item, i) => (
                 <div key={i} className="flex items-center space-x-3">
                   <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center shadow-md">
                     <span className="text-white text-sm font-bold">✓</span>
@@ -204,125 +312,10 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
             </div>
             <div className="mt-6 p-4 bg-white rounded-lg shadow-inner">
               <p className="text-green-700 text-sm">
-                <strong>Notre objectif :</strong> Devenir la première friterie éco-responsable 
-                d'Angers tout en préservant l'authenticité de nos traditions du Nord.
+                <strong>Notre objectif :</strong> Devenir la première friterie éco-responsable d'Angers tout en préservant l'authenticité de nos traditions du Nord.
               </p>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </div> {/* <-- Fermeture du div max-w-6xl */}
-</section>
-
-    {/* Notre Équipe */}
-    <section className="max-w-6xl mx-auto px-4">
-      <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Notre Équipe</h3>
-      <div className="grid md:grid-cols-4 gap-6 justify-items-center">
-        {/* Vincent Pécourt - Fondateur */}
-        <div className="bg-red-600 text-white p-6 rounded-xl text-center w-48 shadow-lg">
-          <div className="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-            <img src={vincentPhoto} alt="Vincent Pécourt" className="object-cover w-full h-full" />
-          </div>
-          <h4 className="font-bold text-lg">Vincent Pécourt</h4>
-          <p className="text-[#fffd67]">Fondateur</p>
-        </div>
-        {/* Hélène Pécourt - Famille */}
-        <div className="bg-[#fffd67] text-red-600 p-6 rounded-xl text-center w-48 shadow-lg">
-          <div className="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-            <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
-          </div>
-          <h4 className="font-semibold">Hélène Pécourt</h4>
-          <p className="text-sm">Famille</p>
-        </div>
-        {/* Elise Pécourt - Responsable */}
-        <div className="bg-green-500 text-white p-6 rounded-xl text-center w-48 shadow-lg">
-          <div className="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-            <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
-          </div>
-          <h4 className="font-semibold">Elise Pécourt</h4>
-          <p className="text-sm">Responsable</p>
-        </div>
-        {/* Sandrine - Alternance Chargée RH */}
-        <div className="bg-blue-400 text-white p-6 rounded-xl text-center w-48 shadow-lg">
-          <div className="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-            <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
-          </div>
-          <h4 className="font-semibold">Sandrine</h4>
-          <p className="text-sm">Chargée RH</p>
-        </div>
-        {/* Sofiane KH - Responsable Développement Commercial */}
-        <div className="bg-yellow-400 text-red-700 p-6 rounded-xl text-center w-48 shadow-lg">
-          <div className="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-            <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
-          </div>
-          <h4 className="font-semibold">Sofiane KH</h4>
-          <p className="text-sm">Responsable développement commercial</p>
-        </div>
-        {/* Dimitri - Responsable */}
-        <div className="bg-purple-500 text-white p-6 rounded-xl text-center w-48 shadow-lg">
-          <div className="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-            <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
-          </div>
-          <h4 className="font-semibold">Dimitri</h4>
-          <p className="text-sm">Responsable</p>
-        </div>
-        {/* Anaelle - CDI Polyvalente */}
-        <div className="bg-pink-400 text-white p-6 rounded-xl text-center w-48 shadow-lg">
-          <div className="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-            <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
-          </div>
-          <h4 className="font-semibold">Anaelle</h4>
-          <p className="text-sm">CDI polyvalente</p>
-        </div>
-        {/* Agathe - CDD Polyvalente */}
-        <div className="bg-orange-400 text-white p-6 rounded-xl text-center w-48 shadow-lg">
-          <div className="w-20 h-20 bg-gray-200 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-            <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
-          </div>
-          <h4 className="font-semibold">Agathe</h4>
-          <p className="text-sm">CDD polyvalente</p>
-        </div>
-      </div>
-    </section>
-    {/* Témoignages */}
-    <section className="bg-red-50 py-16 rounded-xl shadow-inner">
-      <div className="max-w-6xl mx-auto px-4">
-        <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Ils nous font confiance</h3>
-        <div className="grid md:grid-cols-2 gap-8">
-          <div className="bg-white p-6 rounded-xl shadow-md">
-            <div className="flex items-center mb-4">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 text-[#FEEAA1] fill-current" />
-              ))}
-            </div>
-            <p className="text-gray-700 mb-4">
-              "Je recommande à 100 % ! Nous avons été très bien accueillis, l’ambiance était très chaleureuse. Le plat était généreux et les frites vraiment excellentes : les meilleures que j’aie mangées de ma vie."
-            </p>
-            <p className="font-semibold text-red-600">- Mélissandre.</p>
-          </div>
-          <div className="bg-white p-6 rounded-xl shadow-md">
-            <div className="flex items-center mb-4">
-              {[...Array(5)].map((_, i) => (
-                <Star key={i} className="w-5 h-5 text-[#FEEAA1] fill-current" />
-              ))}
-            </div>
-            <p className="text-gray-700 mb-4">
-              "On avait déjà entendu que les frites Bonnel étaient réputées… C’est maintenant plus que confirmé ! Sandwich, frites et boisson pour 10,70 € : un très bon rapport qualité-prix. Les portions sont généreuses, le chef est sympa, et rien de mieux avant d’aller voir les Ducs d’Angers !"
-            </p>
-            <p className="font-semibold text-red-600">- Etienne</p>
-          </div>
-        </div>
-        <div className="text-center mt-8">
-          <a
-            href="https://www.google.com/maps/place/FRITES+BONNEL/@47.4796997,-0.553666,17z/data=!3m1!4b1!4m6!3m5!1s0x480879e8f302056d:0x498abbd82bd8c340!8m2!3d47.4796961!4d-0.5510911!16s%2Fg%2F11gmysbc3m?entry=ttu&g_ep=EgoyMDI1MDgyNC4wIKXMDSoASAFQAw%3D%3D" 
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center space-x-2 bg-[#fffd67] text-red-600 px-6 py-3 rounded-lg font-semibold hover:bg-[#fffd67]/80 transition-colors"
-          >
-            <Star className="w-5 h-5" />
-            <span>Voir tous nos avis Google</span>
-          </a>
         </div>
       </div>
     </section>
