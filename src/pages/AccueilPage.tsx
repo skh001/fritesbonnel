@@ -1,6 +1,7 @@
 import React from 'react';
 import { Heart, Star, Users, Vote } from 'lucide-react';
 import vincentImg from '../assets/vincent.png';
+import equipeImg from '../assets/equipe.png'; // Import de la nouvelle image
 import logohead from '../assets/logohead.png';
 import arabesque1 from '../assets/arabesque1.png';
 import arabesque2 from '../assets/arabesque2.png';
@@ -196,7 +197,7 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
     {/* Patron */}
     <div className="bg-red-600 text-white p-6 rounded-xl text-center w-48">
       <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-        <img src="https://via.placeholder.com/150" alt="Vincent Pécourt" className="object-cover w-full h-full" />
+        <img src={vincentImg} alt="Vincent Pécourt" className="object-cover w-full h-full" />
       </div>
       <h4 className="font-bold text-lg">Vincent Pécourt</h4>
       <p className="text-yellow-200">Fondateur</p>
@@ -204,14 +205,14 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
     {/* Famille */}
     <div className="bg-yellow-400 text-red-600 p-6 rounded-xl text-center w-48">
       <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-        <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
+        <img src={equipeImg} alt="Hélène Pécourt" className="object-cover w-full h-full" />
       </div>
       <h4 className="font-semibold">Hélène Pécourt</h4>
       <p className="text-sm">Famille</p>
     </div>
     <div className="bg-orange-400 text-white p-6 rounded-xl text-center w-48">
       <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-        <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
+        <img src={equipeImg} alt="Elise Pécourt" className="object-cover w-full h-full" />
       </div>
       <h4 className="font-semibold">Elise Pécourt</h4>
       <p className="text-sm">CDI - Famille</p>
@@ -219,14 +220,14 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
     {/* Alternants */}
     <div className="bg-blue-300 text-white p-6 rounded-xl text-center w-48">
       <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-        <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
+        <img src={equipeImg} alt="Sandrine" className="object-cover w-full h-full" />
       </div>
       <h4 className="font-semibold">Sandrine</h4>
       <p className="text-sm">Alternante</p>
     </div>
     <div className="bg-green-300 text-white p-6 rounded-xl text-center w-48">
       <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-        <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
+        <img src={equipeImg} alt="Sofiane KH" className="object-cover w-full h-full" />
       </div>
       <h4 className="font-semibold">Sofiane KH</h4>
       <p className="text-sm">Alternant</p>
@@ -238,7 +239,7 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
     {['Dimitri', 'Anaelle', 'Eugenia'].map((name) => (
       <div key={name} className="bg-pink-200 border border-pink-400 p-4 rounded-lg text-center w-40">
         <div className="w-16 h-16 rounded-full mx-auto mb-2 overflow-hidden flex items-center justify-center">
-          <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
+          <img src={equipeImg} alt={name} className="object-cover w-full h-full" />
         </div>
         <h4 className="font-semibold text-red-600">{name}</h4>
         <p className="text-xs text-gray-600">CDI</p>
@@ -250,15 +251,14 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
   <div className="flex justify-center mt-8">
     <div className="bg-gray-100 border border-gray-300 p-3 rounded-lg text-center w-32">
       <div className="w-14 h-14 rounded-full mx-auto mb-2 overflow-hidden flex items-center justify-center">
-        <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500">?</div>
+        <img src={equipeImg} alt="Agathe" className="object-cover w-full h-full" />
       </div>
       <h4 className="font-semibold text-red-600">Agathe</h4>
       <p className="text-xs text-gray-600">Extra</p>
     </div>
   </div>
 </section>
-
-    {/* Notre Implication Locale */}
+{/* Notre Implication Locale */}
     <section className="max-w-6xl mx-auto px-4 mt-16">
       <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Notre Implication Locale</h3>
       <div className="grid md:grid-cols-2 gap-12">
@@ -288,8 +288,8 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
                   <p className="text-gray-700 text-sm">{action.description}</p>
                   {action.title === "Soutien aux associations locales" && (
                     <div className="mt-4 flex flex-wrap gap-4 items-center">
-                      <img src={roseLogo} alt="Logo Rose" className="w-20 h-20 object-contain" />
-                      <img src={viradesLogo} alt="Logo Virades" className="w-20 h-20 object-contain" />
+                      <img src={roseLogo} alt="Logo Rose" className="w-40 h-40 object-contain" />
+                      <img src={viradesLogo} alt="Logo Virades" className="w-40 h-40 object-contain" />
                     </div>
                   )}
                 </div>

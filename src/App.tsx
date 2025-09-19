@@ -6,9 +6,11 @@ import EvenementsPage from './pages/EvenementsPage';
 import ActusPage from './pages/ActusPage';
 import ContactPage from './pages/ContactPage';
 import ClickAndCollect from './pages/ClickAndCollect';
+import BoutiquePage from './pages/BoutiquePage';
+import ComingSoonPage from './pages/ComingSoonPage'; // Import de la nouvelle page
 import logo from './assets/logo.png';
 
-type Page = 'accueil' | 'carte' | 'evenements' | 'actus' | 'ou nous trouver' | 'commander';
+type Page = 'accueil' | 'carte' | 'evenements' | 'actus' | 'ou nous trouver' | 'commander' | 'boutique';
 
 declare global {
   interface Window {
@@ -22,7 +24,6 @@ function App() {
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Initialisation Facebook SDK
   useEffect(() => {
     window.fbAsyncInit = function() {
       window.FB.init({
@@ -41,7 +42,6 @@ function App() {
      }(document, 'script', 'facebook-jssdk'));
   }, []);
 
-  // Gestion du scroll pour le bouton
   useEffect(() => {
     const handleScroll = () => setShowScrollTop(window.scrollY > 300);
     window.addEventListener('scroll', handleScroll);
@@ -49,31 +49,38 @@ function App() {
   }, []);
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
+  
+  // Le tableau du menu d'origine, sans modification
   const menuItems = [
     { key: 'accueil', label: 'Accueil', icon: Heart },
     { key: 'carte', label: 'Notre Carte', icon: Utensils },
     { key: 'evenements', label: 'Événements', icon: Calendar },
     { key: 'actus', label: 'Galerie', icon: Newspaper },
-    { key: 'contact', label: 'Nous Trouver ?', icon: MessageCircle },
-    { key: 'commander', label: 'Click&Collect', icon: ShoppingBag }
+    { key: 'ou nous trouver', label: 'Nous Trouver ?', icon: MessageCircle },
+    { key: 'commander', label: 'Click&Collect', icon: ShoppingBag },
+    { key: 'boutique', label: 'Boutique', icon: ShoppingBag }
   ];
 
+  // Le nouveau composant Header avec un design plus aéré
   const Header = () => (
     <header className="bg-red-600 text-white shadow-lg">
       <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+          <div
+            className="flex items-center space-x-3 cursor-pointer" // Ajout de "cursor-pointer"
+            onClick={() => setCurrentPage('accueil')} // Ajout de l'événement onClick
+          >
             <div className="w-20 h-20 bg-[#fffd67] rounded-full flex items-center justify-center overflow-hidden">
               <img src={logo} alt="Logo Frites Bonnel" className="object-contain w-20 h-20" />
             </div>
             <div>
               <h1 className="text-2xl font-arialnarrow7">FRITES BONNEL</h1>
-              <p className=" font-folks text-[#fffd67] text-sm">Bonnes et belles</p>
+              <p className="font-folks text-[#fffd67] text-sm">Bonnes et belles</p>
             </div>
           </div>
 
-          <nav className="hidden md:flex space-x-6">
+          {/* Version desktop du menu, avec plus d'espace */}
+          <nav className="hidden md:flex flex-wrap justify-end gap-x-6 gap-y-2">
             {menuItems.map(({ key, label, icon: Icon }) => (
               <button
                 key={key}
@@ -88,6 +95,7 @@ function App() {
             ))}
           </nav>
 
+          {/* Bouton pour le menu mobile */}
           <button
             className="md:hidden bg-[#fffd67] text-red-600 p-2 rounded-md shadow-lg"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -96,6 +104,7 @@ function App() {
           </button>
         </div>
 
+        {/* Menu mobile */}
         <div
           className={`md:hidden mt-4 flex flex-col gap-2 transition-all duration-300 overflow-hidden ${
             mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
@@ -143,7 +152,6 @@ function App() {
               <div className="flex items-center space-x-2"><Phone className="w-4 h-4 text-[#fffd67]" /><span>06 11 52 16 89</span></div>
               <div className="flex items-center space-x-2"><Mail className="w-4 h-4 text-[#fffd67]" /><span>fritesbonnel@gmail.com</span></div>
               <div className="flex items-center space-x-2"><MapPin className="w-4 h-4 text-[#fffd67]" /><span>Angers et sa région</span></div>
-              <div className="flex items-center space-x-2"><Clock className="w-4 h-4 text-[#fffd67]" /><span>Mar-Dim 11h30-21h45</span></div>
             </div>
           </div>
 
@@ -176,8 +184,9 @@ function App() {
       case 'carte': return <CartePage />;
       case 'evenements': return <EvenementsPage />;
       case 'actus': return <ActusPage />;
-      case 'contact': return <ContactPage />;
+      case 'ou nous trouver': return <ContactPage />;
       case 'commander': return <ClickAndCollect />;
+      case 'boutique': return <ComingSoonPage />;
       default: return <AccueilPage setCurrentPage={setCurrentPage} />;
     }
   };
