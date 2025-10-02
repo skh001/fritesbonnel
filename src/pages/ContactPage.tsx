@@ -72,7 +72,7 @@ const NousTrouverPage = () => {
               </div>
               <div className="flex justify-between items-center text-lg">
                 <span className="font-semibold text-gray-700">Vendredi</span>
-                <span className="font-bold text-red-600">18h30 - 21h45</span>
+                <span className="font-bold text-red-600">11h30 - 13h45 / 18h30 - 21h45</span>
               </div>
               <div className="flex justify-between items-center text-lg">
                 <span className="font-semibold text-gray-700">Samedi</span>

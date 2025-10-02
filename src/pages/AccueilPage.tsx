@@ -1,7 +1,7 @@
 import React from 'react';
 import { Heart, Star, Users, Vote } from 'lucide-react';
 import vincentImg from '../assets/vincent.png';
-import equipeImg from '../assets/equipe.png'; // Import de la nouvelle image
+import maleImg from '../assets/male.png'; // Import de la nouvelle image
 import logohead from '../assets/logohead.png';
 import arabesque1 from '../assets/arabesque1.png';
 import arabesque2 from '../assets/arabesque2.png';
@@ -83,27 +83,22 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
               <strong>Frites Bonnel</strong> a été créée en 2018 par <strong>Vincent Pécourt</strong>,
               passé par les traditions culinaires du Nord de la France.
             </p>
-            <p className="mb-6">
-              Originaire des Hauts-de-France, nous avons la nostalgie des
-              frites de notre enfance égouttées au torchon. Dans chaque
-              région de France traversée au cours de nos mutations
-              professionnelles, nous faisons le constat qu’il est rare de
-              trouver des commerces ambulants proposant une alimentation
-              de plaisir simple, basée sur des produits frais et peu chers.
-            </p>
-            <p className="mb-6">
-              Des frites préparées pour les amis, les clubs sportifs et les
-              associations dans lesquelles nous sommes impliqués, nous est
-              venue l’idée de créer en Anjou une « baraque à frites » où
-              chacun pourra se restaurer en toute simplicité.
-            </p>
+      <p className="mb-6" >
+  <i>
+    "Originaire des Hauts-de-France, nous avons la nostalgie des frites de notre enfance égouttées au torchon. 
+    Dans chaque région de France traversée au cours de nos mutations professionnelles, 
+    nous faisons le constat qu’il est rare de trouver des commerces ambulants proposant une alimentation de plaisir simple, 
+    basée sur des produits frais et peu chers."
+  </i>
+</p>
+<p className="mb-6">
+  <i>
+    "Des frites préparées pour les amis, les clubs sportifs et les associations dans lesquelles nous sommes impliqués . 
+    ils nous est venue l’idée de créer en Anjou une « baraque à frites » où chacun pourra se restaurer en toute simplicité."
+  </i>
+</p>
             <p>
-              C’est ainsi que les <strong> FRITES BONNEL Bonnes & Belles </strong> commencent
-              leur activité en juin 2018 pour partager les bonnes saveurs des
-              belles frites du Nord.
-              Bonnel est le nom des arrière-grands-parents de Vincent qui
-              possédaient une brasserie au début du siècle dernier près de
-              Béthune dans le Pas-de-Calais (62).
+              C’est ainsi que les <strong> FRITES BONNEL Bonnes & Belles </strong>  commencent leur activité en juin 2018 pour partager les bonnes saveurs , des belles frites du Nord. Bonnel est le nom des arrière-grands-parents de Vincent qui possédaient une brasserie au début du siècle dernier près de Béthune dans le Pas-de-Calais (62).
             </p>
           </div>
         </div>
@@ -162,7 +157,7 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
               {title === "Qualité" && (
                 <p className="text-sm font-bold text-red-600 mt-2">
                   <a href="" target="_blank" rel="noopener noreferrer" className="hover:underline">
-                    Élue meilleure friterie de France 2023
+                  
                   </a>
                 </p>
               )}
@@ -174,7 +169,7 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
         <div className="text-center mt-12 mb-8">
           <p className="text-xl font-bold text-gray-700 mb-4">
             <span className="text-red-600">Faites-nous savoir que vous aimez nos frites !</span>
-            <br />Votre vote est important et nous aide à être reconnus.
+            <br />
           </p>
           <a
             href="https://www.les-friteries.com/site/frites-bonnel"
@@ -205,14 +200,14 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
     {/* Famille */}
     <div className="bg-yellow-400 text-red-600 p-6 rounded-xl text-center w-48">
       <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-        <img src={equipeImg} alt="Hélène Pécourt" className="object-cover w-full h-full" />
+        <img src={maleImg} alt="Hélène Pécourt" className="object-cover w-full h-full" />
       </div>
       <h4 className="font-semibold">Hélène Pécourt</h4>
       <p className="text-sm">Famille</p>
     </div>
     <div className="bg-orange-400 text-white p-6 rounded-xl text-center w-48">
       <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-        <img src={equipeImg} alt="Elise Pécourt" className="object-cover w-full h-full" />
+        <img src={maleImg} alt="Elise Pécourt" className="object-cover w-full h-full" />
       </div>
       <h4 className="font-semibold">Elise Pécourt</h4>
       <p className="text-sm">CDI - Famille</p>
@@ -220,14 +215,14 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
     {/* Alternants */}
     <div className="bg-blue-300 text-white p-6 rounded-xl text-center w-48">
       <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-        <img src={equipeImg} alt="Sandrine" className="object-cover w-full h-full" />
+        <img src={maleImg} alt="Sandrine" className="object-cover w-full h-full" />
       </div>
       <h4 className="font-semibold">Sandrine</h4>
       <p className="text-sm">Alternante</p>
     </div>
     <div className="bg-green-300 text-white p-6 rounded-xl text-center w-48">
       <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-        <img src={equipeImg} alt="Sofiane KH" className="object-cover w-full h-full" />
+        <img src={maleImg} alt="Sofiane KH" className="object-cover w-full h-full" />
       </div>
       <h4 className="font-semibold">Sofiane KH</h4>
       <p className="text-sm">Alternant</p>
@@ -239,7 +234,7 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
     {['Dimitri', 'Anaelle', 'Eugenia'].map((name) => (
       <div key={name} className="bg-pink-200 border border-pink-400 p-4 rounded-lg text-center w-40">
         <div className="w-16 h-16 rounded-full mx-auto mb-2 overflow-hidden flex items-center justify-center">
-          <img src={equipeImg} alt={name} className="object-cover w-full h-full" />
+          <img src={maleImg} alt={name} className="object-cover w-full h-full" />
         </div>
         <h4 className="font-semibold text-red-600">{name}</h4>
         <p className="text-xs text-gray-600">CDI</p>
@@ -251,7 +246,7 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
   <div className="flex justify-center mt-8">
     <div className="bg-gray-100 border border-gray-300 p-3 rounded-lg text-center w-32">
       <div className="w-14 h-14 rounded-full mx-auto mb-2 overflow-hidden flex items-center justify-center">
-        <img src={equipeImg} alt="Agathe" className="object-cover w-full h-full" />
+        <img src={maleImg} alt="Agathe" className="object-cover w-full h-full" />
       </div>
       <h4 className="font-semibold text-red-600">Agathe</h4>
       <p className="text-xs text-gray-600">Extra</p>
@@ -269,10 +264,6 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
               {
                 title: "Soutien aux associations locales",
                 description: "Nous sommes fiers de nous impliquer activement dans les événements et les collectes de fonds, en partageant des partenariats avec les associations sportives et culturelles de la région."
-              },
-              {
-                title: "Partage et solidarité",
-                description: "Nous soutenons différentes causes à travers des partenariats et des actions de proximité."
               },
               {
                 title: "Fêtes de quartier",

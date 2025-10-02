@@ -142,7 +142,6 @@ function App() {
             </div>
             <p className="text-gray-300 text-sm">
               Friterie traditionnelle du Nord, créée en 2018 par Vincent Pécourt.
-              Spécialiste des frites authentiques et des recettes traditionnelles.
             </p>
           </div>
 

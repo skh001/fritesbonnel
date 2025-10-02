@@ -48,8 +48,7 @@ const CartePage = () => (
             <div>
               <h4 className="font-semibold text-red-600 mb-2">Recettes </h4>
               <p className="text-gray-700">
-                Un mélange de saveurs maison et d'accompagnements fraîchement préparés pour un plaisir garanti.
-              </p>
+On adapte notre recette en fonction des légumes de saison.              </p>
             </div>
           </div>
         </div>
@@ -72,11 +71,11 @@ const CartePage = () => (
             {
               category: "Nos Burgers",
               items: [
-                { name: "Classic - Le burger traditionnel", imageSrc: classicBurgerImage },
-                { name: "Poulet - Burger au poulet pané", imageSrc: pouletBurgerImage },
-                { name: "Bacon - Burger avec bacon croustillant", imageSrc: baconBurgerImage },
-                { name: "Chtimi - Burger saveur du Nord", imageSrc: chtiBurgerImage },
-                { name: "Noël - Burger spécial fêtes", imageSrc: noelBurgerImage },
+                { name: "Le Burger classic", imageSrc: classicBurgerImage },
+                { name: "Burger au poulet pané", imageSrc: pouletBurgerImage },
+                { name: "Le Burger au bacon", imageSrc: baconBurgerImage },
+                { name: "Le Burger chti'mi", imageSrc: chtiBurgerImage },
+                { name: " Burger Noël ''spécial fêtes'' ", imageSrc: noelBurgerImage },
               
               ]
             },
@@ -187,7 +186,7 @@ const CartePage = () => (
             <h4 className="text-xl font-semibold text-red-600 mb-3">Zéro Gaspillage</h4>
             <p className="text-gray-700">
               Gestion optimisée des stocks, valorisation des invendus,
-              compostage des déchets organiques avec les partenaires locaux.
+              compostage des déchets organiques .
             </p>
           </div>
         </div>

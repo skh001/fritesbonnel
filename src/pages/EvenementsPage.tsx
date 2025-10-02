@@ -11,7 +11,7 @@ import { Phone, Mail, MapPin, Clock, Star, Users, Heart, Utensils, Calendar, New
       const form = e.currentTarget;
 
       try {
-        const response = await fetch("https://formsubmit.co/ggbrocs@gmail.com", {
+        const response = await fetch("https://formsubmit.co/fritesbonnelplus@gmail.com", {
           method: "POST",
           body: new FormData(form),
         });
@@ -51,7 +51,7 @@ import { Phone, Mail, MapPin, Clock, Star, Users, Heart, Utensils, Calendar, New
               {
                 icon: Heart,
                 title: "Mariages",
-                description: "Stand de frites fraîches pour vos réceptions. Service traiteur avec nos spécialités du Nord.",
+                description: "Frites fraîches pour vos réceptions. Service traiteur avec nos spécialités du Nord.",
                 features: ["Service continu", "Présentation soignée", "Menu personnalisé"]
               },
               {
