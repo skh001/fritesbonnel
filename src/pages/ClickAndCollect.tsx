@@ -21,19 +21,19 @@ const ClickAndCollect = () => {
       id: 1,
       name: 'Brasserie La Bestiole',
       position: [47.473058503430025, -0.5121722903459813], // Remplacez par les vraies coordonnées d'Angers
-      address: '8 Rue du Patis, 49124 Saint-Barthélemy-dAnjou LE JEUDI MIDI',
+      address: 'Tous les jeudis MIDI - 8 Rue du Patis, 49124 Saint-Barthélemy-dAnjou',
     },
     {
       id: 2,
       name: 'La Minute Blonde Beaucouzé',
       position: [47.46889427044336, -0.624637234541803], // Autre emplacement, par exemple un food truck
-      address: '2 Av. du Pin, 49070 Beaucouzé',
+      address: 'Tous les vendredis MIDI - 2 Av. du Pin, 49070 Beaucouzé',
     },
     {
       id: 2,
       name: 'Cr Saint-Laud',
       position: [47.465520671057035, -0.5600271082071009], // Autre emplacement, par exemple un food truck
-      address: 'Bd Yvonne Poirel, Angers',
+      address: 'Tous les mercredis MIDI - Bd Yvonne Poirel, Angers',
     },
   ];
 

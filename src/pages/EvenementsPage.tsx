@@ -63,7 +63,7 @@ import { Phone, Mail, MapPin, Clock, Star, Users, Heart, Utensils, Calendar, New
               {
                 icon: Cake,
                 title: "Fêtes Scolaires et Locales",
-                description: "Frites Bonnel pour les fêtes d'école, le 14 juillet, événements communaux et autres festivités.",
+                description: "Frites Bonnel est présent lors des fêtes d’école, du 14 juillet, des événements communaux et autres moments festifs.",
                 features: ["Ambiance conviviale", "Adapté à tous les âges", "Grand choix de plats"]
             }
           ].map(({ icon: Icon, title, description, features }, index) => (

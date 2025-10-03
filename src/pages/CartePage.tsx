@@ -162,49 +162,7 @@ On adapte notre recette en fonction des légumes de saison.              </p>
       </div>
     </section>
 
-    {/* Section 'Développement durable' */}
-    <section className="max-w-6xl mx-auto px-4">
-      <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Notre Engagement Durable</h3>
-      <div className="grid md:grid-cols-2 gap-12 items-center">
-        <div className="space-y-6">
-          <div>
-            <h4 className="text-xl font-semibold text-red-600 mb-3">Approvisionnement Local</h4>
-            <p className="text-gray-700">
-              Partenariat privilégié avec les producteurs locaux.
-              Viandes fraîches et légumes de saison provenant des exploitations environnantes.
-            </p>
-          </div>
 
-          <div>
-            <h4 className="text-xl font-semibold text-red-600 mb-3">Emballages Écologiques</h4>
-            <p className="text-gray-700">
-             Emballages en carton recyclable, couverts en bois, et bacs inox réutilisables pour un avenir plus vert, sans compromis sur la qualité.
-            </p>
-          </div>
-
-          <div>
-            <h4 className="text-xl font-semibold text-red-600 mb-3">Zéro Gaspillage</h4>
-            <p className="text-gray-700">
-              Gestion optimisée des stocks, valorisation des invendus,
-              compostage des déchets organiques .
-            </p>
-          </div>
-        </div>
-
-        <div className="bg-green-50 p-8 rounded-xl border-2 border-green-200">
-          <div className="text-center">
-            <div className="w-20 h-20 bg-green-600 rounded-full flex items-center justify-center mx-auto mb-4">
-              <Heart className="w-10 h-10 text-white" />
-            </div>
-            <h4 className="text-xl font-semibold text-green-600 mb-4">Notre Promesse</h4>
-            <p className="text-green-700">
-              Préserver l'environnement tout en maintenant la qualité
-              de nos produits. C'est notre engagement pour les générations futures.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
   </div>
 );
 

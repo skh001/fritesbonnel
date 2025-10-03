@@ -40,7 +40,7 @@ const NousTrouverPage = () => {
         <div className="max-w-6xl mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">Où nous trouver</h2>
           <p className="text-xl text-white">
-            Retrouvez-nous à nos emplacements habituels et sur nos événements !
+            Retrouvez nous à nos emplacements habituels et sur nos événements !
           </p>
         </div>
       </section>
@@ -89,7 +89,7 @@ const NousTrouverPage = () => {
             </div>
             <div className="mt-6 p-4 bg-white rounded-lg border-l-4 border-[#fffd67] shadow-inner">
               <p className="text-sm text-gray-600">
-                <strong>Note :</strong> Ces horaires peuvent être étendus lors d'événements spéciaux.
+                <strong>Note :</strong> Les horaires peuvent changer selon les événements.
               </p>
             </div>
           </div>

@@ -53,11 +53,11 @@ function App() {
   // Le tableau du menu d'origine, sans modification
   const menuItems = [
     { key: 'accueil', label: 'Accueil', icon: Heart },
+    { key: 'ou nous trouver', label: 'Où Nous Trouver ?', icon: MessageCircle },
     { key: 'carte', label: 'Notre Carte', icon: Utensils },
-    { key: 'evenements', label: 'Événements', icon: Calendar },
-    { key: 'actus', label: 'Galerie', icon: Newspaper },
-    { key: 'ou nous trouver', label: 'Nous Trouver ?', icon: MessageCircle },
     { key: 'commander', label: 'Click&Collect', icon: ShoppingBag },
+    { key: 'evenements', label: 'Événements / Devis', icon: Calendar },
+    { key: 'actus', label: 'Galerie', icon: Newspaper },
     { key: 'boutique', label: 'Boutique', icon: ShoppingBag }
   ];
 

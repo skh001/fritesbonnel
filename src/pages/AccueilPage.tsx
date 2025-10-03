@@ -36,8 +36,9 @@ const PartnersLogos = () => {
 };
 
 const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => void }) => (
-  <div className="space-y-16 font-sans text-gray-800">
-    {/* Hero Banner */}
+  // Added w-full to the root component to ensure it spans the entire container.
+  <div className="w-full space-y-16 font-sans text-gray-800">
+    {/* Hero Banner: Removed max-width and set background. It will now stretch fully. */}
     <section className="bg-[#fffd67] text-gray-800 py-4 rounded-b-2xl shadow-lg relative overflow-hidden">
       <img
         src={arabesque1}
@@ -49,12 +50,14 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
         alt="Arabesque décorative droite"
         className="absolute right-0 top-0 h-20 w-auto object-cover opacity-70 z-0"
       />
-      <div className="max-w-4xl mx-auto px-4 text-center relative z-20 mt-8">
+      {/* This inner div handles the centered content and required horizontal padding (px-4). */}
+      <div className="max-w-6xl mx-auto px-4 text-center relative z-20 mt-8"> 
         <img src={logohead} alt="Logo Frites Bonnel" className="w-full max-w-sm mx-auto" />
-        <div className="max-w-6xl mx-auto px-0 text-center relative z-10">
+        <div className="text-center relative z-10">
           <img
             src={bethune}
             alt="Ville de Béthune"
+            // The image itself is now full width relative to its parent (max-w-6xl container)
             className="w-full h-40 object-cover rounded-xl shadow-md"
             style={{ objectPosition: 'center' }}
           />
@@ -119,6 +122,7 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
     </section>
 
     {/* Nos Valeurs */}
+    {/* This section now also stretches its background across the full width. */}
     <section className="bg-[#fffd67]/30 py-16 rounded-xl shadow-inner">
       <div className="max-w-6xl mx-auto px-4">
         <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Nos Valeurs</h3>
@@ -185,74 +189,7 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
       </div>
     </section>
 
-   {/* Notre Équipe */}
-<section className="max-w-6xl mx-auto px-4">
-  <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Notre Équipe</h3>
-  <div className="grid md:grid-cols-5 gap-6 justify-items-center">
-    {/* Patron */}
-    <div className="bg-red-600 text-white p-6 rounded-xl text-center w-48">
-      <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-        <img src={vincentImg} alt="Vincent Pécourt" className="object-cover w-full h-full" />
-      </div>
-      <h4 className="font-bold text-lg">Vincent Pécourt</h4>
-      <p className="text-yellow-200">Fondateur</p>
-    </div>
-    {/* Famille */}
-    <div className="bg-yellow-400 text-red-600 p-6 rounded-xl text-center w-48">
-      <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-        <img src={maleImg} alt="Hélène Pécourt" className="object-cover w-full h-full" />
-      </div>
-      <h4 className="font-semibold">Hélène Pécourt</h4>
-      <p className="text-sm">Famille</p>
-    </div>
-    <div className="bg-orange-400 text-white p-6 rounded-xl text-center w-48">
-      <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-        <img src={maleImg} alt="Elise Pécourt" className="object-cover w-full h-full" />
-      </div>
-      <h4 className="font-semibold">Elise Pécourt</h4>
-      <p className="text-sm">CDI - Famille</p>
-    </div>
-    {/* Alternants */}
-    <div className="bg-blue-300 text-white p-6 rounded-xl text-center w-48">
-      <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-        <img src={maleImg} alt="Sandrine" className="object-cover w-full h-full" />
-      </div>
-      <h4 className="font-semibold">Sandrine</h4>
-      <p className="text-sm">Alternante</p>
-    </div>
-    <div className="bg-green-300 text-white p-6 rounded-xl text-center w-48">
-      <div className="w-20 h-20 rounded-full mx-auto mb-4 overflow-hidden flex items-center justify-center">
-        <img src={maleImg} alt="Sofiane KH" className="object-cover w-full h-full" />
-      </div>
-      <h4 className="font-semibold">Sofiane KH</h4>
-      <p className="text-sm">Alternant</p>
-    </div>
-  </div>
-
-  {/* CDI */}
-  <div className="grid md:grid-cols-3 gap-4 justify-items-center mt-8">
-    {['Dimitri', 'Anaelle', 'Eugenia'].map((name) => (
-      <div key={name} className="bg-pink-200 border border-pink-400 p-4 rounded-lg text-center w-40">
-        <div className="w-16 h-16 rounded-full mx-auto mb-2 overflow-hidden flex items-center justify-center">
-          <img src={maleImg} alt={name} className="object-cover w-full h-full" />
-        </div>
-        <h4 className="font-semibold text-red-600">{name}</h4>
-        <p className="text-xs text-gray-600">CDI</p>
-      </div>
-    ))}
-  </div>
-
-  {/* Extra */}
-  <div className="flex justify-center mt-8">
-    <div className="bg-gray-100 border border-gray-300 p-3 rounded-lg text-center w-32">
-      <div className="w-14 h-14 rounded-full mx-auto mb-2 overflow-hidden flex items-center justify-center">
-        <img src={maleImg} alt="Agathe" className="object-cover w-full h-full" />
-      </div>
-      <h4 className="font-semibold text-red-600">Agathe</h4>
-      <p className="text-xs text-gray-600">Extra</p>
-    </div>
-  </div>
-</section>
+   
 {/* Notre Implication Locale */}
     <section className="max-w-6xl mx-auto px-4 mt-16">
       <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Notre Implication Locale</h3>
