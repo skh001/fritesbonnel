@@ -39,11 +39,12 @@ const products = [
     description: "T-shirt 100% coton, impression quadrichromie. 195gr, Illustration de Bérengère Louineau. Design classique.", 
     price: 24.00, 
     hasOptions: true, 
-    image: "/src/assets/merch/t-shirt.jpg",
+    // FIX: Changed to relative path. Assumes 'assets' is at the root of the deployed directory.
+    image: "./assets/merch/t-shirt.jpg",
     colorImages: {
-        "Blue Marine": "/src/assets/merch/t-shirt-bleu.jpg", 
-        "Noir": "/src/assets/merch/t-shirt-noir.jpg",         
-        "Rouge": "/src/assets/merch/t-shirt-rouge.jpg",      
+        "Blue Marine": "./assets/merch/t-shirt-bleu.jpg", 
+        "Noir": "./assets/merch/t-shirt-noir.jpg",         
+        "Rouge": "./assets/merch/t-shirt-rouge.jpg",      
     }
   },
   { 
@@ -52,11 +53,12 @@ const products = [
     description: "Veste Zippée a capuche, impression quadrichromie. 280gr, Illustration de Bérengère Louineau. Confort et style.", 
     price: 52.00, 
     hasOptions: true, 
-    image: "/src/assets/merch/sweat.jpg",
+    // FIX: Changed to relative path.
+    image: "./assets/merch/sweat.jpg",
     colorImages: {
-        "Blue Marine": "/src/assets/merch/sweat-bleu.jpg",
-        "Noir": "/src/assets/merch/sweat-noir.jpg",
-        "Rouge": "/src/assets/merch/sweat-rouge.jpg",
+        "Blue Marine": "./assets/merch/sweat-bleu.jpg",
+        "Noir": "./assets/merch/sweat-noir.jpg",
+        "Rouge": "./assets/merch/sweat-rouge.jpg",
     }
   },
   { 
@@ -66,10 +68,11 @@ const products = [
     price: 18.00, // Nouveau prix
     hasOptions: true, 
     // ATTENTION: On met l'image rouge par défaut ici
-    image: "/src/assets/merch/t-shirt-vintage-rouge.jpg", 
+    // FIX: Changed to relative path.
+    image: "./assets/merch/t-shirt-vintage-rouge.jpg", 
     colorImages: {
         // ATTENTION: On ne garde que le rouge
-        "Rouge": "/src/assets/merch/t-shirt-vintage-rouge.jpg",      
+        "Rouge": "./assets/merch/t-shirt-vintage-rouge.jpg",      
     }
   },
   { 
@@ -78,7 +81,8 @@ const products = [
     description: "Mug en céramique 350 ml. Le classique Bonnel.", 
     price: 9.50, 
     hasOptions: false, 
-    image: "/src/assets/merch/mug.jpg" 
+    // FIX: Changed to relative path.
+    image: "./assets/merch/mug.jpg" 
   },
   { 
     id: 5, // Nouvel ID pour le second mug
@@ -86,7 +90,8 @@ const products = [
     description: "Mug en céramique 350 ml", 
     price: 9.50, 
     hasOptions: false, 
-    image: "/src/assets/merch/mug-design2.jpg" // REMPLACER LE CHEMIN OU CRÉER L'IMAGE
+    // FIX: Changed to relative path.
+    image: "./assets/merch/mug-design2.jpg" // REMPLACER LE CHEMIN OU CRÉER L'IMAGE
   },
 ];
 // --- FIN CONFIGURATION ---
