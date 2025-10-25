@@ -8,9 +8,11 @@ import ContactPage from './pages/ContactPage';
 import ClickAndCollect from './pages/ClickAndCollect';
 import BoutiquePage from './pages/BoutiquePage';
 import ComingSoonPage from './pages/ComingSoonPage'; // Import de la nouvelle page
+import MentionsLegalesPage from './pages/MentionsLegalesPage'; 
 import logo from './assets/logo.png';
 
-type Page = 'accueil' | 'carte' | 'evenements' | 'actus' | 'ou nous trouver' | 'commander' | 'boutique';
+// MISE À JOUR DU TYPE DE PAGE
+type Page = 'accueil' | 'carte' | 'evenements' | 'actus' | 'ou nous trouver' | 'commander' | 'boutique' | 'mentions';
 
 declare global {
   interface Window {
@@ -151,6 +153,16 @@ function App() {
               <div className="flex items-center space-x-2"><Phone className="w-4 h-4 text-[#fffd67]" /><span>06 11 52 16 89</span></div>
               <div className="flex items-center space-x-2"><Mail className="w-4 h-4 text-[#fffd67]" /><span>fritesbonnel@gmail.com</span></div>
               <div className="flex items-center space-x-2"><MapPin className="w-4 h-4 text-[#fffd67]" /><span>Angers et sa région</span></div>
+              
+              {/* LIEN MENTIONS LÉGALES PLACÉ EN BAS DE LA SECTION CONTACT */}
+              <button
+                onClick={() => setCurrentPage('mentions' as Page)}
+                className="text-gray-300 hover:text-red-400 transition-colors block text-left pt-1"
+              >
+                Mentions Légales
+              </button>
+              {/* FIN LIEN MENTIONS LÉGALES */}
+
             </div>
           </div>
 
@@ -185,7 +197,9 @@ function App() {
       case 'actus': return <ActusPage />;
       case 'ou nous trouver': return <ContactPage />;
       case 'commander': return <ClickAndCollect />;
-      case 'boutique': return <ComingSoonPage />;
+      case 'boutique': return <BoutiquePage/>;
+      // NOUVEAU CAS POUR LES MENTIONS LÉGALES
+      case 'mentions': return <MentionsLegalesPage />;
       default: return <AccueilPage setCurrentPage={setCurrentPage} />;
     }
   };
