@@ -3,10 +3,31 @@ import { ShoppingBag, ShoppingCart, Send, Plus, Minus, Trash2, CheckCircle, Snow
 import jsPDF from 'jspdf'; 
 import html2canvas from 'html2canvas';
 
+// --- NOUVEAU : IMPORTATION DE TOUTES LES IMAGES (NÉCESSAIRE POUR LE BUNDLE) ---
+// Import des images des Mugs
+import mug from '../assets/merch/mug.jpg'; 
+import mugDesign2 from '../assets/merch/mug-design2.jpg'; 
+
+// Import T-shirt Original (ID 1)
+import tShirtDefault from '../assets/merch/t-shirt.jpg';
+import tShirtBleu from '../assets/merch/t-shirt-bleu.jpg'; 
+import tShirtNoir from '../assets/merch/t-shirt-noir.jpg';         
+import tShirtRouge from '../assets/merch/t-shirt-rouge.jpg';      
+
+// Import Sweatshirt (ID 2)
+import sweatDefault from '../assets/merch/sweat.jpg';
+import sweatBleu from '../assets/merch/sweat-bleu.jpg';
+import sweatNoir from '../assets/merch/sweat-noir.jpg';
+import sweatRouge from '../assets/merch/sweat-rouge.jpg';
+
+// Import T-shirt Vintage (V2) (ID 4) - ONLY IMPORTING AVAILABLE IMAGES
+import tShirtVintageDefault from '../assets/merch/t-shirt-vintage.jpg'; 
+import tShirtVintageRouge from '../assets/merch/t-shirt-vintage-rouge.jpg';      
+// --- FIN DES IMPORTS D'IMAGES ---
+
 // --- CONFIGURATION GLOBALE ---
 const SIZES = ["S", "M", "L", "XL"];
-// On laisse COLORS global pour les produits qui l'utilisent, mais on filtre par la suite.
-const COLORS = ["Blue Marine", "Noir", "Rouge"]; 
+const COLORS = ["Blue Marine", "Noir", "Rouge"];
 const DEFAULT_COLOR = COLORS[0]; // Définir la première couleur ("Blue Marine")
 // --- LISTE DES LIEUX DE RETRAIT ---
 const PICKUP_LOCATIONS = [
@@ -39,12 +60,12 @@ const products = [
     description: "T-shirt 100% coton, impression quadrichromie. 195gr, Illustration de Bérengère Louineau. Design classique.", 
     price: 24.00, 
     hasOptions: true, 
-    // FIX: Changed to relative path. Assumes 'assets' is at the root of the deployed directory.
-    image: "./assets/merch/t-shirt.jpg",
+    // Utilisation de la variable importée
+    image: tShirtDefault, 
     colorImages: {
-        "Blue Marine": "./assets/merch/t-shirt-bleu.jpg", 
-        "Noir": "./assets/merch/t-shirt-noir.jpg",         
-        "Rouge": "./assets/merch/t-shirt-rouge.jpg",      
+        "Blue Marine": tShirtBleu, 
+        "Noir": tShirtNoir,         
+        "Rouge": tShirtRouge,      
     }
   },
   { 
@@ -53,45 +74,44 @@ const products = [
     description: "Veste Zippée a capuche, impression quadrichromie. 280gr, Illustration de Bérengère Louineau. Confort et style.", 
     price: 52.00, 
     hasOptions: true, 
-    // FIX: Changed to relative path.
-    image: "./assets/merch/sweat.jpg",
+    // Utilisation de la variable importée
+    image: sweatDefault,
     colorImages: {
-        "Blue Marine": "./assets/merch/sweat-bleu.jpg",
-        "Noir": "./assets/merch/sweat-noir.jpg",
-        "Rouge": "./assets/merch/sweat-rouge.jpg",
+        "Blue Marine": sweatBleu,
+        "Noir": sweatNoir,
+        "Rouge": sweatRouge,
     }
   },
   { 
     id: 4, // ID du second T-shirt
-    name: "T-shirt Frites Bonnel Classique ", 
-    description: "T-shirt 100% coton, impression quadrichromie. 195gr, Illustration de Bérengère Louineau. Design classique. UNIQUEMENT EN ROUGE.", 
+    name: "T-shirt Frites Bonnel (Design V2)", 
+    description: "T-shirt 100% coton, impression sérigraphie.", 
     price: 18.00, // Nouveau prix
     hasOptions: true, 
-    // ATTENTION: On met l'image rouge par défaut ici
-    // FIX: Changed to relative path.
-    image: "./assets/merch/t-shirt-vintage-rouge.jpg", 
+    // Utilisation de la variable importée
+    image: tShirtVintageDefault,
+    // ONLY INCLUDING THE RED IMAGE HERE
     colorImages: {
-        // ATTENTION: On ne garde que le rouge
-        "Rouge": "./assets/merch/t-shirt-vintage-rouge.jpg",      
+        "Rouge": tShirtVintageRouge,      
     }
   },
   { 
     id: 3, 
-    name: "Mug Frites Bonnel v1", 
-    description: "Mug en céramique 350 ml. Le classique Bonnel.", 
+    name: "Mug Frites Bonnel (Design 1)", 
+    description: "Mug en céramique ", 
     price: 9.50, 
     hasOptions: false, 
-    // FIX: Changed to relative path.
-    image: "./assets/merch/mug.jpg" 
+    // Utilisation de la variable importée
+    image: mug
   },
   { 
     id: 5, // Nouvel ID pour le second mug
-    name: "Mug Frites Bonnel v2", 
-    description: "Mug en céramique 350 ml", 
+    name: "Mug Frites Bonnel (Design 2)", 
+    description: "Mug en céramique", 
     price: 9.50, 
     hasOptions: false, 
-    // FIX: Changed to relative path.
-    image: "./assets/merch/mug-design2.jpg" // REMPLACER LE CHEMIN OU CRÉER L'IMAGE
+    // Utilisation de la variable importée
+    image: mugDesign2
   },
 ];
 // --- FIN CONFIGURATION ---
@@ -245,7 +265,7 @@ const ImageModal = ({ product, currentSelections, updateSelection, addToCart, is
                                     ))}
                                 </select>
 
-                                {/* SÉLECTEUR COULEUR (MODIFIÉ) */}
+                                {/* SÉLECTEUR COULEUR */}
                                 <select
                                     value={selection.color}
                                     onChange={(e) => updateSelection('color', e.target.value, product.id)}
@@ -253,8 +273,7 @@ const ImageModal = ({ product, currentSelections, updateSelection, addToCart, is
                                     required
                                 >
                                     <option value="" disabled={!selection.color}>-- Couleur -- *</option>
-                                    {/* On filtre ici pour n'afficher que les couleurs définies dans colorImages pour CE produit */}
-                                    {Object.keys(product.colorImages || {}).map(color => (
+                                    {Object.keys(product.colorImages).map(color => (
                                         <option key={color} value={color}>{color}</option>
                                     ))}
                                 </select>
@@ -316,7 +335,7 @@ const ImageModal = ({ product, currentSelections, updateSelection, addToCart, is
 
 const BoutiquePage = () => {
   const [cart, setCart] = useState([]);
-  const [clientInfo, setClientInfo] = useState({ name: '', email: '', phone: '', pickupLocation: '', details: '' });
+  const [clientInfo, setClientInfo] = useState({ name: '', email: '', phone: '', pickupLocation: '', details: '' }); // This line is now correct
   const [currentSelections, setCurrentSelections] = useState({});
   const [showCheckout, setShowCheckout] = useState(false);
   const [submitError, setSubmitError] = useState(null);
@@ -333,8 +352,8 @@ const BoutiquePage = () => {
     // nous initialisons la sélection dans l'état global (currentSelections) à la première couleur valide 
     // pour que l'image s'affiche correctement dans la modale.
     if (product.hasOptions && !currentSelections[product.id]?.color) {
-        // Détermine la première couleur disponible pour CE produit
-        const availableColors = Object.keys(product.colorImages || {});
+        // Use Object.keys to find the first available color for this product
+        const availableColors = Object.keys(product.colorImages);
         const defaultColor = availableColors.length > 0 ? availableColors[0] : '';
         
         if (defaultColor) {
@@ -372,15 +391,14 @@ const BoutiquePage = () => {
 
   const addToCart = (product) => {
     const defaultSelection = { quantity: 1, size: '', color: '' };
-    
-    // Détermine la première couleur disponible pour CE produit
-    const availableColors = Object.keys(product.colorImages || {});
+    // Use the first available color of the product if options are present
+    const availableColors = product.hasOptions ? Object.keys(product.colorImages) : [];
     const productDefaultColor = availableColors.length > 0 ? availableColors[0] : '';
     
-    // Utilise la sélection actuelle, ou la couleur par défaut du produit (si options)
     const selection = currentSelections[product.id] || 
-        (product.hasOptions ? { ...defaultSelection, color: productDefaultColor } : defaultSelection);
+                      (product.hasOptions ? { ...defaultSelection, color: productDefaultColor } : defaultSelection);
     
+    // If the product has options, we must check for size and color
     if (product.hasOptions && (!selection.size || !selection.color)) {
       alert(`Veuillez sélectionner la taille ET la couleur pour le ${product.name}.`);
       return;
@@ -411,7 +429,7 @@ const BoutiquePage = () => {
       setCart([...cart, newItem]);
     }
     
-    // Réinitialiser la sélection à la couleur par défaut après ajout
+    // Reset selection state to the product's default color or empty after adding to cart
     setCurrentSelections(prev => ({ 
       ...prev, 
       [product.id]: product.hasOptions ? { ...defaultSelection, color: productDefaultColor } : defaultSelection 
@@ -584,18 +602,10 @@ const BoutiquePage = () => {
 
   // Composant de carte de produit simplifié pour le catalogue
   const ProductCard = ({ product }) => {
-    
-    // Détermine la couleur par défaut du produit (première couleur disponible dans colorImages)
-    const availableColors = Object.keys(product.colorImages || {});
+    // MODIFICATION 1: Utiliser la couleur par défaut si aucune sélection n'est faite
+    const availableColors = product.hasOptions ? Object.keys(product.colorImages) : [];
     const productDefaultColor = availableColors.length > 0 ? availableColors[0] : '';
-
-    // Utilise la couleur par défaut du produit si aucune sélection n'est faite
-    const defaultSelection = { 
-        quantity: 1, 
-        size: '', 
-        color: product.hasOptions ? productDefaultColor : '' // Utilise la couleur par défaut du produit
-    };
-    
+    const defaultSelection = { quantity: 1, size: '', color: product.hasOptions ? productDefaultColor : '' };
     const currentSelection = currentSelections[product.id] || defaultSelection;
     const priceDisplay = (product.price).toFixed(2).replace('.', ',');
 
@@ -659,17 +669,16 @@ const BoutiquePage = () => {
                 ))}
             </select>
 
-            {/* SÉLECTEUR DE COULEUR (MODIFIÉ) */}
+            {/* SÉLECTEUR DE COULEUR (MISE À JOUR) */}
             <select
                 value={currentSelection.color}
                 onChange={(e) => updateSelection('color', e.target.value, product.id)}
                 className="flex-1 px-2 py-1 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
                 required
             >
-                {/* On s'assure qu'il y ait au moins une option vide si aucune couleur par défaut n'a été trouvée */}
-                <option value="" disabled={!currentSelection.color}>-- Couleur -- *</option> 
-                {/* On filtre ici pour n'afficher que les couleurs définies dans colorImages pour CE produit */}
-                {Object.keys(product.colorImages || {}).map(color => (
+                {/* Dynamically display available colors for this product */}
+                <option value="" disabled={currentSelection.color !== ''}>-- Couleur -- *</option>
+                {Object.keys(product.colorImages).map(color => (
                     <option key={color} value={color}>{color}</option>
                 ))}
             </select>
@@ -765,7 +774,8 @@ const BoutiquePage = () => {
       {/* Catalogue de produits */}
       <section className="max-w-6xl mx-auto px-4">
         <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Collection Frites Bonnel</h3>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {/* FIX APPLIED HERE: Ensure the className string is correctly closed */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"> 
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}
