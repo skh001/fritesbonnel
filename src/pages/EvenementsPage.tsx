@@ -1,256 +1,217 @@
 import React, { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, Star, Users, Heart, Utensils, Calendar, Newspaper, MessageCircle, Cake, Send } from 'lucide-react';
+import { Phone, Mail, MapPin, Users, Heart, Cake, Send } from 'lucide-react';
 
-  const EvenementsPage = () => {
+const EvenementsPage = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [submitError, setSubmitError] = useState(null);
+    const [loading, setLoading] = useState(false); 
+
+    // *** UPDATED WITH YOUR FORMSPREE ENDPOINT ***
+    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xeopoyyj"; 
 
     const handleSubmit = async (e) => {
-      e.preventDefault();
-      setSubmitError(null);
-      const form = e.currentTarget;
-
-      try {
-        const response = await fetch("https://formsubmit.co/fritesbonnelplus@gmail.com", {
-          method: "POST",
-          body: new FormData(form),
+        e.preventDefault();
+        setSubmitError(null);
+        setLoading(true); 
+        const form = e.currentTarget;
+        
+        // Convert FormData to a JSON object, required for Formspree AJAX
+        const formData = new FormData(form);
+        const object = {};
+        formData.forEach((value, key) => {
+            object[key] = value;
         });
+        const json = JSON.stringify(object);
 
-        if (response.ok) {
-          form.reset();
-          setShowPopup(true);
-          setTimeout(() => setShowPopup(false), 5000);
-        } else {
-          console.error("Échec de l'envoi du formulaire :", response.status, response.statusText);
-          const errorText = await response.text();
-          console.error("Détails de l'erreur :", errorText);
-          setSubmitError("Une erreur est survenue lors de l'envoi de votre demande. Veuillez réessayer.");
+        try {
+            const response = await fetch(FORMSPREE_ENDPOINT, {
+                method: "POST",
+                // Set headers to tell Formspree we are sending JSON for a fast response
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json'
+                },
+                body: json, // Send the JSON data
+            });
+
+            // Formspree returns a quick 200 OK status on success.
+            if (response.ok) {
+                form.reset();
+                setShowPopup(true);
+                setTimeout(() => setShowPopup(false), 5000);
+            } else {
+                // If Formspree returns an error status (400, 429, etc.)
+                const data = await response.json();
+                console.error("Échec de l'envoi du formulaire (Formspree) :", response.status, data);
+                // Show a user-friendly error from Formspree if available
+                setSubmitError(data.error || "Une erreur est survenue lors de l'envoi. Veuillez réessayer.");
+            }
+        } catch (error) {
+            console.error("Erreur réseau lors de l'envoi du formulaire:", error);
+            setSubmitError("Connexion impossible. Veuillez vérifier votre connexion internet et réessayer.");
+        } finally {
+            setLoading(false); 
         }
-      } catch (error) {
-        console.error("Erreur réseau lors de l'envoi du formulaire:", error);
-        setSubmitError("Connexion impossible. Vérifiez votre connexion internet et réessayez.");
-      }
     };
 
     return (
-      <div className="space-y-16">
-        <section className="bg-red-600 text-white py-16">
-          <div className="max-w-6xl mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold mb-6">Événements & Partenariats</h2>
-            <p className="text-xl text-white">
-              Frites Bonnel vous accompagne dans tous vos événements
-            </p>
-          </div>
-        </section>
-
-        {/* Nos Services Événementiels */}
-        <section className="max-w-6xl mx-auto px-4">
-          <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Nos Services Événementiels</h3>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                icon: Heart,
-                title: "Mariages",
-                description: "Frites fraîches pour vos réceptions. Service traiteur avec nos spécialités du Nord.",
-                features: ["Service continu", "Présentation soignée", "Menu personnalisé"]
-              },
-              {
-                icon: Users,
-                title: "Fêtes d'Entreprise",
-                description: "Service de restauration pour vos événements professionnels. Des desserts sont également disponibles.",
-                features: ["Service sur site", "Options variées", "Desserts inclus"]
-              },
-              {
-                icon: Cake,
-                title: "Fêtes Scolaires et Locales",
-                description: "Frites Bonnel est présent lors des fêtes d’école, du 14 juillet, des événements communaux et autres moments festifs.",
-                features: ["Ambiance conviviale", "Adapté à tous les âges", "Grand choix de plats"]
-            }
-          ].map(({ icon: Icon, title, description, features }, index) => (
-            <div key={index} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
-              <div className="w-16 h-16 bg-[#fffd67] rounded-full flex items-center justify-center mx-auto mb-6">
-                <Icon className="w-8 h-8 text-red-600" />
-              </div>
-              <h4 className="text-xl font-semibold text-red-600 text-center mb-4">{title}</h4>
-              <p className="text-gray-700 text-center mb-6">{description}</p>
-              <ul className="space-y-2">
-                {features.map((feature, featureIndex) => (
-                  <li key={featureIndex} className="flex items-center space-x-2">
-                    <div className="w-2 h-2 bg-[#fffd67] rounded-full"></div>
-                    <span className="text-sm text-gray-600">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </section>
-        {/* Collaboration (retournée en bas) */}
-        <section className="max-w-6xl mx-auto px-4">
-          <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Demander un devis gratuit</h3>
-          <div className="bg-white p-8 rounded-xl shadow-lg">
-            <div className="grid md:grid-cols-2 gap-12">
-              <div>
-                <h4 className="text-xl font-semibold text-red-600 mb-6">Comment nous contacter ?</h4>
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <Phone className="w-5 h-5 text-[#fffd67]" />
-                    <div>
-                      <p className="font-semibold">Appelez-nous</p>
-                      <p className="text-sm text-gray-600">06 11 52 16 89</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-3">
-                    <Mail className="w-5 h-5 text-[#fffd67]" />
-                    <div>
-                      <p className="font-semibold">Écrivez-nous</p>
-                      <p className="text-sm text-gray-600">fritesbonnel@gmail.com
-                        / accueil.fritesbonnel@gmail.com
-                      </p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-center space-x-3">
-                    <MapPin className="w-5 h-5 text-[#fffd67]" />
-                    <div>
-                      <p className="font-semibold">Rencontrez-nous</p>
-                      <p className="text-sm text-gray-600">Sur rendez-vous à Angers</p>
-                    </div>
-                  </div>
+        <div className="space-y-16">
+            <section className="bg-red-600 text-white py-16">
+                <div className="max-w-6xl mx-auto px-4 text-center">
+                    <h2 className="text-4xl font-bold mb-6">Événements & Partenariats</h2>
+                    <p className="text-xl text-white">
+                        Frites Bonnel vous accompagne dans tous vos événements
+                    </p>
                 </div>
-              </div>
-              
-              <div>
-                <h4 className="text-xl font-semibold text-red-600 mb-6">Devis</h4>
-                <form onSubmit={handleSubmit} className="space-y-4">
-                  {submitError && (
-                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                      <strong className="font-bold">Erreur !</strong>
-                      <span className="block sm:inline"> {submitError}</span>
+            </section>
+
+            {/* Nos Services Événementiels */}
+            <section className="max-w-6xl mx-auto px-4">
+                <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Nos Services Événementiels</h3>
+                <div className="grid md:grid-cols-3 gap-8">
+                    {[
+                        { icon: Heart, title: "Mariages", description: "Frites fraîches pour vos réceptions. Service traiteur avec nos spécialités du Nord.", features: ["Service continu", "Présentation soignée", "Menu personnalisé"] },
+                        { icon: Users, title: "Fêtes d'Entreprise", description: "Service de restauration pour vos événements professionnels. Des desserts sont également disponibles.", features: ["Service sur site", "Options variées", "Desserts inclus"] },
+                        { icon: Cake, title: "Fêtes Scolaires et Locales", description: "Frites Bonnel est présent lors des fêtes d’école, du 14 juillet, des événements communaux et autres moments festifs.", features: ["Ambiance conviviale", "Adapté à tous les âges", "Grand choix de plats"] }
+                    ].map(({ icon: Icon, title, description, features }, index) => (
+                        <div key={index} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                            <div className="w-16 h-16 bg-[#fffd67] rounded-full flex items-center justify-center mx-auto mb-6">
+                                <Icon className="w-8 h-8 text-red-600" />
+                            </div>
+                            <h4 className="text-xl font-semibold text-red-600 text-center mb-4">{title}</h4>
+                            <p className="text-gray-700 text-center mb-6">{description}</p>
+                            <ul className="space-y-2">
+                                {features.map((feature, featureIndex) => (
+                                    <li key={featureIndex} className="flex items-center space-x-2">
+                                        <div className="w-2 h-2 bg-[#fffd67] rounded-full"></div>
+                                        <span className="text-sm text-gray-600">{feature}</span>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    ))}
+                </div>
+            </section>
+            
+            <section className="max-w-6xl mx-auto px-4">
+                <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Demander un devis gratuit</h3>
+                <div className="bg-white p-8 rounded-xl shadow-lg">
+                    <div className="grid md:grid-cols-2 gap-12">
+                        {/* Contact Info */}
+                        <div>
+                            <h4 className="text-xl font-semibold text-red-600 mb-6">Comment nous contacter ?</h4>
+                            <div className="space-y-4">
+                                <div className="flex items-center space-x-3">
+                                    <Phone className="w-5 h-5 text-[#fffd67]" />
+                                    <div>
+                                        <p className="font-semibold">Appelez-nous</p>
+                                        <p className="text-sm text-gray-600">06 11 52 16 89</p>
+                                    </div>
+                                </div>
+                                
+                                <div className="flex items-center space-x-3">
+                                    <Mail className="w-5 h-5 text-[#fffd67]" />
+                                    <div>
+                                        <p className="font-semibold">Écrivez-nous</p>
+                                        <p className="text-sm text-gray-600">fritesbonnel@gmail.com
+                                            / accueil.fritesbonnel@gmail.com
+                                        </p>
+                                    </div>
+                                </div>
+                                
+                                <div className="flex items-center space-x-3">
+                                    <MapPin className="w-5 h-5 text-[#fffd67]" />
+                                    <div>
+                                        <p className="font-semibold">Rencontrez-nous</p>
+                                        <p className="text-sm text-gray-600">Sur rendez-vous à Angers</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        {/* Quote Form */}
+                        <div>
+                            <h4 className="text-xl font-semibold text-red-600 mb-6">Devis</h4>
+                            <form onSubmit={handleSubmit} className="space-y-4">
+                                {submitError && (
+                                    <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                                        <strong className="font-bold">Erreur !</strong>
+                                        <span className="block sm:inline"> {submitError}</span>
+                                    </div>
+                                )}
+                                
+                                {/* Input fields */}
+                                <div className="mb-4"><input type="text" name="event_client_name" placeholder="Votre nom *" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required/></div>
+                                <div className="mb-4"><input type="email" name="event_client_email" placeholder="Votre email *" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required/></div>
+                                <div className="mb-4"><input type="text" name="event_client_phone" placeholder="Votre numéro de téléphone *" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required/></div>
+                                <div className="mb-4">
+                                    <select name="event_type" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required>
+                                        <option value="">Type d'événement *</option>
+                                        <option value="Mariage">Mariage</option>
+                                        <option value="Fete d'entreprise">Fête d'entreprise</option>
+                                        <option value="Evenement prive">Événement privé</option>
+                                        <option value="Autre">Autre</option>
+                                    </select>
+                                </div>
+
+                                <div className="mb-4">
+                                    <input type="date" name="event_date" id="event_date" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required/>
+                                    <label htmlFor="event_date" className="block text-sm text-gray-600 mt-1">Date de l'événement *</label>
+                                </div>
+
+                                <div className="mb-4"><input type="number" name="nombre_convives" placeholder="Nombre de convives *" min="1" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required/></div>
+                                <div className="mb-4">
+                                    <select name="repas_souhaite" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required>
+                                        <option value="" disabled selected>Repas souhaité *</option>
+                                        <option value="burger_frites">Burger + Frites</option>
+                                        <option value="hotdog_frites">Hot-dog + Frites</option>
+                                        <option value="americain_frites">Américain (sandwich saucisse ou merguez) + Frites</option>
+                                        <option value="autre_repas">Autre (préciser dans la description)</option>
+                                    </select>
+                                </div>
+                                <div className="mb-4">
+                                    <textarea name="adresse_facturation" placeholder="Adresse de facturation complète*" rows={3} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required></textarea>
+                                </div>
+                                <div>
+                                    <textarea name="event_description" placeholder="Décrivez votre projet..." rows={4} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"></textarea>
+                                </div>
+                                
+                                <button
+                                    type="submit"
+                                    className="w-full bg-[#fffd67] text-red-600 py-3 rounded-lg font-semibold hover:bg-[#fefc4c] transition-colors flex items-center justify-center space-x-2 disabled:bg-gray-400"
+                                    disabled={loading}
+                                >
+                                    {loading ? (
+                                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-red-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                    ) : (
+                                        <Send className="w-5 h-5" />
+                                    )}
+                                    <span>{loading ? "Envoi en cours..." : "Demander un devis gratuit"}</span>
+                                </button>
+                            </form>
+                        </div>
                     </div>
-                  )}
-                  <div className="mb-4">
-                    <input
-                      type="text"
-                      name="event_client_name"
-                      placeholder="Votre nom *"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                      required
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <input
-                      type="email"
-                      name="event_client_email"
-                      placeholder="Votre email *"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                      required
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <input
-                      type="text"
-                      name="event_client_phone"
-                      placeholder="Votre numéro de téléphone *"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                      required
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <select
-                      name="event_type"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                      required
-                    >
-                      <option value="">Type d'événement *</option>
-                      <option value="Mariage">Mariage</option>
-                      <option value="Fete d'entreprise">Fête d'entreprise</option>
-                      <option value="Evenement prive">Événement privé</option>
-                      <option value="Autre">Autre</option>
-                    </select>
-                  </div>
+                </div>
+            </section>
 
-                  {/* NOUVEAU CHAMP : Date de l'événement */}
-                  <div className="mb-4">
-                    <input
-                      type="date"
-                      name="event_date"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                      required
-                    />
-                    <label htmlFor="event_date" className="block text-sm text-gray-600 mt-1">Date de l'événement *</label>
-                  </div>
-
-                  <div className="mb-4">
-                    <input
-                      type="number"
-                      name="nombre_convives"
-                      placeholder="Nombre de convives *"
-                      min="1"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                      required
-                    />
-                  </div>
-                  <div className="mb-4">
-                    <select
-                      name="repas_souhaite"
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                      required
-                    >
-                      <option value="" disabled selected>Repas souhaité *</option>
-                      <option value="burger_frites">Burger + Frites</option>
-                      <option value="hotdog_frites">Hot-dog + Frites</option>
-                      <option value="americain_frites">Américain (sandwich saucisse ou merguez) + Frites</option>
-                      <option value="autre_repas">Autre (préciser dans la description)</option>
-                    </select>
-                  </div>
-                  <div className="mb-4">
-                    <textarea
-                      name="adresse_facturation"
-                      placeholder="Adresse de facturation complète*"
-                      rows={3}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                      required
-                    ></textarea>
-                  </div>
-                  <div>
-                    <textarea
-                      name="event_description"
-                      placeholder="Décrivez votre projet..."
-                      rows={4}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"
-                    ></textarea>
-                  </div>
-                  <input type="hidden" name="_captcha" value="false" />
-                  <button
-                    type="submit"
-                    className="w-full bg-[#fffd67] text-red-600 py-3 rounded-lg font-semibold hover:bg-[#fefc4c] transition-colors flex items-center justify-center space-x-2"
-                  >
-                    <Send className="w-5 h-5" />
-                    <span>Demander un devis gratuit</span>
-                  </button>
-                </form>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Popup de confirmation */}
-        {showPopup && (
-          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center animate-bounce">
-              <h3 className="text-2xl font-bold text-red-600 mb-2">
-                Merci pour votre demande !
-              </h3>
-              <p className="text-gray-700">
-                Votre demande de devis a bien été envoyée.
-                Nous reviendrons vers vous très vite !
-              </p>
-            </div>
-          </div>
-        )}
-      </div>
+            {/* Popup de confirmation */}
+            {showPopup && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
+                    <div className="bg-white rounded-2xl shadow-lg p-8 text-center animate-bounce">
+                        <h3 className="text-2xl font-bold text-red-600 mb-2">
+                            Merci pour votre demande !
+                        </h3>
+                        <p className="text-gray-700">
+                            Votre demande de devis a bien été envoyée.
+                            Nous reviendrons vers vous très vite !
+                        </p>
+                    </div>
+                </div>
+            )}
+        </div>
     );
-  };
-  export default EvenementsPage;
+};
+export default EvenementsPage;

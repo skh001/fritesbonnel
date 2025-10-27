@@ -3,20 +3,20 @@ import { ShoppingBag, ShoppingCart, Send, Plus, Minus, Trash2, CheckCircle, Snow
 import jsPDF from 'jspdf'; 
 import html2canvas from 'html2canvas';
 
-// --- NOUVEAU : IMPORTATION DE TOUTES LES IMAGES (NÉCESSAIRE POUR LE BUNDLE) ---
+// --- NOUVEAU : IMPORTATION DE TOUTES LES IMAGES (CONSERVATION DES NOMS D'IMPORTS ORIGINAUX) ---
 // Import des images des Mugs
 import mug from '../assets/merch/mug.jpg'; 
 import mugDesign2 from '../assets/merch/mug-design2.jpg'; 
 
 // Import T-shirt Original (ID 1)
 import tShirtDefault from '../assets/merch/t-shirt.jpg';
-import tShirtBleu from '../assets/merch/t-shirt-bleu.jpg'; 
+import tShirtBleu from '../assets/merch/t-shirt-bleu.jpg'; // <-- CONSERVÉ
 import tShirtNoir from '../assets/merch/t-shirt-noir.jpg';         
 import tShirtRouge from '../assets/merch/t-shirt-rouge.jpg';      
 
 // Import Sweatshirt (ID 2)
 import sweatDefault from '../assets/merch/sweat.jpg';
-import sweatBleu from '../assets/merch/sweat-bleu.jpg';
+import sweatBleu from '../assets/merch/sweat-bleu.jpg'; // <-- CONSERVÉ
 import sweatNoir from '../assets/merch/sweat-noir.jpg';
 import sweatRouge from '../assets/merch/sweat-rouge.jpg';
 
@@ -27,8 +27,8 @@ import tShirtVintageRouge from '../assets/merch/t-shirt-vintage-rouge.jpg';
 
 // --- CONFIGURATION GLOBALE ---
 const SIZES = ["S", "M", "L", "XL"];
-const COLORS = ["Blue Marine", "Noir", "Rouge"];
-const DEFAULT_COLOR = COLORS[0]; // Définir la première couleur ("Blue Marine")
+const COLORS = ["Bleu Marine", "Noir", "Rouge"]; // <-- CORRECTION EN FRANÇAIS
+const DEFAULT_COLOR = COLORS[0]; // "Bleu Marine"
 // --- LISTE DES LIEUX DE RETRAIT ---
 const PICKUP_LOCATIONS = [
     "Pathé cinéma Angers - Du mardi au vendredi midi, et du vendredi au dimanche soir.",
@@ -56,35 +56,35 @@ const PICKUP_INFO = {
 const products = [
   { 
     id: 1, 
-    name: "T-shirt Frites Bonnel (Design Original)", 
+    name: "T-shirt Frites Bonnel (Illustration classique)", 
     description: "T-shirt 100% coton, impression quadrichromie. 195gr, Illustration de Bérengère Louineau. Design classique.", 
     price: 24.00, 
     hasOptions: true, 
     // Utilisation de la variable importée
     image: tShirtDefault, 
     colorImages: {
-        "Blue Marine": tShirtBleu, 
+        "Bleu Marine": tShirtBleu, // <-- CORRECTION EN FRANÇAIS DE LA CLÉ
         "Noir": tShirtNoir,         
         "Rouge": tShirtRouge,      
     }
   },
   { 
     id: 2, 
-    name: "Sweat à Capuche", 
+    name: "Sweat à Capuche (Illustration classique)", 
     description: "Veste Zippée a capuche, impression quadrichromie. 280gr, Illustration de Bérengère Louineau. Confort et style.", 
     price: 52.00, 
     hasOptions: true, 
     // Utilisation de la variable importée
     image: sweatDefault,
     colorImages: {
-        "Blue Marine": sweatBleu,
+        "Bleu Marine": sweatBleu, // <-- CORRECTION EN FRANÇAIS DE LA CLÉ
         "Noir": sweatNoir,
         "Rouge": sweatRouge,
     }
   },
   { 
     id: 4, // ID du second T-shirt
-    name: "T-shirt Frites Bonnel (Design V2)", 
+    name: "T-shirt Frites Bonnel ", 
     description: "T-shirt 100% coton, impression sérigraphie.", 
     price: 18.00, // Nouveau prix
     hasOptions: true, 
@@ -97,7 +97,7 @@ const products = [
   },
   { 
     id: 3, 
-    name: "Mug Frites Bonnel (Design 1)", 
+    name: "Mug Frites Bonnel (Par Dyn)", 
     description: "Mug en céramique ", 
     price: 9.50, 
     hasOptions: false, 
@@ -106,7 +106,7 @@ const products = [
   },
   { 
     id: 5, // Nouvel ID pour le second mug
-    name: "Mug Frites Bonnel (Design 2)", 
+    name: "Mug Frites Bonnel (Par Bérengère Louineau)", 
     description: "Mug en céramique", 
     price: 9.50, 
     hasOptions: false, 
@@ -125,7 +125,7 @@ const ImageModal = ({ product, currentSelections, updateSelection, addToCart, is
     const [translate, setTranslate] = useState({ x: 0, y: 0 });
     const [startDrag, setStartDrag] = useState({ x: 0, y: 0 });
 
-    const selection = currentSelections[product.id] || { quantity: 1, size: '', color: product.hasOptions ? DEFAULT_COLOR : '' };
+    const selection = currentSelections[product.id] || { quantity: 1, size: '', color: product.hasOptions ? DEFAULT_COLOR : '' }; // Utilise DEFAULT_COLOR = "Bleu Marine"
 
     const toggleZoom = () => {
         setTranslate({ x: 0, y: 0 }); 
@@ -743,12 +743,12 @@ const BoutiquePage = () => {
             </span>
             <br className="my-1"/>
             <span>
-                <strong>Nos valeurs :</strong> la bonne humeur partagée, le soin apporté à la qualité du service, la générosité des produits et du patron.
+                <strong>Nos valeurs :</strong> la bonne humeur partagée, le soin apporté à la qualité du service, la générosité des produits et des equipes.
             </span>
             <br className="my-1"/>
             <span>
-                En créant cette boutique de Noël, nous souhaitons vous faire plaisir. L’Atelier Moutarde, de Beaulieu-sur-Layon, fait le choix d’impressions textiles de qualité en sérigraphie et en quadrichromie. Les tarifs des produits permettent de couvrir les frais de création, d’impression et de logistique.
-                Nous restons avant tout des friteries, pour vous servir. Vincent Pécourt
+                En créant cette boutique de Noël, nous souhaitons vous faire plaisir. nous travaillons avec L’Atelier Moutarde de Beaulieu-sur-Layon qui fait le choix d’impressions textiles de qualité en sérigraphie et en quadrichromie. Les tarifs des produits permettent de couvrir les frais de création, d’impression et de logistique.
+                Nous restons avant tout une friterie, pour vous servir. Vincent Pécourt
             </span>
           </p>
         </div>
