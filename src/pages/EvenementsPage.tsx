@@ -1,51 +1,60 @@
 import React, { useState } from 'react';
 import { Phone, Mail, MapPin, Users, Heart, Cake, Send } from 'lucide-react';
 
+// *** CONSTANTES POUR LE SERVICE DE DEVIS WEB3FORMS (Unique) ***
+// Clé d'accès pour le formulaire de devis Web3Forms
+const WEB3FORMS_ACCESS_KEY = "e175876a-0531-43d9-8ddb-01a752ea2344";
+const WEB3FORMS_ENDPOINT = "https://api.web3forms.com/submit";
+// ***************************************************************
+
+
 const EvenementsPage = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [submitError, setSubmitError] = useState(null);
     const [loading, setLoading] = useState(false); 
 
-    // *** UPDATED WITH YOUR FORMSPREE ENDPOINT ***
-    const FORMSPREE_ENDPOINT = "https://formspree.io/f/xeopoyyj"; 
-
     const handleSubmit = async (e) => {
         e.preventDefault();
         setSubmitError(null);
-        setLoading(true); 
+        setLoading(true);
         const form = e.currentTarget;
-        
-        // Convert FormData to a JSON object, required for Formspree AJAX
         const formData = new FormData(form);
-        const object = {};
-        formData.forEach((value, key) => {
-            object[key] = value;
-        });
-        const json = JSON.stringify(object);
 
+        // --- 1. Préparation des données pour l'envoi JSON (Logique du Merch/Devis) ---
+        const jsonData = {};
+        formData.forEach((value, key) => { 
+            jsonData[key] = value 
+        });
+
+        // Ajout de la clé d'accès et du sujet personnalisé pour l'e-mail
+        jsonData.access_key = WEB3FORMS_ACCESS_KEY;
+        jsonData.subject = `[DEVIS] Nouvelle Demande - ${jsonData.event_client_name || 'Inconnu'}`;
+        // Les champs cachés FormSubmit (comme _next) sont supprimés ici.
+
+
+        // --- 2. Envoi à Web3Forms (Stockage fiable + Email) ---
         try {
-            const response = await fetch(FORMSPREE_ENDPOINT, {
+            const response = await fetch(WEB3FORMS_ENDPOINT, {
                 method: "POST",
-                // Set headers to tell Formspree we are sending JSON for a fast response
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json'
-                },
-                body: json, // Send the JSON data
+                // IMPORTANT : On utilise 'application/json' pour Web3Forms
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(jsonData), // Envoi des données en format JSON
             });
 
-            // Formspree returns a quick 200 OK status on success.
-            if (response.ok) {
+            const result = await response.json();
+
+            if (response.ok && result.success) {
+                // Succès : le formulaire est stocké et l'e-mail a été envoyé
                 form.reset();
                 setShowPopup(true);
                 setTimeout(() => setShowPopup(false), 5000);
+                
             } else {
-                // If Formspree returns an error status (400, 429, etc.)
-                const data = await response.json();
-                console.error("Échec de l'envoi du formulaire (Formspree) :", response.status, data);
-                // Show a user-friendly error from Formspree if available
-                setSubmitError(data.error || "Une erreur est survenue lors de l'envoi. Veuillez réessayer.");
+                // Échec de l'API Web3Forms
+                console.error("Échec de l'envoi du formulaire (Web3Forms) :", result);
+                setSubmitError(`Une erreur est survenue lors de l'envoi de votre demande. Détail : ${result.message || "Erreur de connexion."}`);
             }
+
         } catch (error) {
             console.error("Erreur réseau lors de l'envoi du formulaire:", error);
             setSubmitError("Connexion impossible. Veuillez vérifier votre connexion internet et réessayer.");
@@ -176,6 +185,8 @@ const EvenementsPage = () => {
                                     <textarea name="event_description" placeholder="Décrivez votre projet..." rows={4} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"></textarea>
                                 </div>
                                 
+                                {/* Les champs cachés FormSubmit ne sont plus nécessaires */}
+
                                 <button
                                     type="submit"
                                     className="w-full bg-[#fffd67] text-red-600 py-3 rounded-lg font-semibold hover:bg-[#fefc4c] transition-colors flex items-center justify-center space-x-2 disabled:bg-gray-400"

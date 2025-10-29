@@ -739,16 +739,28 @@ const BoutiquePage = () => {
             </span>
             <br className="my-1"/>
             <span>
-                <strong>Nos racines :</strong> le Nord avec ses façades flamandes, un moment de plaisir autour d’un repas, le début du XXᵉ siècle qui a vu prospérer la brasserie Bonnel de nos aïeux.
+                <strong>Nos racines :</strong> le Nord avec ses façades flamandes, un moment de plaisir autour d’un repas, 
             </span>
             <br className="my-1"/>
             <span>
-                <strong>Nos valeurs :</strong> la bonne humeur partagée, le soin apporté à la qualité du service, la générosité des produits et des equipes.
+                le début du XXᵉ siècle qui a vu prospérer la brasserie Bonnel de nos aïeux.
+            </span>
+            <br className="my-1"/>
+            <span>
+                <strong>Nos valeurs :</strong> la bonne humeur partagée, le soin apporté à la qualité du service, 
+            </span>
+            <br className="my-1"/>
+            <span>
+                la générosité des produits et des equipes.
             </span>
             <br className="my-1"/>
             <span>
                 En créant cette boutique de Noël, nous souhaitons vous faire plaisir. nous travaillons avec L’Atelier Moutarde de Beaulieu-sur-Layon qui fait le choix d’impressions textiles de qualité en sérigraphie et en quadrichromie. Les tarifs des produits permettent de couvrir les frais de création, d’impression et de logistique.
-                Nous restons avant tout une friterie, pour vous servir. Vincent Pécourt
+                Nous restons avant tout une friterie, pour vous servir. 
+            </span>
+            <br className="my-2"/>
+            <span className='font-bold'>
+                Vincent Pécourt
             </span>
           </p>
         </div>
@@ -760,11 +772,9 @@ const BoutiquePage = () => {
         <div className="p-4 bg-red-50 border-2 border-red-500 rounded-xl shadow-xl flex items-start space-x-3 animate-pulse-slow">
             <AlertTriangle className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
             <div>
-                <h3 className="text-lg font-bold text-red-700 mb-1">Information Importante (Précommandes)</h3>
+                <h3 className="text-lg font-bold text-red-700 mb-1">Information Importante</h3>
                 <p className="text-sm text-gray-700">
-                    Notre boutique est ouverte du <strong>1er au 23 novembre</strong>. Vous avez jusqu’à cette date pour passer commande sur notre nouveau site internet et régler le montant total par <strong>virement bancaire</strong>.
-                    Les textiles seront imprimés en Anjou selon vos souhaits, en quantités limitées.
-                    Du <strong>8 au 20 décembre</strong>, vous pourrez récupérer votre colis sur le site demandé en présentant le message de confirmation. Nous vous adresserons un <strong>email de confirmation</strong> dès que votre commande sera prête !
+                    Notre boutique est ouverte du <strong>1er au 23 novembre</strong>. Vous avez jusqu’à cette date pour passer commande sur notre nouveau site internet et régler le montant total par <strong>virement bancaire</strong>. Les textiles seront imprimés en Anjou selon vos souhaits, en quantités limitées. Nous vous adresserons un <strong>email de confirmation</strong> dès que votre commande sera prête ! Du <strong>8 au 20 décembre</strong>, vous pourrez récupérer votre colis sur le site demandé en présentant le message de confirmation. 
                 </p>
             </div>
         </div>
