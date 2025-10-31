@@ -1,13 +1,21 @@
 import React from 'react';
-import { Heart, Star, Users, Vote } from 'lucide-react';
+// Ajout de l'icône Leaf pour l'environnement
+import { Heart, Star, Users, Vote, Trophy, Medal, BookOpen, MousePointer2, Leaf } from 'lucide-react'; 
 import vincentImg from '../assets/vincent.png';
-import maleImg from '../assets/male.png'; // Import de la nouvelle image
+import maleImg from '../assets/male.png'; 
 import logohead from '../assets/logohead.png';
 import arabesque1 from '../assets/arabesque1.png';
 import arabesque2 from '../assets/arabesque2.png';
 import bethune from '../assets/bethune.png';
 import roseLogo from '../assets/rose.png';
 import viradesLogo from '../assets/virades.png';
+
+// IMPORTS DE VOS LOGOS (Assurez-vous que ces chemins sont corrects)
+import mondialLogo from '../assets/mondialLogo.png'; 
+import petitFuteLogo from '../assets/petitFuteLogo.png';
+// NOUVEAUX IMPORTS : Ducs d'Angers et UFAB
+import ducsAngersLogo from '../assets/ducsAngersLogo.png'; 
+import ufabLogo from '../assets/ufabLogo.png'; 
 
 // Nouveau composant pour afficher les logos
 
@@ -65,14 +73,15 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
       </div>
     </section>
 
-    {/* Bouton de réservation */}
+    {/* Bouton de réservation MODIFIÉ */}
     <div className="text-center mt-[-1rem] md:mt-[-2rem] relative z-20">
       <button
         onClick={() => setCurrentPage('evenements')}
         className="bg-[#fffd67] text-red-600 px-14 py-6 rounded-xl font-semibold
                transition-all duration-300 transform hover:scale-105 hover:bg-[#fffd67]/80 hover:shadow-xl text-xl"
       >
-        Réserver notre friterie
+        Réservez votre friterie<br />
+        <span className="text-lg font-normal">Cliquez ici</span> 
       </button>
     </div>
 
@@ -115,18 +124,18 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
           </div>
           <h4 className="text-xl font-semibold text-red-600 text-center mb-4">Vincent Pécourt</h4>
           <p className="text-gray-600 text-center">
-            <strong>Fondateur</strong> et <strong>maître fritier</strong>, spécialiste des traditions culinaires du Nord
+            <strong>Fondateur</strong> et <strong>maître frites</strong>, spécialiste des traditions culinaires du Nord
           </p>
         </div>
       </div>
     </section>
 
-    {/* Nos Valeurs */}
-    {/* This section now also stretches its background across the full width. */}
+    {/* Nos Valeurs - SECTION MISE À JOUR (4 COLONNES AVEC L'ENGAGEMENT ENVIRONNEMENTAL) */}
     <section className="bg-[#fffd67]/30 py-16 rounded-xl shadow-inner">
       <div className="max-w-6xl mx-auto px-4">
         <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Nos Valeurs</h3>
-        <div className="grid md:grid-cols-3 gap-8">
+        {/* Changement de la grille pour md:grid-cols-4 */}
+        <div className="grid md:grid-cols-4 gap-8">
           {[
             {
               icon: Heart,
@@ -142,6 +151,11 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
               icon: Users,
               title: "Authenticité",
               description: "L'esprit convivial et chaleureux des friteries traditionnelles"
+            },
+            {
+              icon: Leaf, // Icône pour l'environnement
+              title: "Éco-responsabilité",
+              description: "Circuits courts, réduction des déchets, emballages écologiques"
             }
           ].map(({ icon: Icon, title, description }, index) => (
             <div key={index} className="text-center bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-shadow">
@@ -152,8 +166,9 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
                   ))}
                 </div>
               ) : (
-                <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Icon className="w-8 h-8 text-[#fffd67]" />
+                // Utilisation d'une couleur verte pour l'icône Éco-responsabilité
+                <div className={`w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4 ${title === "Éco-responsabilité" ? 'bg-green-600' : 'bg-red-600'}`}>
+                  <Icon className={`w-8 h-8 ${title === "Éco-responsabilité" ? 'text-white' : 'text-[#fffd67]'}`} />
                 </div>
               )}
               <h4 className="text-xl font-semibold text-red-600 mb-3">{title}</h4>
@@ -165,46 +180,109 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
                   </a>
                 </p>
               )}
+              {/* Ajout du message d'objectif pour la carte Environnement */}
+              {title === "Éco-responsabilité" && (
+                <div className="mt-4 p-2 bg-green-50 rounded-lg shadow-inner border border-green-200">
+                  <p className="text-green-700 text-xs">
+                    Objectif : Devenir la première friterie éco-responsable d'Angers.
+                  </p>
+                </div>
+              )}
             </div>
           ))}
         </div>
 
-        {/* Bouton pour voter */}
-        <div className="text-center mt-12 mb-8">
-          <p className="text-xl font-bold text-gray-700 mb-4">
-            <span className="text-red-600">Faites-nous savoir que vous aimez nos frites !</span>
-            <br />
-          </p>
-          <a
-            href="https://www.les-friteries.com/site/frites-bonnel"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center space-x-3 bg-red-600 text-white px-8 py-4 rounded-xl font-bold
-                       hover:bg-red-700 transition-colors transform hover:scale-105 active:scale-100 shadow-lg"
-          >
-            <Vote className="w-6 h-6 animate-bounce" />
-            <span>Votez pour Frites Bonnel !</span>
-          </a>
-        </div>
+        {/* Le bouton de vote a été déplacé dans la section "Ils aiment" */}
       </div>
     </section>
 
+    {/* ILS AIMENT - NOUVELLE SECTION AVEC PHOTOS INTÉGRÉES */}
+    <section className="bg-white py-16"> 
+        <div className="max-w-6xl mx-auto px-4">
+            <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Ils aiment</h3>
+            <div className="grid md:grid-cols-3 gap-8">
+            {[
+                {
+                // Case 1: Mondial de la frites 2023 Demi-finaliste - Photo intégrée
+                title: "Mondial de la frites 2023",
+                description: "Demi-finaliste",
+                logoSrc: mondialLogo, 
+                altText: "Logo Mondial de la Frite 2023"
+                },
+                {
+                // Case 2: 9ème meilleure friterie de France 2024 avec lien de classement - Icône
+                title: "Classement national des friteries",
+                description: "9ème meilleure friterie de France 2024",
+                icon: <Medal className="w-8 h-8 text-[#fffd67]" />, 
+                button: (
+                    <a
+                    href="https://www.les-friteries.com/classement-des-friteries"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center space-x-2 mt-4 bg-red-600 text-white px-4 py-2 rounded-xl text-sm font-bold
+                                hover:bg-red-700 transition-colors transform hover:scale-105 active:scale-100 shadow-lg"
+                    >
+                    <MousePointer2 className="w-4 h-4" />
+                    <span>Votez pour nous</span>
+                    </a>
+                )
+                },
+                {
+                // Case 3: Le Petit Futé 2025 - Photo intégrée
+                title: "Le Petit Futé",
+                description: "2025",
+                logoSrc: petitFuteLogo,
+                altText: "Logo Le Petit Futé 2025"
+                }
+            ].map((item, index) => (
+                <div key={index} className="text-center bg-[#fffd67]/30 p-6 rounded-xl border-2 border-[#fffd67] shadow-md hover:shadow-lg transition-shadow flex flex-col items-center justify-between">
+                
+                {/* Logique d'affichage (Photo ou Icône) */}
+                {item.logoSrc ? (
+                    // Affiche l'image importée
+                    <div className="w-24 h-24 flex items-center justify-center mx-auto mb-4 overflow-hidden">
+                        <img 
+                            src={item.logoSrc} 
+                            alt={item.altText} 
+                            className="w-full h-full object-contain"
+                        />
+                    </div>
+                ) : (
+                    // Affiche l'icône pour la carte centrale (classement)
+                    <div className="w-16 h-16 bg-red-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        {item.icon}
+                    </div>
+                )}
+                
+                <div>
+                    <h4 className="text-xl font-semibold text-red-600 mb-1">{item.title}</h4>
+                    <p className="text-gray-600">{item.description}</p>
+                </div>
+                {item.button}
+                </div>
+            ))}
+            </div>
+        </div>
+    </section>
    
-{/* Notre Implication Locale */}
+{/* Notre Implication Locale (MISE À JOUR) */}
     <section className="max-w-6xl mx-auto px-4 mt-16">
       <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Notre Implication Locale</h3>
-      <div className="grid md:grid-cols-2 gap-12">
+      {/* La grille a été simplifiée car il ne reste que la colonne de gauche */}
+      <div className="grid md:grid-cols-1 gap-12"> 
         <div>
-          <h4 className="text-2xl font-semibold text-red-600 mb-6">Actions Communautaires</h4>
+          {/* Le titre h4 était vide, je le laisse vide ou je le supprime */}
           <div className="space-y-6">
             {[
               {
                 title: "Soutien aux associations locales",
-                description: "Nous sommes fiers de nous impliquer activement dans les événements et les collectes de fonds, en partageant des partenariats avec les associations sportives et culturelles de la région."
+                description: "Nous sommes fiers de nous impliquer activement dans les événements et les collectes de fonds, en partageant des partenariats avec les associations sportives et culturelles de la région.",
+                logos: [roseLogo, viradesLogo] // Logos des associations
               },
               {
-                title: "Fêtes de quartier",
-                description: "Nous soutenons des initiatives locales qui favorisent les rencontres et le partage entre habitants."
+                title: "Partenaires des clubs sportifs", // Titre mis à jour
+                description: "Nous soutenons les clubs sportifs locaux.",
+                logos: [ducsAngersLogo, ufabLogo] // Nouveaux logos sportifs
               }
             ].map((action, index) => (
               <div key={index} className="flex items-start space-x-4">
@@ -214,35 +292,21 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
                 <div>
                   <h5 className="font-semibold text-red-600 mb-2">{action.title}</h5>
                   <p className="text-gray-700 text-sm">{action.description}</p>
-                  {action.title === "Soutien aux associations locales" && (
-                    <div className="mt-4 flex flex-wrap gap-4 items-center">
-                      <img src={roseLogo} alt="Logo Rose" className="w-40 h-40 object-contain" />
-                      <img src={viradesLogo} alt="Logo Virades" className="w-40 h-40 object-contain" />
-                    </div>
-                  )}
+                  {/* Affichage générique des logos */}
+                  <div className="mt-4 flex flex-wrap gap-4 items-center">
+                    {action.logos.map((logo, i) => (
+                        <div key={i} className="w-24 h-24 p-2 rounded-lg border-2 border-gray-200 flex items-center justify-center bg-white shadow-sm transition-transform transform hover:scale-105">
+                            <img 
+                                src={logo} 
+                                alt={`Logo partenaire ${i}`} 
+                                className="w-full h-full object-contain"
+                            />
+                        </div>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-        <div>
-          <h4 className="text-2xl font-semibold text-red-600 mb-6">Engagement Environnemental</h4>
-          <div className="bg-green-50 p-8 rounded-xl border-2 border-green-200 shadow-lg">
-            <div className="space-y-4">
-              {["Circuits courts privilégiés", "Réduction des déchets", "Emballages écologiques", "Économies d'énergie"].map((item, i) => (
-                <div key={i} className="flex items-center space-x-3">
-                  <div className="w-8 h-8 bg-green-600 rounded-full flex items-center justify-center shadow-md">
-                    <span className="text-white text-sm font-bold">✓</span>
-                  </div>
-                  <span className="text-green-700 font-medium">{item}</span>
-                </div>
-              ))}
-            </div>
-            <div className="mt-6 p-4 bg-white rounded-lg shadow-inner">
-              <p className="text-green-700 text-sm">
-                <strong>Notre objectif :</strong> Devenir la première friterie éco-responsable d'Angers tout en préservant l'authenticité de nos traditions du Nord.
-              </p>
-            </div>
           </div>
         </div>
       </div>

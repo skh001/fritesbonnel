@@ -68,7 +68,7 @@ const ClickAndCollect = () => {
             </div>
             <h4 className="font-semibold text-red-600 mb-2">Plus d'attente</h4>
             <p className="text-gray-700">
-              Finies les files d'attente ! Une fois votre commande passée, il ne vous reste plus qu'à venir la récupérer a la friterie.
+              Une fois votre commande passée, il ne vous reste plus qu’à venir la récupérer à la friterie.
             </p>
           </div>
           
