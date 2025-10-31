@@ -109,7 +109,7 @@ const ClickAndCollect = () => {
               <div className="text-2xl font-bold text-red-600 mb-2">3</div>
               <h4 className="text-lg font-semibold text-red-600 mb-4">Récupérez votre commande</h4>
               <p className="text-gray-700">
-                Rendez-vous à notre restaurant à l'heure choisie. Votre commande vous attendra, prête à être emportée.
+                Rendez-vous à notre friterie à l'heure choisie. Votre commande vous attendra, prête à être emportée.
               </p>
             </div>
           </div>

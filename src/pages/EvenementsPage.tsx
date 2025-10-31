@@ -67,9 +67,9 @@ const EvenementsPage = () => {
         <div className="space-y-16">
             <section className="bg-red-600 text-white py-16">
                 <div className="max-w-6xl mx-auto px-4 text-center">
-                    <h2 className="text-4xl font-bold mb-6">Événements & Partenariats</h2>
+                    <h2 className="text-4xl font-bold mb-6">Événements & Privatisations</h2>
                     <p className="text-xl text-white">
-                        Frites Bonnel vous accompagne dans tous vos événements
+                        Frites Bonnel vous accompagne dans tous vos événements et privatisations .
                     </p>
                 </div>
             </section>
@@ -79,9 +79,9 @@ const EvenementsPage = () => {
                 <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Nos Services Événementiels</h3>
                 <div className="grid md:grid-cols-3 gap-8">
                     {[
-                        { icon: Heart, title: "Mariages", description: "Frites fraîches pour vos réceptions. Service traiteur avec nos spécialités du Nord.", features: ["Service continu", "Présentation soignée", "Menu personnalisé"] },
-                        { icon: Users, title: "Fêtes d'Entreprise", description: "Service de restauration pour vos événements professionnels. Des desserts sont également disponibles.", features: ["Service sur site", "Options variées", "Desserts inclus"] },
-                        { icon: Cake, title: "Fêtes Scolaires et Locales", description: "Frites Bonnel est présent lors des fêtes d’école, du 14 juillet, des événements communaux et autres moments festifs.", features: ["Ambiance conviviale", "Adapté à tous les âges", "Grand choix de plats"] }
+                        { icon: Heart, title: "Lendemain de mariage", description: "Nous adaptons le service selon vos attentes.", features: ["Service continu", "Présentation soignée", "Menu personnalisé"] },
+                        { icon: Users, title: "Fêtes d'Entreprise", description: "Du cocktail au dessert, en passant par les plats.", features: ["Service sur site", "Options variées", "Desserts inclus"] },
+                        { icon: Cake, title: "Événement privé", description: "Cousinade, Baptême, Anniversaire", features: ["Ambiance conviviale", "Adapté à tous les âges", "Grand choix de plats"] }
                     ].map(({ icon: Icon, title, description, features }, index) => (
                         <div key={index} className="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
                             <div className="w-16 h-16 bg-[#fffd67] rounded-full flex items-center justify-center mx-auto mb-6">

@@ -38,7 +38,7 @@ const NousTrouverPage = () => {
       {/* Section Bannière */}
       <section className="bg-red-600 text-white py-16">
         <div className="max-w-6xl mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">Où nous trouver</h2>
+          <h2 className="text-4xl font-bold mb-6">Où nous trouver ? </h2>
           <p className="text-xl text-white">
             Retrouvez nous à nos emplacements habituels et sur nos événements !
           </p>
@@ -52,7 +52,7 @@ const NousTrouverPage = () => {
           <div className="bg-gray-50 p-8 rounded-xl shadow-md">
             <h3 className="text-3xl font-bold text-red-600 mb-6 flex items-center space-x-3">
               <Clock className="w-8 h-8" />
-              <span>Nos Horaires</span>
+              <span>Nos horaires de services réguliers</span>
             </h3>
             <p className="text-gray-700 text-lg mb-6">
               Nous sommes heureux de vous accueillir !
@@ -94,12 +94,14 @@ const NousTrouverPage = () => {
             </div>
           </div>
 
-          {/* Carte de localisation */}
+          {/* Carte de localisation et Emplacements Détails */}
           <div className="bg-white p-8 rounded-xl shadow-md">
             <h3 className="text-3xl font-bold text-red-600 mb-6 flex items-center space-x-3">
               <MapPin className="w-8 h-8" />
-              <span>Notre Emplacement</span>
+              <span>Nos emplacements réguliers</span>
             </h3>
+            
+            {/* IFRAME DE L'ANCIENNE CARTE */}
             <div className="h-64 rounded-lg mb-4">
               <iframe
                 title="Carte interactive de la zone de service"
@@ -112,8 +114,42 @@ const NousTrouverPage = () => {
                 referrerPolicy="no-referrer-when-downgrade"
               ></iframe>
             </div>
+
+            {/* NOUVELLE SECTION DE TEXTE SIMPLIFIÉE (CORRIGÉE ET MAINTENANT SOUS LA CARTE) */}
+            <div className="space-y-4 mb-8 pt-4"> 
+                <h4 className="text-xl font-bold text-red-700 mb-2">Nos emplacements hebdomadaires :</h4>
+
+                {/* Emplacements Midi */}
+                <div className="text-gray-700 flex items-start space-x-2 border-l-2 border-[#fffd67] pl-3 py-1">
+                    {/* Correction des classes pour éviter le retour à la ligne */}
+                    <span className="font-semibold min-w-fit text-red-600 whitespace-nowrap">Mercredi MIDI :</span>
+                    <span>Bd Yvonne Poirel, Angers</span>
+                </div>
+                <div className="text-gray-700 flex items-start space-x-2 border-l-2 border-[#fffd67] pl-3 py-1">
+                    {/* Correction des classes pour éviter le retour à la ligne */}
+                    <span className="font-semibold min-w-fit text-red-600 whitespace-nowrap">Jeudi MIDI :</span>
+                    <span>8 Rue du Patis, 49124 Saint-Barthélemy-d'Anjou</span>
+                </div>
+                <div className="text-gray-700 flex items-start space-x-2 border-l-2 border-[#fffd67] pl-3 py-1">
+                    {/* Correction des classes pour éviter le retour à la ligne */}
+                    <span className="font-semibold min-w-fit text-red-600 whitespace-nowrap">Vendredi MIDI :</span>
+                    <span>2 Av. du Pin, 49070 Beaucouzé</span>
+                </div>
+
+                {/* Emplacement Pathé Angers */}
+                <hr className="border-gray-200 mt-4 mb-2" />
+                <div className="text-gray-700 p-2 bg-gray-50 rounded-lg">
+                    <span className="font-bold text-lg text-red-600">Au Pathé Angers :</span>
+                    <p className="text-sm mt-1">
+                        <span className="font-semibold">Midi :</span> Du Mardi au Vendredi
+                        <br />
+                        <span className="font-semibold">Soir :</span> Du Vendredi au Dimanche
+                    </p>
+                </div>
+            </div>
+            
             <p className="text-sm text-gray-600 text-center">
-              Notre friterie est mobile ! Consultez notre page Facebook pour connaître notre emplacement du jour.
+             Notre friterie est mobile ! Consultez notre page Facebook pour connaître notre emplacement du jour.
             </p>
           </div>
         </div>

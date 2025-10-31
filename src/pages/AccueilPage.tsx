@@ -92,25 +92,25 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
           <h3 className="text-3xl font-bold text-red-600 mb-6">Notre Histoire</h3>
           <div className="prose text-gray-700">
             <p className="text-lg mb-4">
-              <strong>Frites Bonnel</strong> a été créé en 2018 par <strong>Vincent Pécourt</strong>,
+              <strong>FRITES BONNEL</strong> a été créé en 2018 par <strong>Vincent Pécourt</strong>,
               passé par les traditions culinaires du Nord de la France.
             </p>
       <p className="mb-6" >
   <i>
     "Originaire des Hauts-de-France, nous avons la nostalgie des frites de notre enfance égouttées au torchon. 
     Dans chaque région de France traversée au cours de nos mutations professionnelles, 
-    nous faisons le constat qu’il est rare de trouver des commerces ambulants proposant une alimentation de plaisir simple, 
+    nous faisons le constat qu’il est rare de trouver des commerces ambulants proposant une alimentation de plaisir simple 
     basée sur des produits frais et peu chers."
   </i>
 </p>
 <p className="mb-6">
   <i>
-    "Des frites préparées pour les amis, les clubs sportifs et les associations dans lesquelles nous sommes impliqués . 
-    ils nous est venue l’idée de créer en Anjou une « baraque à frites » où chacun pourra se restaurer en toute simplicité."
+    "Des frites préparées pour les amis, les clubs sportifs et les associations dans lesquelles nous sommes impliqués, 
+    ils nous est venue l’idée de créer en Anjou une « baraque à frites » où chacun peut se restaurer en toute simplicité."
   </i>
 </p>
             <p>
-              C’est ainsi que les <strong> FRITES BONNEL Bonnes & Belles </strong>  commencent leur activité en juin 2018 pour partager les bonnes saveurs , des belles frites du Nord. Bonnel est le nom des arrière-grands-parents de Vincent qui possédaient une brasserie au début du siècle dernier près de Béthune dans le Pas-de-Calais (62).
+              C’est ainsi que les <strong> FRITES BONNEL Bonnes & Belles </strong>  commencent leur activité en juin 2018 pour partager les bonnes saveurs des belles frites du Nord. Bonnel est le nom des arrière-grands-parents de Vincent qui possédaient une brasserie au début du siècle dernier près de Béthune dans le Pas-de-Calais (62).
             </p>
           </div>
         </div>
