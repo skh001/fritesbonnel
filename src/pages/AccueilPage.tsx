@@ -83,7 +83,7 @@ const AccueilPage = ({ setCurrentPage }: { setCurrentPage: (page: string) => voi
           <h3 className="text-3xl font-bold text-red-600 mb-6">Notre Histoire</h3>
           <div className="prose text-gray-700">
             <p className="text-lg mb-4">
-              <strong>Frites Bonnel</strong> a été créée en 2018 par <strong>Vincent Pécourt</strong>,
+              <strong>Frites Bonnel</strong> a été créé en 2018 par <strong>Vincent Pécourt</strong>,
               passé par les traditions culinaires du Nord de la France.
             </p>
       <p className="mb-6" >

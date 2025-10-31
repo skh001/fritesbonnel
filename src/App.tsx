@@ -78,7 +78,7 @@ function App() {
             </div>
             <div>
               <h1 className="text-2xl font-arialnarrow7">FRITES BONNEL</h1>
-              <p className="font-folks text-[#fffd67] text-sm">Bonnes et belles</p>
+              <p className="font-folks text-[#fffd67] text-sm">Bonnes & belles</p>
             </div>
           </div>
 
@@ -140,7 +140,7 @@ function App() {
               </div>
               <div>
                 <h3 className="font-arialnarrow7 text-lg">Frites Bonnel</h3>
-                <p className="font-folks text-[#fffd67] text-sm">Bonnes et belles</p>
+                <p className="font-folks text-[#fffd67] text-sm">Bonnes & belles</p>
               </div>
             </div>
             <p className="text-gray-300 text-sm">
