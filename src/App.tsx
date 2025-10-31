@@ -10,6 +10,7 @@ import BoutiquePage from './pages/BoutiquePage';
 import ComingSoonPage from './pages/ComingSoonPage'; // Import de la nouvelle page
 import MentionsLegalesPage from './pages/MentionsLegalesPage'; 
 import logo from './assets/logo.png';
+import { Analytics } from "@vercel/analytics/next"
 
 // MISE À JOUR DU TYPE DE PAGE
 type Page = 'accueil' | 'carte' | 'evenements' | 'actus' | 'ou nous trouver' | 'commander' | 'boutique' | 'mentions';
