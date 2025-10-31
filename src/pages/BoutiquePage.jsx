@@ -751,11 +751,11 @@ const BoutiquePage = () => {
             </span>
             <br className="my-1"/>
             <span>
-                la générosité des produits et des equipes.
+                la générosité des produits et des équipes.
             </span>
             <br className="my-1"/>
             <span>
-                En créant cette boutique de Noël, nous souhaitons vous faire plaisir. nous travaillons avec L’Atelier Moutarde de Beaulieu-sur-Layon qui fait le choix d’impressions textiles de qualité en sérigraphie et en quadrichromie. Les tarifs des produits permettent de couvrir les frais de création, d’impression et de logistique.
+                En créant cette boutique de Noël, nous souhaitons vous faire plaisir. Nous travaillons avec L’Atelier Moutarde de Beaulieu-sur-Layon qui fait le choix d’impressions textiles de qualité en sérigraphie et en quadrichromie. Les tarifs des produits permettent de couvrir les frais de création, d’impression et de logistique.
                 Nous restons avant tout une friterie, pour vous servir. 
             </span>
             <br className="my-2"/>
