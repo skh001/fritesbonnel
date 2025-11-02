@@ -10,14 +10,14 @@ import mugDesign2 from '../assets/merch/mug-design2.jpg';
 
 // Import T-shirt Original (ID 1)
 import tShirtDefault from '../assets/merch/t-shirt.jpg';
-import tShirtBleu from '../assets/merch/t-shirt-bleu.jpg'; // <-- CONSERVÉ
-import tShirtNoir from '../assets/merch/t-shirt-noir.jpg';         
+import tShirtBleu from '../assets/merch/t-shirt-bleu.jpg'; 
+// import tShirtNoir from '../assets/merch/t-shirt-noir.jpg';         // <-- RETIRÉ DE L'UTILISATION
 import tShirtRouge from '../assets/merch/t-shirt-rouge.jpg';      
 
 // Import Sweatshirt (ID 2)
 import sweatDefault from '../assets/merch/sweat.jpg';
-import sweatBleu from '../assets/merch/sweat-bleu.jpg'; // <-- CONSERVÉ
-import sweatNoir from '../assets/merch/sweat-noir.jpg';
+import sweatBleu from '../assets/merch/sweat-bleu.jpg'; 
+// import sweatNoir from '../assets/merch/sweat-noir.jpg';           // <-- RETIRÉ DE L'UTILISATION
 import sweatRouge from '../assets/merch/sweat-rouge.jpg';
 
 // Import T-shirt Vintage (V2) (ID 4) - ONLY IMPORTING AVAILABLE IMAGES
@@ -27,7 +27,7 @@ import tShirtVintageRouge from '../assets/merch/t-shirt-vintage-rouge.jpg';
 
 // --- CONFIGURATION GLOBALE ---
 const SIZES = ["S", "M", "L", "XL"];
-const COLORS = ["Bleu Marine", "Noir", "Rouge"]; // <-- CORRECTION EN FRANÇAIS
+const COLORS = ["Bleu Marine", "Rouge"]; // <-- MODIFIÉ : "Noir" retiré
 const DEFAULT_COLOR = COLORS[0]; // "Bleu Marine"
 // --- LISTE DES LIEUX DE RETRAIT ---
 const PICKUP_LOCATIONS = [
@@ -63,22 +63,20 @@ const products = [
     // Utilisation de la variable importée
     image: tShirtDefault, 
     colorImages: {
-        "Bleu Marine": tShirtBleu, // <-- CORRECTION EN FRANÇAIS DE LA CLÉ
-        "Noir": tShirtNoir,         
+        "Bleu Marine": tShirtBleu, // <-- CONSERVÉ
         "Rouge": tShirtRouge,      
     }
   },
   { 
     id: 2, 
     name: "Sweat à Capuche (Illustration classique)", 
-    description: "Veste Zippée a capuche, impression quadrichromie. 280gr, Illustration de Bérengère Louineau. Confort et style.", 
+    description: "Veste zippée a capuche, impression quadrichromie. 280gr, Illustration de Bérengère Louineau. Confort et style.", 
     price: 52.00, 
     hasOptions: true, 
     // Utilisation de la variable importée
     image: sweatDefault,
     colorImages: {
-        "Bleu Marine": sweatBleu, // <-- CORRECTION EN FRANÇAIS DE LA CLÉ
-        "Noir": sweatNoir,
+        "Bleu Marine": sweatBleu, // <-- CONSERVÉ
         "Rouge": sweatRouge,
     }
   },
