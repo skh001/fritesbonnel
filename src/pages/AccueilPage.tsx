@@ -100,7 +100,7 @@ const AccueilPage = () => {
                 transition-all duration-300 transform hover:scale-105 hover:bg-red-700 hover:shadow-xl text-xl shadow-lg
                 animate-pulse-slow" 
         >
-          Accès à la Boutique du Noël<br />
+          Accès à la Boutique de Noël<br />
           <span className="text-lg font-normal">Commandez !</span>
         </button>
       </div>
