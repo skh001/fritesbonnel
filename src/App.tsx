@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+// Imports de React Router pour la navigation et la détection de l'URL
+import { Routes, Route, NavLink, useNavigate, useLocation } from 'react-router-dom'; 
+
 import { Phone, Mail, MapPin, Clock, Heart, Utensils, Calendar, Newspaper, MessageCircle, ShoppingBag, Instagram, ArrowUp } from 'lucide-react';
 import AccueilPage from './pages/AccueilPage';
 import CartePage from './pages/CartePage';
@@ -7,13 +10,9 @@ import ActusPage from './pages/ActusPage';
 import ContactPage from './pages/ContactPage';
 import ClickAndCollect from './pages/ClickAndCollect';
 import BoutiquePage from './pages/BoutiquePage';
-import ComingSoonPage from './pages/ComingSoonPage'; // Import de la nouvelle page
 import MentionsLegalesPage from './pages/MentionsLegalesPage'; 
 import logo from './assets/logo.png';
 import { Analytics } from "@vercel/analytics/next"
-
-// MISE À JOUR DU TYPE DE PAGE
-type Page = 'accueil' | 'carte' | 'evenements' | 'actus' | 'ou nous trouver' | 'commander' | 'boutique' | 'mentions';
 
 declare global {
   interface Window {
@@ -23,10 +22,20 @@ declare global {
 }
 
 function App() {
-  const [currentPage, setCurrentPage] = useState<Page>('accueil');
+  
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  
+  // Hooks de React Router
+  const navigate = useNavigate(); 
+  const location = useLocation(); 
 
+  // Gère le défilement vers le haut après chaque changement d'URL
+  useEffect(() => {
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  }, [location.pathname]);
+
+  // Initialisation du SDK Facebook
   useEffect(() => {
     window.fbAsyncInit = function() {
       window.FB.init({
@@ -45,6 +54,7 @@ function App() {
      }(document, 'script', 'facebook-jssdk'));
   }, []);
 
+  // Gestion du bouton de défilement vers le haut
   useEffect(() => {
     const handleScroll = () => setShowScrollTop(window.scrollY > 300);
     window.addEventListener('scroll', handleScroll);
@@ -53,25 +63,25 @@ function App() {
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
   
-  // Le tableau du menu d'origine, sans modification
+  // Tableau du menu avec les PATHS d'URL standard (minuscules, tirets)
   const menuItems = [
-    { key: 'accueil', label: 'Accueil', icon: Heart },
-    { key: 'ou nous trouver', label: 'Où Nous Trouver ?', icon: MessageCircle },
-    { key: 'carte', label: 'Notre Carte', icon: Utensils },
-    { key: 'commander', label: 'Click&Collect', icon: ShoppingBag },
-    { key: 'evenements', label: 'Événements / Devis', icon: Calendar },
-    { key: 'actus', label: 'Galerie', icon: Newspaper },
-    { key: 'boutique', label: 'Boutique', icon: ShoppingBag }
+    { key: 'accueil', label: 'Accueil', icon: Heart, path: '/' },
+    { key: 'ou-nous-trouver', label: 'Où Nous Trouver ?', icon: MessageCircle, path: '/ou-nous-trouver' },
+    { key: 'carte', label: 'Notre Carte', icon: Utensils, path: '/carte' },
+    { key: 'commander', label: 'Click&Collect', icon: ShoppingBag, path: '/commander' },
+    { key: 'evenements', label: 'Événements / Devis', icon: Calendar, path: '/evenements' },
+    { key: 'actus', label: 'Galerie', icon: Newspaper, path: '/actus' },
+    { key: 'boutique', label: 'Boutique', icon: ShoppingBag, path: '/boutique' }
   ];
 
-  // Le nouveau composant Header avec un design plus aéré
+  // Le composant Header utilise NavLink et useNavigate
   const Header = () => (
     <header className="bg-red-600 text-white shadow-lg">
       <div className="max-w-6xl mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div
-            className="flex items-center space-x-3 cursor-pointer" // Ajout de "cursor-pointer"
-            onClick={() => setCurrentPage('accueil')} // Ajout de l'événement onClick
+            className="flex items-center space-x-3 cursor-pointer" 
+            onClick={() => navigate('/')} // Navigation vers la racine
           >
             <div className="w-20 h-20 bg-[#fffd67] rounded-full flex items-center justify-center overflow-hidden">
               <img src={logo} alt="Logo Frites Bonnel" className="object-contain w-20 h-20" />
@@ -82,19 +92,19 @@ function App() {
             </div>
           </div>
 
-          {/* Version desktop du menu, avec plus d'espace */}
+          {/* Version desktop du menu, avec NavLink */}
           <nav className="hidden md:flex flex-wrap justify-end gap-x-6 gap-y-2">
-            {menuItems.map(({ key, label, icon: Icon }) => (
-              <button
+            {menuItems.map(({ key, label, icon: Icon, path }) => (
+              <NavLink
                 key={key}
-                onClick={() => setCurrentPage(key as Page)}
-                className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-colors ${
-                  currentPage === key ? 'bg-[#fffd67] text-red-600 font-semibold' : 'hover:bg-red-700 hover:text-[#fffd67]'
+                to={path} // Le chemin d'URL
+                className={({ isActive }) => `flex items-center space-x-1 px-3 py-2 rounded-lg transition-colors ${
+                  isActive ? 'bg-[#fffd67] text-red-600 font-semibold' : 'hover:bg-red-700 hover:text-[#fffd67]'
                 }`}
               >
                 <Icon className="w-4 h-4" />
                 <span>{label}</span>
-              </button>
+              </NavLink>
             ))}
           </nav>
 
@@ -107,22 +117,23 @@ function App() {
           </button>
         </div>
 
-        {/* Menu mobile */}
+        {/* Menu mobile (NavLink) */}
         <div
           className={`md:hidden mt-4 flex flex-col gap-2 transition-all duration-300 overflow-hidden ${
             mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
-          {menuItems.map(({ key, label }) => (
-            <button
+          {menuItems.map(({ key, label, path }) => (
+            <NavLink
               key={key}
-              onClick={() => { setCurrentPage(key as Page); setMobileMenuOpen(false); }}
-              className={`px-3 py-2 rounded-md transition-colors ${
-                currentPage === key ? 'bg-[#fffd67] text-red-600 font-semibold' : 'bg-red-700 hover:bg-[#fffd67] hover:text-red-600'
+              to={path}
+              onClick={() => setMobileMenuOpen(false)} // Ferme le menu après le clic
+              className={({ isActive }) => `px-3 py-2 rounded-md transition-colors ${
+                isActive ? 'bg-[#fffd67] text-red-600 font-semibold' : 'bg-red-700 hover:bg-[#fffd67] hover:text-red-600'
               }`}
             >
               {label}
-            </button>
+            </NavLink>
           ))}
         </div>
       </div>
@@ -155,14 +166,13 @@ function App() {
               <div className="flex items-center space-x-2"><Mail className="w-4 h-4 text-[#fffd67]" /><span>fritesbonnel@gmail.com</span></div>
               <div className="flex items-center space-x-2"><MapPin className="w-4 h-4 text-[#fffd67]" /><span>Angers et sa région</span></div>
               
-              {/* LIEN MENTIONS LÉGALES PLACÉ EN BAS DE LA SECTION CONTACT */}
-              <button
-                onClick={() => setCurrentPage('mentions' as Page)}
+              {/* Lien Mentions Légales avec NavLink */}
+              <NavLink
+                to="/mentions-legales"
                 className="text-gray-300 hover:text-red-400 transition-colors block text-left pt-1"
               >
                 Mentions Légales
-              </button>
-              {/* FIN LIEN MENTIONS LÉGALES */}
+              </NavLink>
 
             </div>
           </div>
@@ -189,26 +199,25 @@ function App() {
       </div>
     </footer>
   );
-
-  const renderPage = () => {
-    switch (currentPage) {
-      case 'accueil': return <AccueilPage setCurrentPage={setCurrentPage} />;
-      case 'carte': return <CartePage />;
-      case 'evenements': return <EvenementsPage />;
-      case 'actus': return <ActusPage />;
-      case 'ou nous trouver': return <ContactPage />;
-      case 'commander': return <ClickAndCollect />;
-      case 'boutique': return <BoutiquePage/>;
-      // NOUVEAU CAS POUR LES MENTIONS LÉGALES
-      case 'mentions': return <MentionsLegalesPage />;
-      default: return <AccueilPage setCurrentPage={setCurrentPage} />;
-    }
-  };
-
+  
   return (
     <div className="min-h-screen bg-white relative flex flex-col">
       <Header />
-      <main className="flex-grow pb-32">{renderPage()}</main>
+      <main className="flex-grow pb-32">
+        {/* Définition des Routes : Le coeur du routage */}
+        <Routes>
+          <Route path="/" element={<AccueilPage />} />
+          <Route path="/carte" element={<CartePage />} />
+          <Route path="/evenements" element={<EvenementsPage />} />
+          <Route path="/actus" element={<ActusPage />} />
+          <Route path="/ou-nous-trouver" element={<ContactPage />} />
+          <Route path="/commander" element={<ClickAndCollect />} />
+          <Route path="/boutique" element={<BoutiquePage/>} />
+          <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
+          {/* Route de secours (404) : renvoie à l'Accueil */}
+          <Route path="*" element={<AccueilPage />} /> 
+        </Routes>
+      </main>
       <div id="fb-root"></div>
       <Footer />
 
