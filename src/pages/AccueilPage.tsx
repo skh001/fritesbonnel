@@ -90,7 +90,7 @@ const AccueilPage = () => {
                 animate-pulse-slow" 
         >
           Réservez votre friterie<br />
-          <span className="text-lg font-normal">Cliquez ici</span> 
+          <span className="text-lg font-normal">Demander un devis </span> 
         </button>
 
         {/* NOUVEAU BOUTON : Accès à la Boutique */}
