@@ -157,16 +157,29 @@ const EvenementsPage = () => {
                                     <select name="event_type" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required>
                                         <option value="">Type d'événement *</option>
                                         <option value="Mariage">Mariage</option>
+                                        <option value="Mariage">Le lendemain du mariage</option>
                                         <option value="Fete d'entreprise">Fête d'entreprise</option>
                                         <option value="Evenement prive">Événement privé</option>
                                         <option value="Autre">Autre</option>
                                     </select>
                                 </div>
 
+                                {/* Nouvelle Date de l'événement */}
                                 <div className="mb-4">
+                                    <label htmlFor="event_date" className="block text-sm font-medium text-gray-700 mb-1">Date de l'événement *</label>
                                     <input type="date" name="event_date" id="event_date" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required/>
-                                    <label htmlFor="event_date" className="block text-sm text-gray-600 mt-1">Date de l'événement *</label>
                                 </div>
+
+                                {/* Nouveau Choix de Service (Midi/Soir) */}
+                                <div className="mb-4">
+                                    <label htmlFor="service_souhaite" className="block text-sm font-medium text-gray-700 mb-1">Service souhaité *</label>
+                                    <select name="service_souhaite" id="service_souhaite" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required>
+                                        <option value="" disabled selected>Choisir le service *</option>
+                                        <option value="Service de midi">Service de midi</option>
+                                        <option value="Service de soir">Service de soir</option>
+                                    </select>
+                                </div>
+
 
                                 <div className="mb-4"><input type="number" name="nombre_convives" placeholder="Nombre de convives *" min="1" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required/></div>
                                 <div className="mb-4">
