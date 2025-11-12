@@ -1,35 +1,30 @@
 import React, { useState, useMemo, useEffect } from 'react';
-import { ShoppingBag, ShoppingCart, Send, Plus, Minus, Trash2, CheckCircle, Snowflake, ZoomIn, ZoomOut, Search, AlertTriangle } from 'lucide-react'; 
+import { ShoppingBag, ShoppingCart, Send, Plus, Minus, Trash2, CheckCircle, Snowflake, ZoomIn, ZoomOut, Search, AlertTriangle, Download } from 'lucide-react'; 
+// ATTENTION : jsPDF et html2canvas sont requis pour la soumission finale (handleFinalSubmit)
 import jsPDF from 'jspdf'; 
 import html2canvas from 'html2canvas';
 
-// --- NOUVEAU : IMPORTATION DE TOUTES LES IMAGES (CONSERVATION DES NOMS D'IMPORTS ORIGINAUX) ---
-// Import des images des Mugs
+// --- NOUVEAU : IMPORTATION DE VOTRE IMAGE DE BULLETIN DE COMMANDE ---
+import bonCommande from '../assets/bon.jpg'; // <--- VÉRIFIEZ QUE CE CHEMIN EST CORRECT
+// -------------------------------------------------------------------
+
+// --- IMPORTATIONS D'IMAGES DES PRODUITS (Inchangées) ---
 import mug from '../assets/merch/mug.jpg'; 
 import mugDesign2 from '../assets/merch/mug-design2.jpg'; 
-
-// Import T-shirt Original (ID 1)
 import tShirtDefault from '../assets/merch/t-shirt.jpg';
 import tShirtBleu from '../assets/merch/t-shirt-bleu.jpg'; 
-// import tShirtNoir from '../assets/merch/t-shirt-noir.jpg';         // <-- RETIRÉ DE L'UTILISATION
 import tShirtRouge from '../assets/merch/t-shirt-rouge.jpg';      
-
-// Import Sweatshirt (ID 2)
 import sweatDefault from '../assets/merch/sweat.jpg';
 import sweatBleu from '../assets/merch/sweat-bleu.jpg'; 
-// import sweatNoir from '../assets/merch/sweat-noir.jpg';           // <-- RETIRÉ DE L'UTILISATION
 import sweatRouge from '../assets/merch/sweat-rouge.jpg';
-
-// Import T-shirt Vintage (V2) (ID 4) - ONLY IMPORTING AVAILABLE IMAGES
 import tShirtVintageDefault from '../assets/merch/t-shirt-vintage.jpg'; 
 import tShirtVintageRouge from '../assets/merch/t-shirt-vintage-rouge.jpg';      
 // --- FIN DES IMPORTS D'IMAGES ---
 
-// --- CONFIGURATION GLOBALE ---
+// --- CONFIGURATION GLOBALE (Inchangée) ---
 const SIZES = ["S", "M", "L", "XL"];
-const COLORS = ["Bleu Marine", "Rouge"]; // <-- MODIFIÉ : "Noir" retiré
-const DEFAULT_COLOR = COLORS[0]; // "Bleu Marine"
-// --- LISTE DES LIEUX DE RETRAIT ---
+const COLORS = ["Bleu Marine", "Rouge"];
+const DEFAULT_COLOR = COLORS[0];
 const PICKUP_LOCATIONS = [
     "Pathé cinéma Angers - Du mardi au vendredi midi, et du vendredi au dimanche soir.",
     "La Bestiole Angers - Jeudi midi",
@@ -38,7 +33,7 @@ const PICKUP_LOCATIONS = [
 ];
 // ----------------------------
 
-// --- CONFIGURATION À PERSONNALISER ---
+// --- CONFIGURATION À PERSONNALISER (Inchangée) ---
 const WEB3FORMS_ACCESS_KEY = "21a9b7c2-ca12-415f-9893-f37fb69acaa5"; 
 
 const RIB_INFO = {
@@ -52,70 +47,74 @@ const PICKUP_INFO = {
   instructions: "Veuillez effectuer un virement bancaire sur le RIB ci-dessus. Une fois le virement reçu, votre commande sera validée. Vous pourrez ensuite venir récupérer vos articles à notre point de vente au Pathé Cinéma aux heures d'ouverture."
 };
 
-// Tableau de données de vos produits
 const products = [
-  { 
-    id: 1, 
-    name: "T-shirt Frites Bonnel (Illustration classique)", 
-    description: "T-shirt 100% coton, impression quadrichromie. 195gr, Illustration de Bérengère Louineau. Design classique.", 
-    price: 24.00, 
-    hasOptions: true, 
-    // Utilisation de la variable importée
-    image: tShirtDefault, 
-    colorImages: {
-        "Bleu Marine": tShirtBleu, // <-- CONSERVÉ
-        "Rouge": tShirtRouge,      
-    }
-  },
-  { 
-    id: 2, 
-    name: "Sweat à Capuche (Illustration classique)", 
-    description: "Veste zippée a capuche, impression quadrichromie. 280gr, Illustration de Bérengère Louineau. Confort et style.", 
-    price: 52.00, 
-    hasOptions: true, 
-    // Utilisation de la variable importée
-    image: sweatDefault,
-    colorImages: {
-        "Bleu Marine": sweatBleu, // <-- CONSERVÉ
-        "Rouge": sweatRouge,
-    }
-  },
-  { 
-    id: 4, // ID du second T-shirt
-    name: "T-shirt Frites Bonnel ", 
-    description: "T-shirt 100% coton, impression sérigraphie.", 
-    price: 18.00, // Nouveau prix
-    hasOptions: true, 
-    // Utilisation de la variable importée
-    image: tShirtVintageDefault,
-    // ONLY INCLUDING THE RED IMAGE HERE
-    colorImages: {
-        "Rouge": tShirtVintageRouge,      
-    }
-  },
-  { 
-    id: 3, 
-    name: "Mug Frites Bonnel (Par Dyn)", 
-    description: "Mug en céramique ", 
-    price: 9.50, 
-    hasOptions: false, 
-    // Utilisation de la variable importée
-    image: mug
-  },
-  { 
-    id: 5, // Nouvel ID pour le second mug
-    name: "Mug Frites Bonnel (Par Bérengère Louineau)", 
-    description: "Mug en céramique", 
-    price: 9.50, 
-    hasOptions: false, 
-    // Utilisation de la variable importée
-    image: mugDesign2
-  },
+  { id: 1, name: "T-shirt Frites Bonnel (Illustration classique)", description: "T-shirt 100% coton, impression quadrichromie. 195gr, Illustration de Bérengère Louineau.", price: 24.00, hasOptions: true, image: tShirtDefault, colorImages: {"Bleu Marine": tShirtBleu, "Rouge": tShirtRouge}},
+  { id: 2, name: "Sweat à Capuche (Illustration classique)", description: "Veste zippée à capuche, impression quadrichromie. 280gr, Illustration de Bérengère Louineau. Confort et style.", price: 52.00, hasOptions: true, image: sweatDefault, colorImages: {"Bleu Marine": sweatBleu, "Rouge": sweatRouge}},
+  { id: 4, name: "T-shirt Frites Bonnel ", description: "T-shirt 100% coton, impression sérigraphie.", price: 18.00, hasOptions: true, image: tShirtVintageDefault, colorImages: {"Rouge": tShirtVintageRouge}},
+  { id: 3, name: "Mug Frites Bonnel (Par Dyn)", description: "Mug en céramique ", price: 9.50, hasOptions: false, image: mug},
+  { id: 5, name: "Mug Frites Bonnel (Par Bérengère Louineau)", description: "Mug en céramique", price: 9.50, hasOptions: false, image: mugDesign2},
 ];
 // --- FIN CONFIGURATION ---
 
-// --- COMPOSANT MODALE D'AGRANDISSEMENT ET ZOOM MIS À JOUR ---
+// --- NOUVEAU : MODALE DE PRÉVISUALISATION ET TÉLÉCHARGEMENT DU BULLETIN ---
+const BulletinModal = ({ imageUrl, isOpen, onClose }) => {
+    if (!isOpen || !imageUrl) return null;
+
+    const handleDownloadClick = () => {
+        const link = document.createElement('a');
+        link.href = imageUrl;
+        link.download = 'Bulletin_Commande_Modele.jpg'; 
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+
+    return (
+        <div 
+            className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-90 z-[101] p-4 transition-opacity duration-300" 
+            onClick={onClose}
+        >
+            <div 
+                className="relative bg-white p-6 rounded-xl max-w-3xl w-full max-h-[90vh] shadow-2xl flex flex-col" 
+                onClick={(e) => e.stopPropagation()}
+            >
+                <button 
+                    onClick={onClose}
+                    className="absolute top-3 right-3 bg-gray-800 text-white rounded-full p-2 hover:bg-gray-700 transition-colors z-10"
+                >
+                    ✕
+                </button>
+
+                <h4 className="text-xl font-bold text-red-600 mb-3 border-b pb-2">Aperçu du Bulletin de Commande</h4>
+                
+                {/* Affichage de l'image (le bulletin statique que vous avez importé) */}
+                <div className="flex-grow overflow-y-auto mb-4 border rounded-lg shadow-inner bg-gray-100">
+                    <img 
+                        src={imageUrl} 
+                        alt="Aperçu du bulletin de commande" 
+                        className="max-w-full h-auto object-contain"
+                    />
+                </div>
+                
+                {/* Bouton 1 : Télécharger cette image (le modèle) */}
+                <button
+                    onClick={handleDownloadClick}
+                    className="w-full bg-gray-700 text-white py-3 mb-2 rounded-lg font-semibold hover:bg-gray-600 transition-colors flex items-center justify-center space-x-2 shadow-lg"
+                >
+                    <Download className="w-5 h-5" />
+                    <span>Télécharger ce Bulletin de Commande</span>
+                </button>
+
+            </div>
+        </div>
+    );
+};
+// -----------------------------------------------------------------
+
+
+// --- COMPOSANT MODALE D'AGRANDISSEMENT ET ZOOM (Inchangé) ---
 const ImageModal = ({ product, currentSelections, updateSelection, addToCart, isOpen, onClose }) => {
+    // ... (Contenu inchangé)
     if (!isOpen || !product) return null;
 
     const [zoomLevel, setZoomLevel] = useState(1);
@@ -123,7 +122,7 @@ const ImageModal = ({ product, currentSelections, updateSelection, addToCart, is
     const [translate, setTranslate] = useState({ x: 0, y: 0 });
     const [startDrag, setStartDrag] = useState({ x: 0, y: 0 });
 
-    const selection = currentSelections[product.id] || { quantity: 1, size: '', color: product.hasOptions ? DEFAULT_COLOR : '' }; // Utilise DEFAULT_COLOR = "Bleu Marine"
+    const selection = currentSelections[product.id] || { quantity: 1, size: '', color: product.hasOptions ? DEFAULT_COLOR : '' }; 
 
     const toggleZoom = () => {
         setTranslate({ x: 0, y: 0 }); 
@@ -216,7 +215,7 @@ const ImageModal = ({ product, currentSelections, updateSelection, addToCart, is
                         <img 
                             src={currentSrc} 
                             alt={currentAlt} 
-                            className="max-w-full max-h-full object-contain transition-transform duration-300 ease-in-out"
+                            className="max-w-full h-full object-contain transition-transform duration-300 ease-in-out"
                             style={{
                                 transform: `scale(${zoomLevel}) translate(${translate.x}px, ${translate.y}px)`,
                                 cursor: zoomLevel === 2 ? (isDragging ? 'grabbing' : 'grab') : 'default', 
@@ -333,7 +332,7 @@ const ImageModal = ({ product, currentSelections, updateSelection, addToCart, is
 
 const BoutiquePage = () => {
   const [cart, setCart] = useState([]);
-  const [clientInfo, setClientInfo] = useState({ name: '', email: '', phone: '', pickupLocation: '', details: '' }); // This line is now correct
+  const [clientInfo, setClientInfo] = useState({ name: '', email: '', phone: '', pickupLocation: '', details: '' });
   const [currentSelections, setCurrentSelections] = useState({});
   const [showCheckout, setShowCheckout] = useState(false);
   const [submitError, setSubmitError] = useState(null);
@@ -341,21 +340,19 @@ const BoutiquePage = () => {
   
   const [isImageModalOpen, setIsImageModalOpen] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(null); 
+  
+  // NOUVEAUX ÉTATS POUR LA PRÉVISUALISATION DU BULLETIN
+  const [isBulletinModalOpen, setIsBulletinModalOpen] = useState(false);
+  const [bulletinImageUrl, setBulletinImageUrl] = useState(bonCommande); // Initialisé avec l'image importée
 
-  // MISE À JOUR : Récupérer la description complète du produit
   const handleImageClick = (product) => {
-    setSelectedProduct(product); // Stocke le produit complet
+    setSelectedProduct(product);
     
-    // Si l'utilisateur n'a pas encore fait de sélection de couleur sur la carte, 
-    // nous initialisons la sélection dans l'état global (currentSelections) à la première couleur valide 
-    // pour que l'image s'affiche correctement dans la modale.
     if (product.hasOptions && !currentSelections[product.id]?.color) {
-        // Use Object.keys to find the first available color for this product
         const availableColors = Object.keys(product.colorImages);
         const defaultColor = availableColors.length > 0 ? availableColors[0] : '';
         
         if (defaultColor) {
-             // Mise à jour de l'état global
             setCurrentSelections(prev => ({ 
                 ...prev, 
                 [product.id]: { 
@@ -374,9 +371,8 @@ const BoutiquePage = () => {
   }, [cart]);
 
 
-  // FIX : Bloquer le défilement
   useEffect(() => {
-    if (isImageModalOpen || showCheckout || showSuccessPopup) {
+    if (isImageModalOpen || showCheckout || showSuccessPopup || isBulletinModalOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
@@ -384,19 +380,17 @@ const BoutiquePage = () => {
     return () => {
         document.body.style.overflow = 'unset';
     };
-  }, [isImageModalOpen, showCheckout, showSuccessPopup]);
+  }, [isImageModalOpen, showCheckout, showSuccessPopup, isBulletinModalOpen]);
 
 
   const addToCart = (product) => {
     const defaultSelection = { quantity: 1, size: '', color: '' };
-    // Use the first available color of the product if options are present
     const availableColors = product.hasOptions ? Object.keys(product.colorImages) : [];
     const productDefaultColor = availableColors.length > 0 ? availableColors[0] : '';
     
     const selection = currentSelections[product.id] || 
                       (product.hasOptions ? { ...defaultSelection, color: productDefaultColor } : defaultSelection);
     
-    // If the product has options, we must check for size and color
     if (product.hasOptions && (!selection.size || !selection.color)) {
       alert(`Veuillez sélectionner la taille ET la couleur pour le ${product.name}.`);
       return;
@@ -427,7 +421,6 @@ const BoutiquePage = () => {
       setCart([...cart, newItem]);
     }
     
-    // Reset selection state to the product's default color or empty after adding to cart
     setCurrentSelections(prev => ({ 
       ...prev, 
       [product.id]: product.hasOptions ? { ...defaultSelection, color: productDefaultColor } : defaultSelection 
@@ -459,18 +452,23 @@ const BoutiquePage = () => {
     setCart(newCart);
   };
 
-  // --- FONCTION DE SOUMISSION UNIQUE (Web3Forms pour Email) ---
-  const generateAndDownloadPDF = async (e) => {
+  // --- LOGIQUE DE PRÉVISUALISATION ET TÉLÉCHARGEMENT DU BULLETIN (Image statique) ---
+  const handlePreviewOrderForm = () => {
+    // Affiche simplement la modale avec l'image statique importée
+    setIsBulletinModalOpen(true);
+  };
+
+  // --- FONCTION DE SOUMISSION FINALE (Celle qui génère le PDF détaillé et envoie l'email) ---
+  const handleFinalSubmit = async (e) => { 
     e.preventDefault();
     setSubmitError(null);
 
-    // Vérification ajoutée pour le lieu de retrait
     if (cart.length === 0 || !clientInfo.name || !clientInfo.email || !clientInfo.phone || !clientInfo.pickupLocation) {
-        alert("Veuillez remplir toutes les informations requises, y compris l'endroit où vous souhaitez récupérer la commande.");
+        alert("Veuillez remplir toutes les informations requises, y compris l'endroit où vous souhaitez récupérer la commande, et avoir des articles dans le panier.");
         return;
     }
     
-    // 1. GÉNÉRATION ET TÉLÉCHARGEMENT DU PDF (Inchangé)
+    // 1. GÉNÉRATION ET TÉLÉCHARGEMENT DU PDF (Facture/Récapitulatif)
     const pdfContent = document.createElement('div');
     pdfContent.style.width = '210mm';
     pdfContent.style.padding = '20mm';
@@ -484,7 +482,7 @@ const BoutiquePage = () => {
         <p><strong>Téléphone:</strong> ${clientInfo.phone}</p>
         <p><strong>Email:</strong> ${clientInfo.email}</p>
         <p><strong>Lieu de Retrait:</strong> ${clientInfo.pickupLocation}</p>
-        ${clientInfo.details ? `<p><strong>Commentaires:</strong> ${clientInfo.details}</p>` : ''}
+        ${clientInfo.details ? '<p><strong>Commentaires:</strong> ' + clientInfo.details + '</p>' : ''}
         <h2 style="color: #c53030; margin-top: 30px; border-bottom: 1px solid #ccc; padding-bottom: 5px;">Détail de la Commande</h2>
         <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
           <thead>
@@ -600,7 +598,6 @@ const BoutiquePage = () => {
 
   // Composant de carte de produit simplifié pour le catalogue
   const ProductCard = ({ product }) => {
-    // MODIFICATION 1: Utiliser la couleur par défaut si aucune sélection n'est faite
     const availableColors = product.hasOptions ? Object.keys(product.colorImages) : [];
     const productDefaultColor = availableColors.length > 0 ? availableColors[0] : '';
     const defaultSelection = { quantity: 1, size: '', color: product.hasOptions ? productDefaultColor : '' };
@@ -617,13 +614,11 @@ const BoutiquePage = () => {
         }));
     };
     
-    // DÉTERMINER LA SOURCE DE L'IMAGE EN TEMPS RÉEL
     const currentImageSrc = 
-        product.colorImages && currentSelection.color // Vérifie si le produit a des images par couleur ET si une couleur est choisie
-        ? product.colorImages[currentSelection.color] || product.image // Choisit l'image couleur spécifique ou l'image par défaut
-        : product.image; // Sinon, utilise l'image par défaut
+        product.colorImages && currentSelection.color
+        ? product.colorImages[currentSelection.color] || product.image
+        : product.image;
 
-    // DÉTERMINER L'ALT TEXT EN FONCTION DE LA COULEUR
     const currentImageAlt = 
         product.colorImages && currentSelection.color
         ? `${product.name} (${currentSelection.color})`
@@ -635,13 +630,13 @@ const BoutiquePage = () => {
         
         {/* BLOC IMAGE CLICQUABLE AVEC ICÔNE LOUPE */}
         <div 
-            onClick={() => handleImageClick(product)} // PASSE TOUT LE PRODUIT
+            onClick={() => handleImageClick(product)}
             className="w-full h-48 relative cursor-pointer overflow-hidden rounded-xl mb-4 group"
         >
             <img 
                 src={currentImageSrc} 
                 alt={currentImageAlt} 
-                className="w-full h-full object-contain transition-transform duration-300 group-hover:scale-105"
+                className="w-full h-full object-contain transition-transform duration-300 ease-in-out"
             />
             {/* ICÔNE LOUPE STYLÉE */}
             <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -726,7 +721,7 @@ const BoutiquePage = () => {
         </div>
       </section>
 
-      {/* --- SECTION : STORYTELLING --- */}
+      {/* --- SECTION : STORYTELLING (MODIFIÉ) --- */}
       <section className="max-w-4xl mx-auto px-4 py-8">
         <div className="text-center bg-yellow-50 p-8 rounded-2xl shadow-xl border-t-4 border-red-600">
           <h3 className="text-3xl font-bold text-red-600 mb-4">La petite histoire</h3>
@@ -765,24 +760,61 @@ const BoutiquePage = () => {
       </section>
       {/* --- FIN SECTION : STORYTELLING --- */}
       
-      {/* --- NOUVELLE SECTION : DISCLAIMER IMPORTANT (Position Corrigée) --- */}
+      {/* --- SECTION : DISCLAIMER IMPORTANT (MODIFIÉ SELON VOS DEMANDES) --- */}
       <section className="max-w-4xl mx-auto px-4">
         <div className="p-4 bg-red-50 border-2 border-red-500 rounded-xl shadow-xl flex items-start space-x-3 animate-pulse-slow">
             <AlertTriangle className="w-6 h-6 text-red-600 flex-shrink-0 mt-0.5" />
             <div>
                 <h3 className="text-lg font-bold text-red-700 mb-1">Information Importante</h3>
                 <p className="text-sm text-gray-700">
-                    Notre boutique est ouverte du <strong>1er au 23 novembre</strong>. Vous avez jusqu’à cette date pour passer commande sur notre nouveau site internet et régler le montant total par <strong>virement bancaire</strong>. Les textiles seront imprimés en Anjou selon vos souhaits, en quantités limitées. Nous vous adresserons un <strong>email de confirmation</strong> dès que votre commande sera prête ! Du <strong>8 au 20 décembre</strong>, vous pourrez récupérer votre colis sur le site demandé en présentant le message de confirmation. 
+                    Vous pouvez commander les vêtements jusqu’au <strong>dimanche 23 novembre</strong> : 
+                    <br/>
+                    En téléchargeant le bon de commande à déposer dans votre friterie 
+                    {/* *** CORRECTION 1 : Remplacement de l'icône par un bouton cliquable *** */}
+                    <button 
+                        onClick={handlePreviewOrderForm} 
+                        className="inline-flex items-center text-blue-600 underline font-semibold ml-1 mr-1 p-0.5 rounded hover:bg-red-100 transition-colors text-sm"
+                        style={{ verticalAlign: 'middle', lineHeight: 'normal' }}
+                    >
+                        <Download className='inline w-4 h-4 mr-0.5'/> Bulletin de commande
+                    </button>
+                    ou directement sur notre site Internet ci-dessous (paiement par virement bancaire). Nous vous confirmerons alors par email votre commande. 
+                    <br/>
+                    Du <strong>8 au 20 décembre</strong>, vous pourrez récupérer votre colis sur l’emplacement demandé.
+                    <br/><br/>
+                    <span className='font-bold text-lg'>LES MUGS SONT DISPONIBLES EN FRITERIE</span>
                 </p>
             </div>
         </div>
       </section>
       {/* --- FIN SECTION : DISCLAIMER IMPORTANT --- */}
 
+      {/* NOUVEAU : BOUTON DE PRÉVISUALISATION DU BULLETIN - Placement demandé */}
+      <section className="max-w-4xl mx-auto px-4 mb-12">
+        <div className="text-center p-6 bg-red-50 border-2 border-red-200 rounded-xl shadow-lg">
+            <h4 className='text-xl font-bold text-red-700 mb-3 flex items-center justify-center space-x-2'>
+                {/* *** CORRECTION 2 : L'icône est maintenant décorative dans le titre *** */}
+                <Download className='inline w-6 h-6 text-blue-600'/>
+                <span>Bulletin de Commande</span>
+            </h4>
+            <p className='text-sm text-gray-700 mb-3'>
+                Cliquez sur le bouton ci-dessous pour afficher un aperçu du bulletin papier.
+            </p>
+            <button
+                onClick={handlePreviewOrderForm} // <-- Ouvre la modale avec l'image statique
+                className="bg-gray-800 text-white py-3 px-6 rounded-lg font-semibold hover:bg-gray-700 transition-colors flex items-center justify-center mx-auto space-x-2 shadow-lg"
+            >
+                <Download className="w-5 h-5 text-yellow-300" />
+                <span>Afficher & Télécharger le Bulletin de Commande</span>
+            </button>
+        </div>
+      </section>
+      {/* --- FIN NOUVEAU BLOC --- */}
+
+
       {/* Catalogue de produits */}
       <section className="max-w-6xl mx-auto px-4">
         <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Collection Frites Bonnel</h3>
-        {/* FIX APPLIED HERE: Ensure the className string is correctly closed */}
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"> 
           {products.map((product) => (
             <ProductCard key={product.id} product={product} />
@@ -866,7 +898,7 @@ const BoutiquePage = () => {
                 <p className="text-sm text-gray-700 mt-1">Le paiement se fera par virement bancaire après confirmation.</p>
             </div>
             
-            <form onSubmit={generateAndDownloadPDF} className="space-y-4">
+            <form onSubmit={handleFinalSubmit} className="space-y-4"> 
               {submitError && (
                 <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative text-sm">
                   <strong className="font-bold">Erreur !</strong>
@@ -876,7 +908,7 @@ const BoutiquePage = () => {
               
               <h4 className="text-xl font-semibold text-red-600">Vos Informations (pour la facture)</h4>
               
-              {/* NOM, EMAIL, TÉLÉPHONE */}
+              {/* CHAMPS CLIENT */}
               <input
                 type="text"
                 name="client_name"
@@ -971,12 +1003,20 @@ const BoutiquePage = () => {
         </div>
       )}
 
+      {/* MODALE DE PRÉVISUALISATION DU BULLETIN (NOUVEAU) */}
+      <BulletinModal 
+          imageUrl={bulletinImageUrl}
+          isOpen={isBulletinModalOpen}
+          onClose={() => setIsBulletinModalOpen(false)}
+          handleDownloadFinal={handleFinalSubmit} // Fonction qui soumet la commande finale
+      />
+
       {/* --- MODALE D'AGRANDISSEMENT D'IMAGE (COMPOSANT STABLE) --- */}
       <ImageModal 
-          product={selectedProduct} // PASSE LE PRODUIT COMPLET
-          currentSelections={currentSelections} // PASSE LES SÉLECTIONS
-          updateSelection={updateSelection} // PASSE LA FONCTION DE MISE À JOUR
-          addToCart={addToCart} // PASSE LA FONCTION AJOUTER AU PANIER
+          product={selectedProduct}
+          currentSelections={currentSelections}
+          updateSelection={updateSelection}
+          addToCart={addToCart}
           isOpen={isImageModalOpen} 
           onClose={() => setIsImageModalOpen(false)}
       />
