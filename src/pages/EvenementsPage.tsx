@@ -12,6 +12,9 @@ const EvenementsPage = () => {
     const [showPopup, setShowPopup] = useState(false);
     const [submitError, setSubmitError] = useState(null);
     const [loading, setLoading] = useState(false); 
+    
+    // NOUVEAU : État pour suivre le type d'événement sélectionné
+    const [eventType, setEventType] = useState("");
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -26,11 +29,22 @@ const EvenementsPage = () => {
             jsonData[key] = value 
         });
 
-        // Ajout de la clé d'accès et du sujet personnalisé pour l'e-mail
+        // Ajout de la clé d'accès
         jsonData.access_key = WEB3FORMS_ACCESS_KEY;
-        jsonData.subject = `[DEVIS] Nouvelle Demande - ${jsonData.event_client_name || 'Inconnu'}`;
-        // Les champs cachés FormSubmit (comme _next) sont supprimés ici.
 
+        // Construction du sujet personnalisé avec Nom + Prénom
+        const nom = jsonData.event_client_lastname || '';
+        const prenom = jsonData.event_client_firstname || '';
+        const fullName = `${nom} ${prenom}`.trim();
+        
+        // Si c'est une entreprise, on l'ajoute au sujet pour plus de clarté
+        let subjectPrefix = "[DEVIS]";
+        if (jsonData.company_name) {
+            subjectPrefix += ` [PRO - ${jsonData.company_name}]`;
+        }
+
+        jsonData.subject = `${subjectPrefix} Nouvelle Demande - ${fullName || 'Inconnu'}`;
+        
 
         // --- 2. Envoi à Web3Forms (Stockage fiable + Email) ---
         try {
@@ -46,6 +60,7 @@ const EvenementsPage = () => {
             if (response.ok && result.success) {
                 // Succès : le formulaire est stocké et l'e-mail a été envoyé
                 form.reset();
+                setEventType(""); // Réinitialiser le select
                 setShowPopup(true);
                 setTimeout(() => setShowPopup(false), 5000);
                 
@@ -103,7 +118,7 @@ const EvenementsPage = () => {
             </section>
             
             <section className="max-w-6xl mx-auto px-4">
-                <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Demander un devis gratuit</h3>
+                <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Demander un devis</h3>
                 <div className="bg-white p-8 rounded-xl shadow-lg">
                     <div className="grid md:grid-cols-2 gap-12">
                         {/* Contact Info */}
@@ -150,33 +165,74 @@ const EvenementsPage = () => {
                                 )}
                                 
                                 {/* Input fields */}
-                                <div className="mb-4"><input type="text" name="event_client_name" placeholder="Votre nom *" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required/></div>
+                                {/* Nom et Prénom séparés */}
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                                    <div>
+                                        <input type="text" name="event_client_lastname" placeholder="Nom *" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required/>
+                                    </div>
+                                    <div>
+                                        <input type="text" name="event_client_firstname" placeholder="Prénom *" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required/>
+                                    </div>
+                                </div>
+
                                 <div className="mb-4"><input type="email" name="event_client_email" placeholder="Votre email *" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required/></div>
                                 <div className="mb-4"><input type="text" name="event_client_phone" placeholder="Votre numéro de téléphone *" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required/></div>
+                                
+                                {/* SELECTEUR TYPE D'EVENEMENT (Avec onChange) */}
                                 <div className="mb-4">
-                                    <select name="event_type" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required>
+                                    <select 
+                                        name="event_type" 
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" 
+                                        required
+                                        value={eventType}
+                                        onChange={(e) => setEventType(e.target.value)}
+                                    >
                                         <option value="">Type d'événement *</option>
                                         <option value="Mariage">Mariage</option>
-                                        <option value="Mariage">Le lendemain du mariage</option>
+                                        <option value="Lendemain de mariage">Le lendemain du mariage</option>
                                         <option value="Fete d'entreprise">Fête d'entreprise</option>
                                         <option value="Evenement prive">Événement privé</option>
                                         <option value="Autre">Autre</option>
                                     </select>
                                 </div>
 
-                                {/* Nouvelle Date de l'événement */}
+                                {/* CHAMP CONDITIONNEL : Nom de l'entreprise */}
+                                {eventType === "Fete d'entreprise" && (
+                                    <div className="mb-4">
+                                        <input 
+                                            type="text" 
+                                            name="company_name" 
+                                            placeholder="Nom de l'entreprise *" 
+                                            className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" 
+                                            required
+                                        />
+                                    </div>
+                                )}
+
+                                {/* Date de l'événement */}
                                 <div className="mb-4">
                                     <label htmlFor="event_date" className="block text-sm font-medium text-gray-700 mb-1">Date de l'événement *</label>
                                     <input type="date" name="event_date" id="event_date" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required/>
                                 </div>
 
-                                {/* Nouveau Choix de Service (Midi/Soir) */}
+                                {/* ADRESSE DE L'EVENEMENT (Corrigé : Style placeholder comme les autres) */}
+                                <div className="mb-4">
+                                    <textarea 
+                                        name="adresse_evenement" 
+                                        placeholder="Adresse de l'événement *" 
+                                        rows={2} 
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" 
+                                        required
+                                    ></textarea>
+                                </div>
+
+                                {/* Choix de Service (Midi/Soir) */}
                                 <div className="mb-4">
                                     <label htmlFor="service_souhaite" className="block text-sm font-medium text-gray-700 mb-1">Service souhaité *</label>
                                     <select name="service_souhaite" id="service_souhaite" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required>
                                         <option value="" disabled selected>Choisir le service *</option>
-                                        <option value="Service de midi">Service de midi</option>
-                                        <option value="Service de soir">Service de soir</option>
+                                        <option value="Service du midi">Service du midi</option>
+                                        <option value="Service du soir">Service du soir</option>
                                     </select>
                                 </div>
 
@@ -198,8 +254,6 @@ const EvenementsPage = () => {
                                     <textarea name="event_description" placeholder="Décrivez votre projet..." rows={4} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"></textarea>
                                 </div>
                                 
-                                {/* Les champs cachés FormSubmit ne sont plus nécessaires */}
-
                                 <button
                                     type="submit"
                                     className="w-full bg-[#fffd67] text-red-600 py-3 rounded-lg font-semibold hover:bg-[#fefc4c] transition-colors flex items-center justify-center space-x-2 disabled:bg-gray-400"
@@ -213,7 +267,7 @@ const EvenementsPage = () => {
                                     ) : (
                                         <Send className="w-5 h-5" />
                                     )}
-                                    <span>{loading ? "Envoi en cours..." : "Demander un devis gratuit"}</span>
+                                    <span>{loading ? "Envoi en cours..." : "Demander un devis "}</span>
                                 </button>
                             </form>
                         </div>
