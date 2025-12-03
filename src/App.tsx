@@ -71,7 +71,7 @@ function App() {
     { key: 'commander', label: 'Click&Collect', icon: ShoppingBag, path: '/commander' },
     { key: 'evenements', label: 'Événements / Devis', icon: Calendar, path: '/evenements' },
     { key: 'actus', label: 'Galerie', icon: Newspaper, path: '/actus' },
-    { key: 'boutique', label: 'Boutique', icon: ShoppingBag, path: '/boutique' }
+    { key: 'boutique', label: 'Nouveauté', icon: ShoppingBag, path: '/boutique' }
   ];
 
   // Le composant Header utilise NavLink et useNavigate
