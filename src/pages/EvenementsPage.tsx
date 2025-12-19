@@ -215,7 +215,7 @@ const EvenementsPage = () => {
                                     <input type="date" name="event_date" id="event_date" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required/>
                                 </div>
 
-                                {/* ADRESSE DE L'EVENEMENT (Corrigé : Style placeholder comme les autres) */}
+                                {/* ADRESSE DE L'EVENEMENT */}
                                 <div className="mb-4">
                                     <textarea 
                                         name="adresse_evenement" 
@@ -226,14 +226,18 @@ const EvenementsPage = () => {
                                     ></textarea>
                                 </div>
 
-                                {/* Choix de Service (Midi/Soir) */}
+                                {/* MODIFICATION : Début de service uniquement (Type Time) */}
                                 <div className="mb-4">
-                                    <label htmlFor="service_souhaite" className="block text-sm font-medium text-gray-700 mb-1">Service souhaité *</label>
-                                    <select name="service_souhaite" id="service_souhaite" className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required>
-                                        <option value="" disabled selected>Choisir le service *</option>
-                                        <option value="Service du midi">Service du midi</option>
-                                        <option value="Service du soir">Service du soir</option>
-                                    </select>
+                                    <label htmlFor="heure_debut_service" className="block text-sm font-medium text-gray-700 mb-1">
+                                        Début de service souhaité *
+                                    </label>
+                                    <input 
+                                        type="time" 
+                                        name="heure_debut_service" 
+                                        id="heure_debut_service" 
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" 
+                                        required
+                                    />
                                 </div>
 
 
