@@ -255,7 +255,7 @@ const EvenementsPage = () => {
                                     <textarea name="adresse_facturation" placeholder="Adresse de facturation complète*" rows={3} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500" required></textarea>
                                 </div>
                                 <div>
-                                    <textarea name="event_description" placeholder="Décrivez votre projet..." rows={4} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"></textarea>
+                                    <textarea name="event_description" placeholder="Décrivez votre projet" rows={4} className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500 focus:border-red-500"></textarea>
                                 </div>
                                 
                                 <button
