@@ -1,72 +1,104 @@
 import React from 'react';
-import { ChefHat, Award, ExternalLink, Star } from 'lucide-react'; 
+import { Flame, Check } from 'lucide-react';
 
-const BurgerNouveautePage = () => {
+const BurgerChtimiSimple = () => {
   
+  // URL de votre photo
+  const photoBurger = "https://i.postimg.cc/4xzRCSzf/Burger-Chti-V2.jpg";
+
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center justify-center py-12 px-4"> 
+    <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4 font-sans"> 
       
-      {/* SECTION 1 : L'attente (Ton Artisanal) */}
-      <div className="max-w-3xl w-full text-center mb-12">
-        <div className="flex justify-center mb-6">
-            <div className="p-4 bg-gray-50 rounded-full border border-gray-200">
-                <ChefHat className="w-12 h-12 text-gray-800" />
-            </div>
-        </div>
-        
-        <h2 className="text-3xl md:text-4xl font-serif font-bold text-gray-900 mb-4">
-          Une nouvelle création en préparation
-        </h2>
-        
-        <p className="text-lg text-gray-600 leading-relaxed max-w-xl mx-auto">
-        Nos équipes préparent notre prochaine recette. Comme la qualité prend du temps, nous travaillons sur chaque détail pour vous offrir un vrai plaisir.
-        </p>
-      </div>
-
-      {/* SECTION 2 : L'Appel au Vote (Ton Professionnel) */}
-      <div className="max-w-xl w-full bg-white rounded-xl shadow-lg border border-gray-200 overflow-hidden">
-        
-        <div className="bg-gray-900 py-4 px-6 flex items-center justify-center space-x-2">
-            <Award className="text-yellow-500 w-5 h-5" />
-            <span className="text-white font-semibold tracking-wide uppercase text-sm">
-                Excellence & Tradition
+      {/* Carte Principale */}
+      <div className="max-w-4xl w-full bg-white rounded-2xl shadow-xl overflow-hidden flex flex-col md:flex-row border border-gray-200">
+            
+        {/* Partie Gauche : Titre et Photo */}
+        <div className="md:w-5/12 bg-red-600 p-8 flex flex-col justify-center items-center text-white text-center">
+            
+            <h1 className="text-4xl font-extrabold uppercase tracking-wider mb-2">
+                Le Ch'timi
+            </h1>
+            
+            <span className="bg-yellow-400 text-red-900 px-4 py-1 rounded font-bold text-sm uppercase mb-8 shadow-sm">
+                Nouveau
             </span>
-        </div>
 
-        <div className="p-8 flex flex-col items-center text-center">
-            <h3 className="text-xl font-bold text-gray-800 mb-4">
-                Valorisez notre savoir-faire
-            </h3>
-            
-            <p className="text-gray-600 mb-8 text-sm md:text-base">
-                Votre satisfaction est notre meilleure récompense. Si vous appréciez la qualité de nos produits et notre service, nous vous invitons à soutenir notre établissement sur le portail de référence des friteries.
-            </p>
-
-            <a 
-                href="https://www.les-friteries.com/site/frites-bonnel" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                className="group flex items-center gap-3 px-8 py-3 bg-yellow-500 hover:bg-yellow-400 text-gray-900 font-bold rounded text-lg transition-all duration-300 shadow-md hover:shadow-lg"
-            >
-                <span>VOTEZ POUR FRITES BONNEL</span>
-                <ExternalLink className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-            </a>
-            
-            <div className="mt-8 flex items-center space-x-1 text-yellow-500">
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
-                <Star className="w-4 h-4 fill-current" />
+            {/* --- ZONE PHOTO AGRANDIE ICI --- */}
+            {/* J'ai changé w-48 h-48 en w-72 h-72 pour agrandir l'image */}
+            <div className="relative w-72 h-72 mb-6 group">
+                <img 
+                    src={photoBurger} 
+                    alt="Burger Ch'timi" 
+                    className="w-full h-full object-cover rounded-full border-4 border-white shadow-2xl transform group-hover:scale-105 transition-transform duration-300"
+                />
             </div>
-            <p className="text-xs text-gray-400 mt-2 uppercase tracking-widest">
-                Merci de votre confiance
+            {/* ----------------------------- */}
+            
+            <p className="text-lg font-medium opacity-90">
+                {/* Espace pour une petite phrase si besoin */}
             </p>
         </div>
+
+        {/* Partie Droite : La Liste des Ingrédients */}
+        <div className="md:w-7/12 p-8 bg-white flex flex-col justify-center">
+            <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
+                <Flame className="text-orange-500" />
+                Qu'est-ce qu'il y a dedans ?
+            </h2>
+            
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {/* Colonne 1 */}
+                <ul className="space-y-3">
+                    <li className="flex items-center gap-3 text-gray-700">
+                        <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                        <span>Pain Buns </span>
+                    </li>
+                    <li className="flex items-center gap-3 text-gray-700">
+                        <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                        <span className="font-bold">Steak Haché Frais</span>
+                    </li>
+                    <li className="flex items-center gap-3 text-gray-700">
+                        <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                        <span className="font-bold text-red-600">Maroilles</span>
+                    </li>
+                    <li className="flex items-center gap-3 text-gray-700">
+                        <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                        <span>Lard </span>
+                    </li>
+                </ul>
+
+                {/* Colonne 2 */}
+                <ul className="space-y-3">
+                    <li className="flex items-center gap-3 text-gray-700">
+                        <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                        <span>Oignons confits</span>
+                    </li>
+                    <li className="flex items-center gap-3 text-gray-700">
+                        <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                        <span>Chou Rouge</span>
+                    </li>
+                    <li className="flex items-center gap-3 text-gray-700">
+                        <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                        <span>Salade fraîche</span>
+                    </li>
+                    <li className="flex items-center gap-3 text-gray-700">
+                        <Check className="w-5 h-5 text-green-500 flex-shrink-0" />
+                        <span>Sauce Burger</span>
+                    </li>
+                </ul>
+            </div>
+
+            {/* Bouton ou appel simple */}
+            <div className="mt-8 pt-6 border-t border-gray-100 text-center sm:text-left">
+                <p className="text-gray-900 text-lg font-bold">
+                    Disponible dès aujourd'hui
+                </p>
+            </div>
+        </div>
+
       </div>
-      
     </div>
   );
 };
 
-export default BurgerNouveautePage;
+export default BurgerChtimiSimple;
