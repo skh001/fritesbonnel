@@ -230,9 +230,9 @@ const AccueilPage = () => {
                   altText: "Logo Mondial de la Frite 2023"
                   },
                   {
-                  // Case 2: 9ème meilleure friterie de France 2024 avec lien de classement - Icône
+                  // Case 2: 8ème meilleure friterie de France 2025 avec lien de classement - Icône
                   title: "Classement national des friteries",
-                  description: "9ème meilleure friterie de France 2024",
+                  description: "8ème meilleure friterie de France 2025",
                   icon: <Medal className="w-8 h-8 text-[#fffd67]" />, 
                   button: (
                       <a

@@ -2,7 +2,6 @@ import React from 'react';
 import { Star, Heart } from 'lucide-react';
 
 // --- IMPORT DES IMAGES LOCALES DEPUIS LE DOSSIER 'galerie' ---
-// ATTENTION : Assurez-vous que tous ces fichiers (.png) existent bien dans 'src/assets/galerie/'
 import classicBurgerImage from '../assets/galerie/classic.png';
 import pouletBurgerImage from '../assets/galerie/poulet.png'; 
 import baconBurgerImage from '../assets/galerie/bacon.png';   
@@ -13,17 +12,17 @@ import noelBurgerImage from '../assets/galerie/noel.png';
 import biquetteBurgerImage from '../assets/galerie/biquette.png';
 import chtiBurgerImage from '../assets/galerie/chti.png';
 
-// 1. DICTIONNAIRE DE COULEURS POUR LES SAUCES MIS À JOUR
+// 1. DICTIONNAIRE DE COULEURS POUR LES SAUCES
 const sauceColors = {
   Tuche: 'bg-orange-400', 
-  Mayonnaise: 'bg-amber-100 border border-gray-300', // Blanc cassé/crème
+  Mayonnaise: 'bg-amber-100 border border-gray-300', 
   Ketchup: 'bg-red-600',
-  'Sauce Burger': 'bg-amber-700', // Brun/orange foncé
-  Bernaise: 'bg-green-700', // Vert forêt
-  Samouraï: 'bg-red-500', // Rouge orangé
-  Poivre: 'bg-stone-800', // Marron foncé
-  Blanche: 'bg-white border border-gray-400', // Blanc pur avec bordure
-  Chti: 'bg-red-700', // Rouge/Orange foncé
+  'Sauce Burger': 'bg-amber-700', 
+  Bernaise: 'bg-green-700', 
+  Samouraï: 'bg-red-500', 
+  Poivre: 'bg-stone-800', 
+  Blanche: 'bg-white border border-gray-400', 
+  Chti: 'bg-red-700', 
 };
 
 const CartePage = () => (
@@ -60,7 +59,8 @@ const CartePage = () => (
             <div>
               <h4 className="font-semibold text-red-600 mb-2">Recettes </h4>
               <p className="text-gray-700">
-Nos recettes suivent les saisons.              </p>
+                Nos recettes suivent les saisons.
+              </p>
             </div>
           </div>
         </div>
@@ -86,10 +86,9 @@ Nos recettes suivent les saisons.              </p>
                 { name: "Le Burger classic", imageSrc: classicBurgerImage },
                 { name: "Burger au poulet pané", imageSrc: pouletBurgerImage },
                 { name: "Le Burger au bacon", imageSrc: baconBurgerImage },
-                { name: "Le Burger chti'mi", imageSrc: chtiBurgerImage },
+                { name: "Le Burger ch'timi", imageSrc: chtiBurgerImage },
                 { name: "Le Burger Biquette", imageSrc: biquetteBurgerImage },
                 { name: " Burger Noël ''spécial fêtes'' ", imageSrc: noelBurgerImage },
-              
               ]
             },
             {
@@ -110,6 +109,21 @@ Nos recettes suivent les saisons.              </p>
                 { name: "Sandwich Merguez" }
               ]
             },
+            // --- CASE SÉPARÉE POUR LE HOT-DOG ---
+            {
+              category: "Hot-Dog",
+              items: [
+                { name: "Hot-Dog + Frites" }
+              ]
+            },
+            // --- CASE SÉPARÉE POUR LE FISH ---
+            {
+              category: "Fish & Chips",
+              items: [
+                { name: "Fish and Chips" }
+              ]
+            },
+            // ------------------------------------
             {
               category: "Frites",
               items: [
@@ -153,14 +167,12 @@ Nos recettes suivent les saisons.              </p>
                 <ul className="space-y-4">
                   {section.items.map((item, itemIndex) => {
                     const isSauce = section.category === "Sauces";
-                    // Détermine les classes du point (taille et forme)
+                    // Détermine les classes du point
                     let dotClasses = 'w-3 h-3 rounded-full flex-shrink-0';
 
                     if (isSauce) {
-                      // Si c'est une sauce, utilise la couleur personnalisée ou une couleur par défaut gris clair
                       dotClasses = `${dotClasses} ${sauceColors[item.name] || 'bg-gray-300'}`;
                     } else {
-                      // Sinon, utilise la couleur jaune standard
                       dotClasses = `${dotClasses} bg-[#fffd67]`;
                     }
 
@@ -175,7 +187,6 @@ Nos recettes suivent les saisons.              </p>
                           />
                         )}
                         <div className="flex-grow flex items-center space-x-2">
-                          {/* Utilise les classes de points calculées */}
                           <div className={dotClasses}></div> 
                           <span className="text-gray-700">{item.name}</span>
                         </div>
@@ -189,7 +200,6 @@ Nos recettes suivent les saisons.              </p>
         </div>
       </div>
     </section>
-
 
   </div>
 );
