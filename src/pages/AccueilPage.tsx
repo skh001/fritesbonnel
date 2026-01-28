@@ -236,7 +236,7 @@ const AccueilPage = () => {
                   icon: <Medal className="w-8 h-8 text-[#fffd67]" />, 
                   button: (
                       <a
-                      href="https://www.les-friteries.com/classement-des-friteries"
+                      href="https://www.les-friteries.com/site/frites-bonnel"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center space-x-2 mt-4 bg-red-600 text-white px-4 py-2 rounded-xl text-sm font-bold
