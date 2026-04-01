@@ -12,6 +12,7 @@ import arabesque2 from '../assets/arabesque2.png';
 import bethune from '../assets/bethune.png';
 import roseLogo from '../assets/rose.png';
 import viradesLogo from '../assets/virades.png';
+import goru from '../assets/guru.png';
 
 // IMPORTS DE VOS LOGOS (Assurez-vous que ces chemins sont corrects)
 import mondialLogo from '../assets/mondialLogo.png'; 
@@ -21,7 +22,6 @@ import ducsAngersLogo from '../assets/ducsAngersLogo.png';
 import ufabLogo from '../assets/ufabLogo.png'; 
 
 // Nouveau composant pour afficher les logos
-
 const PartnersLogos = () => {
   const partners = [
     { name: 'rose', img: roseLogo },
@@ -211,8 +211,6 @@ const AccueilPage = () => {
               </div>
             ))}
           </div>
-
-          {/* Le bouton de vote a été déplacé dans la section "Ils aiment" */}
         </div>
       </section>
 
@@ -220,7 +218,8 @@ const AccueilPage = () => {
       <section className="bg-white py-16"> 
           <div className="max-w-6xl mx-auto px-4">
               <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Ils aiment</h3>
-              <div className="grid md:grid-cols-3 gap-8">
+              {/* Ajout de colonnes supplémentaires pour accueillir Goru proprement */}
+              <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
               {[
                   {
                   // Case 1: Mondial de la frites 2023 Demi-finaliste - Photo intégrée
@@ -253,6 +252,13 @@ const AccueilPage = () => {
                   description: "2025",
                   logoSrc: petitFuteLogo,
                   altText: "Logo Le Petit Futé 2025"
+                  },
+                  {
+                  // Case 4: Restaurant Guru - Photo intégrée
+                  title: "Restaurant Guru",
+                  description: "Recommandé",
+                  logoSrc: goru,
+                  altText: "Logo Restaurant Guru"
                   }
               ].map((item, index) => (
                   <div key={index} className="text-center bg-[#fffd67]/30 p-6 rounded-xl border-2 border-[#fffd67] shadow-md hover:shadow-lg transition-shadow flex flex-col items-center justify-between">
@@ -291,7 +297,6 @@ const AccueilPage = () => {
         {/* La grille a été simplifiée car il ne reste que la colonne de gauche */}
         <div className="grid md:grid-cols-1 gap-12"> 
           <div>
-            {/* Le titre h4 était vide, je le laisse vide ou je le supprime */}
             <div className="space-y-6">
               {[
                 {
