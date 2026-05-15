@@ -36,7 +36,10 @@ const CartePage = () => (
 
     {/* Section 'Pourquoi nous' */}
     <section className="max-w-6xl mx-auto px-4">
-      <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Ce que nous vous offrons</h3>
+      <h3 className="text-3xl font-bold text-red-600 text-center mb-12">
+        Ce que nous vous offrons
+      </h3>
+
       <div className="grid md:grid-cols-2 gap-12">
         <div className="space-y-6">
           <div className="flex items-start space-x-4">
@@ -57,16 +60,16 @@ const CartePage = () => (
               <Heart className="w-6 h-6 text-red-600" />
             </div>
             <div>
-              <h4 className="font-semibold text-red-600 mb-2">Recettes </h4>
+              <h4 className="font-semibold text-red-600 mb-2">Recettes de saison</h4>
               <p className="text-gray-700">
-                Nos recettes suivent les saisons.
+                Certaines recettes sont proposées en édition limitée selon les saisons.
               </p>
             </div>
           </div>
         </div>
 
         <div className="bg-red-50 p-8 rounded-xl">
-          <h4 className="text-xl font-semibold text-red-600 mb-4">Notre recettes</h4>
+          <h4 className="text-xl font-semibold text-red-600 mb-4">Notre recette</h4>
           <p className="text-gray-700">
             Frites fondantes à l’intérieur et croustillantes à l’extérieur grâce à une double cuisson.
           </p>
@@ -77,19 +80,33 @@ const CartePage = () => (
     {/* Section des plats proposés */}
     <section className="bg-gray-50 py-16">
       <div className="max-w-6xl mx-auto px-4">
-        <h3 className="text-3xl font-bold text-red-600 text-center mb-12">Nos Spécialités</h3>
+        <h3 className="text-3xl font-bold text-red-600 text-center mb-12">
+          Nos Spécialités
+        </h3>
+
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
           {[
             {
               category: "Nos Burgers",
-              items: [
-                { name: "Le Burger classic", imageSrc: classicBurgerImage },
-                { name: "Burger au poulet pané", imageSrc: pouletBurgerImage },
-                { name: "Le Burger au bacon", imageSrc: baconBurgerImage },
-                { name: "Le Burger ch'timi", imageSrc: chtiBurgerImage },
-                { name: "Le Burger Biquette", imageSrc: biquetteBurgerImage },
-                { name: " Burger Noël ''spécial fêtes'' ", imageSrc: noelBurgerImage },
-              ]
+              subSections: [
+                {
+                  title: "Disponibles toute l’année",
+                  items: [
+                    { name: "Le Burger classic", imageSrc: classicBurgerImage },
+                    { name: "Burger au poulet pané", imageSrc: pouletBurgerImage },
+                    { name: "Le Burger au bacon", imageSrc: baconBurgerImage },
+                  ],
+                },
+                {
+                  title: "Burgers de saison",
+                  description: "Disponibles en édition limitée selon la période.",
+                  items: [
+                    { name: "Le Burger ch'timi", imageSrc: chtiBurgerImage },
+                    { name: "Le Burger Biquette", imageSrc: biquetteBurgerImage },
+                    { name: 'Burger Noël "spécial fêtes"', imageSrc: noelBurgerImage },
+                  ],
+                },
+              ],
             },
             {
               category: "Américains",
@@ -109,21 +126,18 @@ const CartePage = () => (
                 { name: "Sandwich Merguez" }
               ]
             },
-            // --- CASE SÉPARÉE POUR LE HOT-DOG ---
             {
               category: "Hot-Dog",
               items: [
                 { name: "Hot-Dog + Frites" }
               ]
             },
-            // --- CASE SÉPARÉE POUR LE FISH ---
             {
               category: "Fish & Chips",
               items: [
-                { name: "Fish and Chips" }
+                { name: "Fish and Chips", imageSrc: fishBurgerImage }
               ]
             },
-            // ------------------------------------
             {
               category: "Frites",
               items: [
@@ -137,7 +151,7 @@ const CartePage = () => (
                 { name: "Mayonnaise" },
                 { name: "Ketchup" },
                 { name: "Sauce Burger" },
-                { name: "Bernaise" },
+                { name: "Béarnaise" },
                 { name: "Samouraï" },
                 { name: "Poivre" },
                 { name: "Blanche" },
@@ -164,43 +178,80 @@ const CartePage = () => (
                 <h4 className="text-lg font-semibold text-red-600 mb-4 border-b-2 border-[#fffd67] pb-2 text-center">
                   {section.category}
                 </h4>
-                <ul className="space-y-4">
-                  {section.items.map((item, itemIndex) => {
-                    const isSauce = section.category === "Sauces";
-                    // Détermine les classes du point
-                    let dotClasses = 'w-3 h-3 rounded-full flex-shrink-0';
 
-                    if (isSauce) {
-                      dotClasses = `${dotClasses} ${sauceColors[item.name] || 'bg-gray-300'}`;
-                    } else {
-                      dotClasses = `${dotClasses} bg-[#fffd67]`;
-                    }
+                {section.subSections ? (
+                  <div className="space-y-8">
+                    {section.subSections.map((subSection, subIndex) => (
+                      <div key={subIndex}>
+                        <h5 className="text-sm font-bold text-red-600 uppercase tracking-wide mb-1">
+                          {subSection.title}
+                        </h5>
 
-                    return (
-                      <li key={itemIndex} className="flex items-center space-x-4">
-                        {/* Affiche l'image uniquement si elle est définie */}
-                        {item.imageSrc && (
-                          <img 
-                            src={item.imageSrc} 
-                            alt={item.name} 
-                            className="w-16 h-16 object-cover rounded-full flex-shrink-0"
-                          />
+                        {subSection.description && (
+                          <p className="text-xs text-gray-500 italic mb-4">
+                            {subSection.description}
+                          </p>
                         )}
-                        <div className="flex-grow flex items-center space-x-2">
-                          <div className={dotClasses}></div> 
-                          <span className="text-gray-700">{item.name}</span>
-                        </div>
-                      </li>
-                    );
-                  })}
-                </ul>
+
+                        <ul className="space-y-4">
+                          {subSection.items.map((item, itemIndex) => (
+                            <li key={itemIndex} className="flex items-center space-x-4">
+                              {item.imageSrc && (
+                                <img 
+                                  src={item.imageSrc} 
+                                  alt={item.name} 
+                                  className="w-16 h-16 object-cover rounded-full flex-shrink-0"
+                                />
+                              )}
+
+                              <div className="flex-grow flex items-center space-x-2">
+                                <div className="w-3 h-3 rounded-full flex-shrink-0 bg-[#fffd67]"></div>
+                                <span className="text-gray-700">{item.name}</span>
+                              </div>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <ul className="space-y-4">
+                    {section.items.map((item, itemIndex) => {
+                      const isSauce = section.category === "Sauces";
+
+                      let dotClasses = 'w-3 h-3 rounded-full flex-shrink-0';
+
+                      if (isSauce) {
+                        dotClasses = `${dotClasses} ${sauceColors[item.name] || 'bg-gray-300'}`;
+                      } else {
+                        dotClasses = `${dotClasses} bg-[#fffd67]`;
+                      }
+
+                      return (
+                        <li key={itemIndex} className="flex items-center space-x-4">
+                          {item.imageSrc && (
+                            <img 
+                              src={item.imageSrc} 
+                              alt={item.name} 
+                              className="w-16 h-16 object-cover rounded-full flex-shrink-0"
+                            />
+                          )}
+
+                          <div className="flex-grow flex items-center space-x-2">
+                            <div className={dotClasses}></div> 
+                            <span className="text-gray-700">{item.name}</span>
+                          </div>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                )}
               </div>
             </div>
           ))}
         </div>
       </div>
     </section>
-
   </div>
 );
 

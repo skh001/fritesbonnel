@@ -305,7 +305,7 @@ const AccueilPage = () => {
                   logos: [roseLogo, viradesLogo] // Logos des associations
                 },
                 {
-                  title: "Partenaires des clubs sportifs", // Titre mis à jour
+                  title: "Partenaire des clubs sportifs", // Titre mis à jour
                   description: "Nous soutenons les clubs sportifs locaux.",
                   logos: [ducsAngersLogo, ufabLogo] // Nouveaux logos sportifs
                 }
