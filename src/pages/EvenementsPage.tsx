@@ -122,7 +122,7 @@ const EvenementsPage = () => {
                 
                 {/* Message d'information sur le planning */}
                 <div className="max-w-3xl mx-auto mb-8 bg-amber-50 border border-amber-200 text-amber-900 px-6 py-4 rounded-xl text-center font-medium shadow-sm">
-                    En raison d’un planning très chargé au mois de juin, nous ne serons en capacité de traiter vos demandes de devis qu’à partir du mois de juillet. En vous remerciant pour votre compréhension,
+                    En raison d’un planning très chargé au mois de juin, nous serons en capacité de traiter vos demandes de devis à partir du mois de juillet. En vous remerciant pour votre compréhension,
                 </div>
 
                 <div className="bg-white p-8 rounded-xl shadow-lg">
