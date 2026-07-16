@@ -119,11 +119,6 @@ const EvenementsPage = () => {
             
             <section className="max-w-6xl mx-auto px-4">
                 <h3 className="text-3xl font-bold text-red-600 text-center mb-6">Demander un devis</h3>
-                
-                {/* Message d'information sur le planning */}
-                <div className="max-w-3xl mx-auto mb-8 bg-amber-50 border border-amber-200 text-amber-900 px-6 py-4 rounded-xl text-center font-medium shadow-sm">
-                    En raison d’un planning très chargé au mois de juin, nous serons en capacité de traiter vos demandes de devis à partir du mois de juillet. En vous remerciant pour votre compréhension,
-                </div>
 
                 <div className="bg-white p-8 rounded-xl shadow-lg">
                     <div className="grid md:grid-cols-2 gap-12">
