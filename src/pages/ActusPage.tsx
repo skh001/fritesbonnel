@@ -14,6 +14,11 @@ const imageModules = import.meta.glob([
 
 const isVideoFile = (path) => /\.(mp4|webm|mov)$/i.test(path);
 
+// Titres affichés quand ils diffèrent du nom du dossier
+const categoryLabels: Record<string, string> = {
+    'INGREDIENTS': 'NOS SPÉCIALITÉS',
+};
+
 // Préparez l'objet de photos catégorisées une seule fois au début
 const categorizedPhotos = {};
 
@@ -74,7 +79,7 @@ const ActusPage = () => {
             {categories.map(category => (
                 <section key={category} className="max-w-7xl mx-auto px-4 py-12">
                     <h3 className="text-3xl font-bold text-red-600 mb-8 capitalize">
-                        {category}
+                        {categoryLabels[category] || category}
                     </h3>
                     <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-8">
                         {categorizedPhotos[category].map((photo, index) => (
