@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // Imports de React Router pour la navigation et la détection de l'URL
 import { Routes, Route, NavLink, useNavigate, useLocation } from 'react-router-dom'; 
 
-import { Phone, Mail, MapPin, Clock, Heart, Utensils, Calendar, Newspaper, MessageCircle, ShoppingBag, Instagram, ArrowUp } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Heart, Utensils, Calendar, Newspaper, MessageCircle, ShoppingBag, Instagram, Linkedin, ArrowUp } from 'lucide-react';
 import AccueilPage from './pages/AccueilPage';
 import CartePage from './pages/CartePage';
 import EvenementsPage from './pages/EvenementsPage';
@@ -186,8 +186,8 @@ function App() {
               <a href="https://www.instagram.com/frites_bonnel/?hl=fr" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center hover:bg-[#fffd67] hover:text-red-600 transition-colors">
                 <Instagram className="w-4 h-4 text-white" />
               </a>
-              <a href="mailto:fritesbonnel@gmail.com" className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center hover:bg-[#fffd67] hover:text-red-600 transition-colors">
-                <Mail className="w-4 h-4 text-white" />
+              <a href="https://www.linkedin.com/company/frites-bonnel/" target="_blank" rel="noopener noreferrer" className="w-8 h-8 bg-red-600 rounded-full flex items-center justify-center hover:bg-[#fffd67] hover:text-red-600 transition-colors">
+                <Linkedin className="w-4 h-4 text-white" />
               </a>
             </div>
           </div>

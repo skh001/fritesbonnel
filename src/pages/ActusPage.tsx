@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Camera, RefreshCcw } from 'lucide-react';
+import { Camera, RefreshCcw, PlayCircle } from 'lucide-react';
 import LightboxModal from '../components/LightboxModal';
 
 // Force le chargement de toutes les images pour les catégories spécifiées
@@ -9,7 +9,10 @@ const imageModules = import.meta.glob([
     '/src/assets/NOS FOOD TRUCKS/*.{png,jpg,jpeg,svg}',
     '/src/assets/EVENEMENT TRAITEUR/*.{png,jpg,jpeg,svg}',
     '/src/assets/NOS EVENEMENTS/*.{png,jpg,jpeg,svg}',
+    '/src/assets/NOS VIDEOS/*.{mp4,MP4,webm,mov,MOV}',
 ], { eager: true });
+
+const isVideoFile = (path) => /\.(mp4|webm|mov)$/i.test(path);
 
 // Préparez l'objet de photos catégorisées une seule fois au début
 const categorizedPhotos = {};
@@ -27,7 +30,7 @@ Object.keys(imageModules).sort().forEach(path => {
     if (!categorizedPhotos[folderName]) {
         categorizedPhotos[folderName] = [];
     }
-    categorizedPhotos[folderName].push({ title, url });
+    categorizedPhotos[folderName].push({ title, url, isVideo: isVideoFile(path) });
 });
 
 const ActusPage = () => {
@@ -44,7 +47,10 @@ const ActusPage = () => {
         setCurrentCategoryPhotos([]);
     };
     
-    const categories = Object.keys(categorizedPhotos);
+    // La catégorie vidéos s'affiche en premier, les autres par ordre alphabétique
+    const categories = Object.keys(categorizedPhotos).sort((a, b) =>
+        (b === 'NOS VIDEOS' ? 1 : 0) - (a === 'NOS VIDEOS' ? 1 : 0) || a.localeCompare(b)
+    );
 
     if (categories.length === 0) {
         return (
@@ -80,11 +86,27 @@ const ActusPage = () => {
                                 onDragStart={(e) => e.preventDefault()}
                             >
                                 <div className="relative w-full h-64 sm:h-56 md:h-64 lg:h-72">
-                                    <img
-                                        src={photo.url}
-                                        alt={photo.title}
-                                        className="w-full h-full object-cover"
-                                    />
+                                    {photo.isVideo ? (
+                                        <>
+                                            {/* #t=0.1 force l'affichage de la première image comme vignette (iPhone) */}
+                                            <video
+                                                src={`${photo.url}#t=0.1`}
+                                                className="w-full h-full object-cover"
+                                                muted
+                                                playsInline
+                                                preload="metadata"
+                                            />
+                                            <div className="absolute inset-0 flex items-center justify-center">
+                                                <PlayCircle className="text-white drop-shadow-lg" size={64} />
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <img
+                                            src={photo.url}
+                                            alt={photo.title}
+                                            className="w-full h-full object-cover"
+                                        />
+                                    )}
                                     <div className="absolute bottom-0 left-0 right-0 bg-red-600 bg-opacity-70 text-white p-4">
                                         <h4 className="font-semibold text-lg">{photo.title}</h4>
                                     </div>

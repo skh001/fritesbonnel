@@ -1,10 +1,8 @@
 import React from 'react';
 import { ChefHat, Check, Utensils, Mail, Phone } from 'lucide-react';
+import photoPrestation from '../assets/traiteur-buffet.jpg';
 
 const PrivatisationTraiteur = () => {
-  
-  // Photo à remplacer par votre camion sur un événement ou un de vos buffets
-  const photoPrestation = "https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&q=80&w=800";
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center p-4 font-sans"> 

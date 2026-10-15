@@ -88,13 +88,26 @@ const LightboxModal = ({ photos, initialIndex, onClose }) => {
           <XCircle size={36} />
         </button>
         
-        <img
-          src={currentPhoto.url}
-          alt={currentPhoto.title}
-          className="w-full max-h-[80vh] object-contain rounded-lg mb-4"
-          onContextMenu={(e) => e.preventDefault()}
-          onDragStart={(e) => e.preventDefault()}
-        />
+        {currentPhoto.isVideo ? (
+          <video
+            key={currentPhoto.url}
+            src={currentPhoto.url}
+            className="w-full max-h-[80vh] object-contain rounded-lg mb-4"
+            controls
+            autoPlay
+            playsInline
+            controlsList="nodownload"
+            onContextMenu={(e) => e.preventDefault()}
+          />
+        ) : (
+          <img
+            src={currentPhoto.url}
+            alt={currentPhoto.title}
+            className="w-full max-h-[80vh] object-contain rounded-lg mb-4"
+            onContextMenu={(e) => e.preventDefault()}
+            onDragStart={(e) => e.preventDefault()}
+          />
+        )}
 
         <div className="text-center text-red-600">
           <h3 className="text-2xl font-bold">{currentPhoto.title}</h3>
