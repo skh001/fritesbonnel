@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 // Imports de React Router pour la navigation et la détection de l'URL
 import { Routes, Route, NavLink, useNavigate, useLocation } from 'react-router-dom'; 
 
-import { Phone, Mail, MapPin, Clock, Heart, Utensils, Calendar, Newspaper, MessageCircle, ShoppingBag, Instagram, Linkedin, ArrowUp } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Heart, Utensils, Calendar, Newspaper, MessageCircle, ShoppingBag, Instagram, Linkedin, ArrowUp, Gift } from 'lucide-react';
 import AccueilPage from './pages/AccueilPage';
 import CartePage from './pages/CartePage';
 import EvenementsPage from './pages/EvenementsPage';
@@ -10,7 +10,10 @@ import ActusPage from './pages/ActusPage';
 import ContactPage from './pages/ContactPage';
 import ClickAndCollect from './pages/ClickAndCollect';
 import BoutiquePage from './pages/BoutiquePage';
-import MentionsLegalesPage from './pages/MentionsLegalesPage'; 
+import MentionsLegalesPage from './pages/MentionsLegalesPage';
+import { boutiqueNoelRoutes } from './features/boutique-noel/routes';
+import ChristmasAnnouncementBar from './features/boutique-noel/components/promo/ChristmasAnnouncementBar';
+import ChristmasShopPopup from './features/boutique-noel/components/promo/ChristmasShopPopup';
 import logo from './assets/logo.png';
 import { Analytics } from "@vercel/analytics/next"
 
@@ -71,7 +74,8 @@ function App() {
     { key: 'commander', label: 'Click&Collect', icon: ShoppingBag, path: '/commander' },
     { key: 'evenements', label: 'Événements / Devis', icon: Calendar, path: '/evenements' },
     { key: 'actus', label: 'Galerie', icon: Newspaper, path: '/actus' },
-    { key: 'boutique', label: 'Traiteur', icon: ShoppingBag, path: '/boutique' }
+    { key: 'boutique', label: 'Traiteur', icon: ShoppingBag, path: '/boutique' },
+    { key: 'boutique-noel', label: 'Boutique de Noël', icon: Gift, path: '/boutique-noel' }
   ];
 
   // Le composant Header utilise NavLink et useNavigate
@@ -120,7 +124,7 @@ function App() {
         {/* Menu mobile (NavLink) */}
         <div
           className={`md:hidden mt-4 flex flex-col gap-2 transition-all duration-300 overflow-hidden ${
-            mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
+            mobileMenuOpen ? 'max-h-[32rem] opacity-100' : 'max-h-0 opacity-0'
           }`}
         >
           {menuItems.map(({ key, label, path }) => (
@@ -202,6 +206,7 @@ function App() {
   
   return (
     <div className="min-h-screen bg-white relative flex flex-col">
+      <ChristmasAnnouncementBar />
       <Header />
       <main className="flex-grow pb-32">
         {/* Définition des Routes : Le coeur du routage */}
@@ -214,12 +219,14 @@ function App() {
           <Route path="/commander" element={<ClickAndCollect />} />
           <Route path="/boutique" element={<BoutiquePage/>} />
           <Route path="/mentions-legales" element={<MentionsLegalesPage />} />
+          {boutiqueNoelRoutes}
           {/* Route de secours (404) : renvoie à l'Accueil */}
           <Route path="*" element={<AccueilPage />} /> 
         </Routes>
       </main>
       <div id="fb-root"></div>
       <Footer />
+      <ChristmasShopPopup />
 
       <button
         onClick={scrollToTop}

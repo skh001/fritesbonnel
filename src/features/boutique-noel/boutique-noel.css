@@ -1,0 +1,144 @@
+/* Animations de la Boutique de Noël (préfixe bn- pour éviter toute collision) */
+
+/* --- Flocons --- */
+.bn-snowflake {
+  position: absolute;
+  top: -12px;
+  border-radius: 9999px;
+  background: #fff;
+  pointer-events: none;
+  will-change: transform;
+  animation: bn-snow linear infinite;
+}
+
+@keyframes bn-snow {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  50% {
+    transform: translate3d(var(--bn-drift, 20px), calc(var(--bn-fall, 700px) / 2), 0);
+  }
+  100% {
+    transform: translate3d(0, var(--bn-fall, 700px), 0);
+  }
+}
+
+/* --- Guirlande lumineuse --- */
+.bn-bulb {
+  animation: bn-twinkle 2.8s ease-in-out infinite;
+}
+
+@keyframes bn-twinkle {
+  0%,
+  100% {
+    opacity: 1;
+    filter: brightness(1.1);
+  }
+  50% {
+    opacity: 0.45;
+    filter: brightness(0.8);
+  }
+}
+
+/* --- Apparition au défilement --- */
+.bn-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bn-reveal.bn-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* --- Apparition simple --- */
+.bn-fade-in {
+  animation: bn-fade-in 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes bn-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* --- Léger flottement (visuel du hero) --- */
+.bn-float {
+  animation: bn-float 6s ease-in-out infinite;
+}
+
+@keyframes bn-float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(-2deg);
+  }
+  50% {
+    transform: translateY(-10px) rotate(-1deg);
+  }
+}
+
+/* --- Validation (page de confirmation) --- */
+.bn-pop {
+  animation: bn-pop 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes bn-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* --- Texte défilant (bandeau d'annonce) --- */
+.bn-marquee {
+  display: flex;
+  width: max-content;
+  animation: bn-marquee 40s linear infinite;
+}
+
+.bn-marquee-container:hover .bn-marquee,
+.bn-marquee-container:focus-within .bn-marquee {
+  animation-play-state: paused;
+}
+
+@keyframes bn-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* Accessibilité : respect du réglage « réduire les animations » */
+@media (prefers-reduced-motion: reduce) {
+  .bn-snowflake {
+    display: none;
+  }
+
+  .bn-bulb,
+  .bn-marquee,
+  .bn-float,
+  .bn-fade-in,
+  .bn-pop {
+    animation: none;
+  }
+
+  .bn-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
