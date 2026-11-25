@@ -1,7 +1,7 @@
 // Types partagés de la Boutique de Noël
 
 /** 'TU' = taille unique (ex. tablier) */
-export type Size = 'S' | 'M' | 'L' | 'XL' | 'TU';
+export type Size = 'S' | 'M' | 'L' | 'XL' | 'XXL' | 'XXXL' | 'TU';
 
 export type ProductCategory = 'hoodie' | 'tee-shirt' | 'tablier';
 

@@ -23,7 +23,7 @@ const SizeSelector = ({ sizes, value, onChange, error }: SizeSelectorProps) =>
         <span>Taille</span>
         {value && <span className="font-normal text-gray-500">Sélectionnée : {value}</span>}
       </legend>
-      <div className="grid grid-cols-4 gap-3" role="radiogroup" aria-label="Choisir une taille">
+      <div className={`grid gap-3 ${sizes.length > 4 ? 'grid-cols-3 sm:grid-cols-6' : 'grid-cols-4'}`} role="radiogroup" aria-label="Choisir une taille">
         {sizes.map((size) => {
           const selected = value === size;
           return (

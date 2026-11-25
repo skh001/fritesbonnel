@@ -3,7 +3,7 @@
 // Pour remplacer une image : remplacez le fichier importé (ou changez l'import).
 // La première image est affichée sur la carte produit, la seconde apparaît au survol.
 import type { Product } from '../types';
-import { ALL_SIZES, ONE_SIZE } from './shop';
+import { ALL_SIZES, HOODIE_SIZES, ONE_SIZE } from './shop';
 
 import hoodieNoirDos from '../assets/products/hoodie-noir-dos.jpg';
 import hoodieNoirFace from '../assets/products/hoodie-noir-face.jpg';
@@ -35,7 +35,7 @@ export const PRODUCTS: Product[] = [
       'Notre hoodie noir signé Frites Bonnel : logo jaune côté cœur et grande illustration « Give me more Frites Bonnel please !! » au dos. Un molleton épais de 290 g pour affronter l’hiver avec gourmandise.',
     details: HOODIE_DETAILS,
     price: 45,
-    sizes: ALL_SIZES,
+    sizes: HOODIE_SIZES,
     images: [
       { src: hoodieNoirDos, alt: 'Hoodie noir Frites Bonnel, vu de dos avec l’illustration « Give me more »' },
       { src: hoodieNoirFace, alt: 'Hoodie noir Frites Bonnel, vu de face avec le logo jaune' },
@@ -52,7 +52,7 @@ export const PRODUCTS: Product[] = [
       'La version gris chiné de notre hoodie, sérigraphiée en rouge Bonnel : logo devant, illustration « Give me more Frites Bonnel please !! » au dos. Molleton épais de 290 g, doux et chaud.',
     details: HOODIE_DETAILS,
     price: 45,
-    sizes: ALL_SIZES,
+    sizes: HOODIE_SIZES,
     images: [
       { src: hoodieGrisDos, alt: 'Hoodie gris chiné Frites Bonnel, vu de dos avec l’illustration rouge « Give me more »' },
       { src: hoodieGrisFace, alt: 'Hoodie gris chiné Frites Bonnel, vu de face avec le logo rouge' },

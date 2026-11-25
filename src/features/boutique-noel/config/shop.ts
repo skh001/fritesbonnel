@@ -27,10 +27,12 @@ export const SHOP_ROUTES = {
 } as const;
 
 export const ALL_SIZES: readonly Size[] = ['S', 'M', 'L', 'XL'];
+/** Tailles des sweats (jusqu'au XXXL) */
+export const HOODIE_SIZES: readonly Size[] = ['S', 'M', 'L', 'XL', 'XXL', 'XXXL'];
 /** Taille unique (ex. tablier) : sélectionnée automatiquement sur la page produit */
 export const ONE_SIZE: readonly Size[] = ['TU'];
 
-const SIZE_LABELS: Record<Size, string> = { S: 'S', M: 'M', L: 'L', XL: 'XL', TU: 'Unique' };
+const SIZE_LABELS: Record<Size, string> = { S: 'S', M: 'M', L: 'L', XL: 'XL', XXL: 'XXL', XXXL: 'XXXL', TU: 'Unique' };
 /** Libellé court : « M », « Unique » */
 export const sizeLabel = (size: Size) => SIZE_LABELS[size];
 /** Libellé complet : « Taille M », « Taille unique » */
